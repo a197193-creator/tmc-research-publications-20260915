@@ -1,0 +1,6 @@
+{
+  "name": "The Malaysian Cohort (TMC)",
+  "description": "Official portal of The Malaysian Cohort at UKM Medical Molecular Biology Institute (UMBI) - National clinical cohort and precision health research platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

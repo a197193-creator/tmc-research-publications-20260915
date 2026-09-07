@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+:root {
+  --e-global-color-primary: #6EC1E4;
+  --e-global-color-secondary: #54595F;
+  --e-global-color-text: #7A7A7A;
+  --e-global-color-accent: #61CE70;
+  --e-global-typography-primary-font-family: "Roboto";
+  --e-global-typography-primary-font-weight: 600;
+  --e-global-typography-secondary-font-family: "Roboto Slab";
+  --e-global-typography-secondary-font-weight: 400;
+  --e-global-typography-text-font-family: "Roboto";
+  --e-global-typography-text-font-weight: 400;
+  --e-global-typography-accent-font-family: "Roboto";
+  --e-global-typography-accent-font-weight: 500;
+
+  --wp--preset--color--primary: #007bff;
+  --wp--preset--color--secondary: #6c757d;
+  --wp--preset--color--success: #28a745;
+  --wp--preset--color--danger: #dc3545;
+  --wp--preset--color--warning: #ffc107;
+  --wp--preset--color--info: #17a2b8;
+  --wp--preset--color--light: #f8f9fa;
+  --wp--preset--color--dark: #343a40;
+  --wp--preset--color--background: #f0f0f0;
+  --wp--preset--color--text: #333333;
+  --wp--preset--color--link: #007bff;
+  --wp--preset--color--link-hover: #0056b3;
+  --wp--preset--gradient--primary-gradient: linear-gradient(135deg, #007bff 0%, #003366 100%);
+  --wp--preset--gradient--secondary-gradient: linear-gradient(135deg, #6c757d 0%, #343a40 100%);
+  
+  --sb-color-wp-light-blue-600: #007ca8;
+  --wp-admin-theme-color: #007cba;
+}
+
+::selection {
+  background: #39f;
+  color: #fff;
+  text-shadow: none;
+}
+
+@theme {
+  --color-ukm-blue: #003366;
+  --color-ukm-bluedark: #00274c;
+  --color-ukm-primary: #007bff;
+  --color-ukm-primary-dark: #0056b3;
+  --color-ukm-cyan: #6EC1E4;
+  --color-ukm-accent: #61CE70;
+  --color-ukm-secondary: #54595F;
+  --color-ukm-muted: #7A7A7A;
+  --color-ukm-lightblue: #007ca8;
+  --color-ukm-admintheme: #007cba;
+  --color-ukm-navy: #002b49;
+  --color-ukm-deep: #071629;
+  --color-ukm-royalblue: #0056a8;
+  --color-ukm-crimson: #b91c1c;
+  --color-ukm-crimsondark: #991b1b;
+  --color-ukm-gold: #d97706;
+  --color-ukm-goldlight: #f59e0b;
+  --color-ukm-sand: #f0f0f0;
+  --color-ukm-slate: #54595F;
+  --color-surface: #f0f0f0;
+  --color-surface-container: #ffffff;
+
+  --font-serif: "Roboto Slab", Georgia, serif;
+  --font-display: "Roboto Slab", serif;
+  --font-sans: "Roboto", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Roboto", "Inter", sans-serif;
+}
+
+@layer base {
+  html, body, #root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  @supports (overflow: clip) {
+    html, body, #root {
+      overflow-x: clip;
+    }
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: #444444;
+    background-color: #f0f0f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  #root {
+    min-height: 100%;
+  }
+
+  img, video, svg, canvas {
+    max-width: 100%;
+  }
+
+  a {
+    color: #007bff;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: #0056b3;
+  }
+}
+
+.ukm-primary-gradient {
+  background: linear-gradient(135deg, #007bff 0%, #003366 100%);
+}
+
+.ukm-blue-gradient {
+  background: linear-gradient(135deg, #007ca8 0%, #00274c 100%);
+}
+
+.text-scale-normal {
+  font-size: 16px;
+}
+
+.text-scale-large {
+  font-size: 18px;
+}
+
+.text-scale-xlarge {
+  font-size: 20px;
+}
+
+.editorial-underline {
+  position: relative;
+}
+
+.editorial-underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #007bff;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.editorial-underline:hover::after {
+  width: 100%;
+}
+
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 30px -10px rgba(0, 51, 102, 0.15);
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

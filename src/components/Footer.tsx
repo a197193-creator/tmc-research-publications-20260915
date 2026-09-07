@@ -1,0 +1,189 @@
+import React from 'react';
+import { Language, PageType } from '../types';
+import { translations } from '../data/translations';
+
+interface FooterProps {
+  lang: Language;
+  onNavigate: (page: PageType, extra?: any) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({
+  lang,
+  onNavigate,
+}) => {
+  const t = translations[lang];
+
+  return (
+    <footer className="bg-[#00274c] text-white pt-16 pb-12 border-t-4 border-[#007bff]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-blue-900/60 font-sans">
+          {/* Col 1: About TMC */}
+          <div className="space-y-4">
+            <button
+              type="button"
+              onClick={() => onNavigate('home')}
+              className="flex items-center gap-3 text-left cursor-pointer"
+            >
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS43pYpOnGf_q1DlZ-p4J7Z12Yq8TMlpxG9IfSp3bMvsj9dqOYjG6IMs4WnB1JBcStEDUV17TAmE7Dk-EHjM3Wj1go3DyBZPloVWxIIxQjfDR1nOp6wLdoh1faPNnZls_9yGrIIjLunKJDG4ELcsWZbr8gfj7tDN4emy991IwT5dnDpD3GlSO1Z75Zk_uHb6QBw1a1pzSqw7clQJNkjyU5INNDIvSkcHnEmoSucJW5Kyy41VCv_dbekoDFY-kEEmaVAA"
+                alt="TMC Emblem"
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
+              <span className="font-serif font-bold text-lg text-white">The Malaysian Cohort</span>
+            </button>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              {t.footer.aboutDesc}
+            </p>
+            <div className="text-[11px] font-mono text-[#6EC1E4]">
+              {t.footer.ethicsNotice}
+            </div>
+          </div>
+
+          {/* Col 2: Fast Navigation */}
+          <div className="space-y-4">
+            <h4 className="font-serif text-sm font-bold uppercase tracking-wider text-white border-l-2 border-[#007bff] pl-3">
+              {t.footer.navTitle}
+            </h4>
+            <ul className="space-y-2.5 text-xs text-slate-300 font-sans">
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('home')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Cohort Overview & History' : 'Gambaran Keseluruhan & Sejarah'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('research')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Research Projects & Consortia' : 'Projek & Konsortium Penyelidikan'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('biobank')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Biobank Cryogenic Facility' : 'Fasiliti Kriogenik Biobank'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('publications')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Scientific Publications Index' : 'Indeks Penerbitan Saintifik'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('news')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'News & Cohort Bulletins' : 'Berita & Buletin Kohort'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('portal')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Participant Screening Follow-up' : 'Susulan Saringan Peserta'}
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('clinic')}
+                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
+                >
+                  {lang === 'en' ? 'Clinic Hours & Transit Directions' : 'Waktu Klinik & Arah Transit'}
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3: Institutional Details */}
+          <div className="space-y-4">
+            <h4 className="font-serif text-sm font-bold uppercase tracking-wider text-white border-l-2 border-[#007bff] pl-3">
+              {t.footer.headquartersTitle}
+            </h4>
+            <address className="not-italic text-xs text-slate-300 leading-relaxed space-y-1 font-sans">
+              <p className="font-semibold text-white">UKM Medical Molecular Biology Institute (UMBI)</p>
+              <p>Universiti Kebangsaan Malaysia</p>
+              <p>Jalan Yaacob Latif, Bandar Tun Razak</p>
+              <p>56000 Cheras, Kuala Lumpur</p>
+              <p className="pt-2">
+                Toll-Free: <strong className="text-[#6EC1E4]">1800-88-2007</strong>
+              </p>
+              <p>Hunting Line: +603-9145 9000 / 9040</p>
+              <p>
+                Email:{' '}
+                <a className="underline hover:text-[#6EC1E4]" href="mailto:cohort@ukm.edu.my">
+                  cohort@ukm.edu.my
+                </a>
+              </p>
+            </address>
+          </div>
+
+          {/* Col 4: Quality Accreditation */}
+          <div className="space-y-4">
+            <h4 className="font-serif text-sm font-bold uppercase tracking-wider text-white border-l-2 border-[#007bff] pl-3">
+              {t.footer.accreditationTitle}
+            </h4>
+            <p className="text-xs text-slate-300 leading-relaxed font-sans">
+              {t.footer.accreditationDesc}
+            </p>
+            <div className="p-3 rounded bg-white/5 border border-blue-400/20 text-[11px] text-slate-300 font-sans">
+              <span className="block font-bold text-white mb-0.5">{t.footer.govProjectBadge}</span>
+              {t.footer.ministry}
+            </div>
+          </div>
+        </div>
+
+        {/* Legal & Copyright */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-sans">
+          <p>{t.footer.copyright}</p>
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <button
+              type="button"
+              onClick={() => onNavigate('legal', { section: 'pdpa' })}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              {t.footer.privacyNotice}
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate('legal', { section: 'terms' })}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              {t.footer.termsOfUse}
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate('legal', { section: 'governance' })}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              {t.footer.dataGovernance}
+            </button>
+            <button
+              type="button"
+              onClick={() => onNavigate('legal', { section: 'ethics' })}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              {t.footer.contactEthics}
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
