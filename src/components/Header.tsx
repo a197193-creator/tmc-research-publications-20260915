@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Language, PageType } from '../types';
 import { translations } from '../data/translations';
 
@@ -68,380 +68,200 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigate,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollYRef = useRef(0);
   const t = translations[lang];
+  const announcementTagline =
+    lang === 'en' ? 'National Population Cohort & Biobank' : 'Kohort Populasi Kebangsaan & Biobank';
+  const portalStatus = lang === 'en' ? 'Research portal' : 'Portal penyelidikan';
+  const searchLabel = lang === 'en' ? 'Search research' : 'Cari penyelidikan';
+  const mobileMenuLabel = lang === 'en' ? 'Main menu' : 'Menu utama';
+  const navItems: Array<{ page: PageType; label: string; id?: string }> = [
+    { page: 'home', label: t.nav.overview },
+    { page: 'research', label: t.nav.researchProjects },
+    { page: 'publications', label: t.nav.publications },
+    { page: 'news', label: t.nav.news, id: 'nav-news-btn' },
+  ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = Math.max(0, window.scrollY);
-      const lastScrollY = lastScrollYRef.current;
-      const diff = currentScrollY - lastScrollY;
+    if (!mobileMenuOpen) return;
 
-      setIsScrolled(currentScrollY > 10);
-
-      // When near the top, always keep visible
-      if (currentScrollY <= 80) {
-        setIsVisible(true);
-      } else if (diff > 8 && currentScrollY > 120) {
-        // Scrolled down significantly -> fold up
-        if (!mobileMenuOpen) {
-          setIsVisible(false);
-        }
-      } else if (diff < -8) {
-        // Scrolled up -> bring back
-        setIsVisible(true);
-      }
-
-      lastScrollYRef.current = currentScrollY;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
   }, [mobileMenuOpen]);
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300 ease-in-out ${
-        isScrolled ? 'shadow-md' : 'shadow-sm'
-      } ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
-      }`}
+      className="relative sticky top-0 z-50 isolate border-b border-slate-200/90 bg-white shadow-sm"
     >
-      {/* TOP ACCESSIBILITY & INSTITUTIONAL UTILITY BAR */}
-      <aside aria-label="Utility navigation" className="bg-[#00274c] text-slate-300 border-b border-blue-900/50 text-xs font-heading">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-9 flex items-center justify-between gap-2 min-w-0">
-          <div className="flex items-center gap-2 md:gap-6 min-w-0 flex-1">
-            <span className="flex items-center gap-1.5 text-slate-200 min-w-0 flex-1">
-              <span className="material-symbols-outlined text-sm text-[#f59e0b] shrink-0">local_hospital</span>
-              <span className="truncate">{t.topBar.institution}</span>
-            </span>
-            <span className="hidden md:inline-flex items-center gap-1 text-slate-300">
-              <span className="material-symbols-outlined text-sm text-[#38bdf8]">call</span>
-              {lang === 'en' ? 'Hotline:' : 'Talian:'} <strong className="text-white font-semibold">1800-88-2007</strong> / +603-9145 9000
-            </span>
-          </div>
+      <div
+        className="relative overflow-hidden border-b border-white/10 bg-[#00274c] text-white"
+        aria-label={lang === 'en' ? 'Research portal announcement' : 'Pengumuman portal penyelidikan'}
+      >
+        <div
+          className="relative mx-auto grid min-h-8 max-w-[1400px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-3 py-1.5 sm:px-6 lg:px-8"
+        >
+          <p
+            className="min-w-0 text-[9px] font-semibold leading-tight tracking-[0.04em] text-slate-100 sm:text-[11px]"
+          >
+            <span className="sm:hidden">{announcementTagline}</span>
+            <span className="hidden sm:inline">{t.topBar.institution}</span>
+          </p>
 
-          <div className="flex items-center gap-1 sm:gap-3 shrink-0">
-            {/* Language Switcher with National Flags */}
-            <div className="flex items-center gap-1.5" aria-label="Language selection">
-              <span className="text-[11px] uppercase tracking-wider text-slate-300 mr-1 hidden sm:inline">
-                {t.topBar.lang}:
+          <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+            <span className="inline-flex items-center gap-1.5 whitespace-nowrap text-[9px] font-medium text-slate-200 sm:text-[11px]">
+              <span className="relative flex h-2 w-2 items-center justify-center" aria-hidden="true">
+                <span className="relative h-1.5 w-1.5 rounded-full bg-[#6EC1E4] shadow-[0_0_0_3px_rgba(110,193,228,0.16)]" />
               </span>
-              <div className="inline-flex items-center bg-white/10 p-0.5 rounded border border-white/20">
-                <button
-                  type="button"
-                  onClick={() => onLanguageChange('bm')}
-                  title="Bahasa Melayu (Malaysia)"
-                  aria-label="Tukar ke Bahasa Melayu"
-                    className={`inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded text-xs transition-all font-heading ${
-                    lang === 'bm'
-                      ? 'bg-[#003b71] text-white font-bold shadow-xs border border-blue-300/40'
-                      : 'text-slate-300 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  <MalaysiaFlag />
-                  <span>BM</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onLanguageChange('en')}
-                  title="English (United Kingdom)"
-                  aria-label="Switch to English"
-                    className={`inline-flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded text-xs transition-all font-heading ${
-                    lang === 'en'
-                      ? 'bg-[#003b71] text-white font-bold shadow-xs border border-blue-300/40'
-                      : 'text-slate-300 hover:text-white hover:bg-white/10'
-                  }`}
-                >
-                  <UKFlag />
-                  <span>EN</span>
-                </button>
-              </div>
+              <span>{portalStatus}</span>
+              <span className="hidden md:inline text-slate-400" aria-hidden="true">·</span>
+              <span className="hidden md:inline">
+                {lang === 'en' ? 'Hotline' : 'Talian'} <strong className="font-semibold text-white">1800-88-2007</strong>
+              </span>
+            </span>
+
+            <div className="inline-flex items-center rounded-full border border-white/15 bg-white/8 p-0.5" aria-label={lang === 'en' ? 'Language selection' : 'Pilihan bahasa'}>
+              <button
+                type="button"
+                onClick={() => onLanguageChange('bm')}
+                title="Bahasa Melayu (Malaysia)"
+                aria-label="Tukar ke Bahasa Melayu"
+                aria-pressed={lang === 'bm'}
+                className={`inline-flex min-h-6 items-center gap-1 rounded-full px-1.5 text-[9px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6EC1E4] focus-visible:ring-offset-2 focus-visible:ring-offset-[#00274c] sm:px-2 sm:text-[10px] ${
+                  lang === 'bm' ? 'bg-white text-[#00274c]' : 'text-slate-200 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                <MalaysiaFlag />
+                <span>BM</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onLanguageChange('en')}
+                title="English (United Kingdom)"
+                aria-label="Switch to English"
+                aria-pressed={lang === 'en'}
+                className={`inline-flex min-h-6 items-center gap-1 rounded-full px-1.5 text-[9px] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6EC1E4] focus-visible:ring-offset-2 focus-visible:ring-offset-[#00274c] sm:px-2 sm:text-[10px] ${
+                  lang === 'en' ? 'bg-white text-[#00274c]' : 'text-slate-200 hover:bg-white/10 hover:text-white'
+                }`}
+              >
+                <UKFlag />
+                <span>EN</span>
+              </button>
             </div>
           </div>
         </div>
-      </aside>
+      </div>
 
-      {/* UKM EDITORIAL MASTHEAD & LOGO */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4 min-w-0">
-        <div className="flex items-center gap-2 sm:gap-5 min-w-0 flex-1">
-          <button
-            type="button"
-            onClick={() => onNavigate('home')}
-            className="flex-shrink-0 group flex items-center gap-2 cursor-pointer text-left"
-          >
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ7Cgz6jgnULMpxLU38lSRu2Y2BFUZuB8glBQBISbSm9e5ENfPFRyGKTT4s70Uje7gCJeV08H6UiPMZGvqrnxG9J9Jcu_C8E30LA7Wffghj_07u2mrfJORfuDljwHVp-P_Y03xPz8YzDUalyOl6BcrwX7g-hGmMKsyjvNxQUDC4oS9AcpErEAGW67kcdiJg2zL_d-h1jteZhsRP3Y-Wji0pc8sI_ccwXsHkMd5I9JfCU4fg-VysDL1yhaOKS910FVF2A"
-              alt="The Malaysian Cohort Official Emblem"
-              className="h-11 sm:h-16 w-[68px] sm:w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            />
-          </button>
-          <div className="h-10 w-px bg-slate-200 hidden sm:block"></div>
-          <div className="flex flex-col min-w-0">
-            <button
-              type="button"
-              onClick={() => onNavigate('home')}
-              className="font-serif text-base sm:text-2xl font-bold tracking-tight text-[#003366] leading-tight hover:text-[#007bff] transition-colors text-left cursor-pointer truncate sm:whitespace-normal"
-            >
+      <div
+        className="mx-auto flex min-h-[70px] max-w-[1400px] items-center justify-between gap-3 px-3 py-2 sm:min-h-[76px] sm:px-6 lg:grid lg:min-h-[84px] lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-5 lg:px-8"
+      >
+        <button
+          type="button"
+          onClick={() => onNavigate('home')}
+          aria-label={lang === 'en' ? 'The Malaysian Cohort home' : 'Laman utama The Malaysian Cohort'}
+          className="group flex min-w-0 items-center gap-3 rounded-lg text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-4"
+        >
+          <img
+            src="/assets/tmc-emblem.png"
+            alt=""
+            className="h-12 w-[64px] shrink-0 object-contain transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none sm:h-14 sm:w-[74px]"
+          />
+          <span className="hidden min-w-0 border-l border-slate-200 pl-3 md:block lg:pl-4">
+            <span className="block truncate font-serif text-lg font-bold leading-tight tracking-tight text-[#003366] transition-colors group-hover:text-[#007bff] lg:text-xl xl:text-2xl">
               The Malaysian Cohort
-            </button>
-            <span className="font-sans text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#007ca8] truncate">
+            </span>
+            <span className="mt-1 hidden max-w-[260px] text-[8px] font-semibold uppercase leading-[1.25] tracking-[0.07em] text-[#007ca8] xl:block 2xl:max-w-none 2xl:text-[9px]">
               {t.nav.instituteSubtitle}
             </span>
-          </div>
-        </div>
+          </span>
+        </button>
 
-        {/* UKM Style Participant Action & Search */}
-        <div className="flex items-center gap-1 sm:gap-3 shrink-0">
-          <button
-            type="button"
-            onClick={() => onNavigate('portal')}
-            id="header-participant-portal-btn"
-            className="hidden lg:inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded bg-gradient-to-r from-[#007bff] to-[#003366] hover:from-[#0069d9] hover:to-[#00274c] text-white font-sans font-semibold text-sm tracking-wide shadow-sm hover:shadow-md transition-all duration-200 group border border-blue-400/30 cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-lg text-[#6EC1E4]">clinical_notes</span>
-            <span>{t.nav.participantPortal}</span>
-            <span className="material-symbols-outlined text-base group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </button>
+        <nav className="hidden lg:block" aria-label={lang === 'en' ? 'Main navigation' : 'Navigasi utama'}>
+          <ul className="flex items-center justify-center gap-1 xl:gap-2">
+            {navItems.map((item) => {
+              const isActive = currentPage === item.page;
+              return (
+                <li key={item.page}>
+                  <button
+                    type="button"
+                    id={item.id}
+                    onClick={() => onNavigate(item.page)}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`rounded-full px-3 py-2 text-[12px] font-semibold tracking-tight transition-[color,background-color,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 motion-reduce:transition-none xl:px-4 xl:text-[13px] ${
+                      isActive
+                        ? 'bg-[#e9f4fb] text-[#003366] shadow-[inset_0_0_0_1px_rgba(0,123,255,0.08)]'
+                        : 'text-slate-600 hover:-translate-y-0.5 hover:bg-slate-100 hover:text-[#003366]'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
+        <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={onOpenSearch}
             id="header-search-btn"
-            aria-label={t.nav.searchAria}
-            className="p-2 sm:p-2.5 rounded-md hover:bg-blue-50 text-[#003366] transition-colors border border-slate-200 sm:border-transparent flex items-center justify-center cursor-pointer shrink-0"
+            aria-label={searchLabel}
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#003366] px-3 text-xs font-bold text-white shadow-sm transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-[#00274c] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 motion-reduce:transition-none sm:min-h-11 sm:px-4"
           >
-            <span className="material-symbols-outlined">search</span>
+            <span className="material-symbols-outlined text-[19px]" aria-hidden="true">search</span>
+            <span className="hidden sm:inline">{searchLabel}</span>
           </button>
 
-          {/* Mobile Menu Toggle */}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 lg:hidden rounded hover:bg-blue-50 text-[#003366] cursor-pointer shrink-0"
-            aria-label="Toggle navigation menu"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-[#003366] transition-colors hover:border-blue-200 hover:bg-blue-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 lg:hidden sm:h-11 sm:w-11"
+            aria-label={mobileMenuLabel}
+            aria-controls="mobile-navigation"
+            aria-expanded={mobileMenuOpen}
           >
-            <span className="material-symbols-outlined">{mobileMenuOpen ? 'close' : 'menu'}</span>
+            <span className="material-symbols-outlined" aria-hidden="true">{mobileMenuOpen ? 'close' : 'menu'}</span>
           </button>
         </div>
       </div>
 
-      {/* UKM Signature Horizontal Navigation */}
-      <nav className="bg-[#003366] border-t border-[#0056a8] shadow-sm hidden lg:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ul className="flex items-center gap-7 xl:gap-8 py-3 text-[14px] font-sans tracking-tight">
-            {/* Overview / Home */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('home')}
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'home'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.overview}</span>
-              </button>
-            </li>
-
-            {/* Research Projects */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('research')}
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'research'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.researchProjects}</span>
-              </button>
-            </li>
-
-            {/* National Biobank - NOT WHITE WHEN NOT CHOSEN */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('biobank')}
-                id="nav-national-biobank-btn"
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'biobank'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.nationalBiobank}</span>
-              </button>
-            </li>
-
-            {/* Publications */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('publications')}
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'publications'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.publications}</span>
-              </button>
-            </li>
-
-            {/* News */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('news')}
-                id="nav-news-btn"
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'news'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.news}</span>
-              </button>
-            </li>
-
-            {/* Clinic Hours & Location */}
-            <li>
-              <button
-                type="button"
-                onClick={() => onNavigate('clinic')}
-                className={`transition-colors text-left cursor-pointer ${
-                  currentPage === 'clinic'
-                    ? 'text-white border-b-2 border-[#6EC1E4] pb-1 font-bold flex items-center gap-1.5'
-                    : 'text-[#9bb7d4] hover:text-[#6EC1E4] pb-1 font-medium flex items-center gap-1.5'
-                }`}
-              >
-                <span>{t.nav.clinicHours}</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      {/* Mobile Nav Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#00274c] border-t border-blue-800/80 px-4 py-4 space-y-3 shadow-xl text-white max-h-[calc(100dvh-7rem)] overflow-y-auto">
-          <button
-            type="button"
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onNavigate('portal');
-            }}
-            className="lg:hidden w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded bg-gradient-to-r from-[#007bff] to-[#003366] text-white font-sans font-semibold text-sm tracking-wide shadow-sm border border-blue-400/30 cursor-pointer"
-          >
-            <span className="material-symbols-outlined text-lg text-[#6EC1E4]">clinical_notes</span>
-            <span>{t.nav.participantPortal}</span>
-            <span className="material-symbols-outlined text-base">arrow_forward</span>
-          </button>
-          <ul className="space-y-1 text-sm font-heading">
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('home');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'home'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.overview}
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('research');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'research'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.researchProjects}
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('biobank');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'biobank'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.nationalBiobank}
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('publications');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'publications'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.publications}
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('news');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'news'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.news}
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onNavigate('clinic');
-                }}
-                className={`w-full text-left py-2.5 px-3 rounded transition-colors ${
-                  currentPage === 'clinic'
-                    ? 'bg-[#003b71] text-white font-bold border-l-4 border-[#6EC1E4]'
-                    : 'text-[#9bb7d4] hover:text-white hover:bg-white/5 font-medium'
-                }`}
-              >
-                {t.nav.clinicHours}
-              </button>
-            </li>
+        <nav
+          id="mobile-navigation"
+          className="border-t border-slate-200 bg-white px-3 pb-4 pt-2 shadow-[0_16px_30px_rgba(0,39,76,0.12)] sm:px-6 lg:hidden"
+          aria-label={lang === 'en' ? 'Mobile main navigation' : 'Navigasi utama mudah alih'}
+        >
+          <ul className="mx-auto max-w-[1400px] space-y-1">
+            {navItems.map((item) => {
+              const isActive = currentPage === item.page;
+              return (
+                <li key={item.page}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      onNavigate(item.page);
+                    }}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`flex min-h-11 w-full items-center justify-between rounded-xl px-4 py-2.5 text-left text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-2 ${
+                      isActive
+                        ? 'bg-[#e9f4fb] text-[#003366]'
+                        : 'text-slate-700 hover:bg-slate-100 hover:text-[#003366]'
+                    }`}
+                  >
+                    <span>{item.label}</span>
+                    {isActive && <span className="h-2 w-2 rounded-full bg-[#007bff]" aria-hidden="true" />}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
-        </div>
+        </nav>
       )}
+
     </header>
   );
 };

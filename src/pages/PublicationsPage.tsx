@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Language, Publication } from '../types';
-import { publicationsList } from '../data/portalData';
-import { downloadPublicationAbstractPdf } from '../utils/pdfDownload';
+import { publicationsList } from '../data/publications';
 
 interface PublicationsPageProps {
   lang: Language;
@@ -9,263 +8,217 @@ interface PublicationsPageProps {
   selectedPublication?: Publication | null;
 }
 
-export const PublicationsPage: React.FC<PublicationsPageProps> = ({
-  lang,
-  onBack,
-  selectedPublication,
-}) => {
+export const PublicationsPage: React.FC<PublicationsPageProps> = ({ lang, onBack, selectedPublication }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedYear, setSelectedYear] = useState<string>('All');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
-  const downloadTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [selectedYear, setSelectedYear] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const years = ['All', '2024', '2023'];
-  const categories = ['All', 'Genomic Medicine & Metabolics', 'Cardiovascular Epidemiology', 'Cardiovascular Imaging', 'Molecular Oncology'];
+  const years = useMemo(
+    () => [...new Set(publicationsList.map((publication) => publication.year))].sort((a, b) => b - a),
+    [],
+  );
+  const categories = useMemo(
+    () => [...new Set(publicationsList.map((publication) => publication.category))].sort(),
+    [],
+  );
 
-  const filteredPublications = publicationsList.filter((pub) => {
-    const matchesYear = selectedYear === 'All' || pub.year.toString() === selectedYear;
-    const matchesCategory = selectedCategory === 'All' || pub.category === selectedCategory;
-    const matchesSearch =
-      pub.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      pub.authors.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      pub.abstract.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      pub.journal.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      pub.doi.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesYear && matchesCategory && matchesSearch;
-  });
+  const filteredPublications = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+
+    return publicationsList.filter((publication) => {
+      const matchesYear = selectedYear === 'All' || publication.year === Number(selectedYear);
+      const matchesCategory = selectedCategory === 'All' || publication.category === selectedCategory;
+      const matchesSearch = query.length === 0 || [
+        publication.title,
+        publication.authors,
+        publication.journal,
+        publication.category,
+        publication.doi,
+        publication.articleType,
+        String(publication.year),
+      ].some((value) => value.toLowerCase().includes(query));
+
+      return matchesYear && matchesCategory && matchesSearch;
+    });
+  }, [searchQuery, selectedCategory, selectedYear]);
+
+  const hasActiveFilters = searchQuery.trim().length > 0 || selectedYear !== 'All' || selectedCategory !== 'All';
 
   useEffect(() => {
     if (!selectedPublication) return;
-    const selectedCard = document.getElementById(`publication-${selectedPublication.id}`);
-    selectedCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById(`publication-${selectedPublication.id}`)?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
   }, [selectedPublication]);
 
-  useEffect(() => () => {
-    if (downloadTimerRef.current) clearTimeout(downloadTimerRef.current);
-  }, []);
-
-  const handleDownload = (pub: Publication) => {
-    downloadPublicationAbstractPdf(pub);
-    setDownloadSuccess(pub.title);
-    if (downloadTimerRef.current) clearTimeout(downloadTimerRef.current);
-    downloadTimerRef.current = setTimeout(() => setDownloadSuccess(null), 5000);
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedYear('All');
+    setSelectedCategory('All');
   };
 
   return (
-    <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
-      {/* BREADCRUMB */}
-      <div className="bg-[#00274c] text-white py-4 border-b border-blue-900/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4">
+    <div className="min-h-screen bg-[#f8f9fa] pb-20 font-sans">
+      <div className="border-b border-blue-900/60 bg-[#00274c] py-4 text-white">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs">
-            <button
-              type="button"
-              onClick={onBack}
-              className="text-slate-300 hover:text-[#6EC1E4] transition-colors flex items-center gap-1 cursor-pointer"
-            >
+            <button type="button" onClick={onBack} className="flex cursor-pointer items-center gap-1 text-slate-300 transition-colors hover:text-[#6EC1E4]">
               <span className="material-symbols-outlined text-sm">home</span>
               <span>{lang === 'en' ? 'Home' : 'Laman Utama'}</span>
             </button>
             <span className="text-slate-400">/</span>
-            <span className="text-[#6EC1E4] font-semibold">
+            <span className="font-semibold text-[#6EC1E4]">
               {lang === 'en' ? 'Scientific Publications Index' : 'Indeks Penerbitan Saintifik'}
             </span>
           </nav>
 
-          <button
-            type="button"
-            onClick={onBack}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-colors cursor-pointer border border-white/20"
-          >
+          <button type="button" onClick={onBack} className="inline-flex cursor-pointer items-center gap-1.5 rounded border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-white/20">
             <span className="material-symbols-outlined text-sm">arrow_back</span>
             <span>{lang === 'en' ? 'Back to Overview' : 'Kembali ke Gambaran Keseluruhan'}</span>
           </button>
         </div>
       </div>
 
-      {/* HERO */}
-      <section className="bg-gradient-to-r from-[#00274c] via-[#003366] to-[#00274c] text-white py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#6EC1E4]/15 border border-[#6EC1E4]/30 text-[#6EC1E4] text-xs font-bold uppercase tracking-wider mb-4">
+      <section className="bg-gradient-to-r from-[#00274c] via-[#003366] to-[#00274c] py-12 text-white sm:py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6EC1E4]/30 bg-[#6EC1E4]/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6EC1E4]">
             <span className="material-symbols-outlined text-sm">menu_book</span>
-            <span>Peer-Reviewed Literature & Impact</span>
+            <span>{lang === 'en' ? '69 Publication Records' : '69 Rekod Penerbitan'}</span>
           </span>
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            {lang === 'en' ? 'Scientific Publications & Genomic Archives' : 'Penerbitan Saintifik & Arkib Genomik'}
+          <h1 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            {lang === 'en' ? 'Scientific Publications & Evidence' : 'Penerbitan & Bukti Saintifik'}
           </h1>
-          <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-3xl mt-3">
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
             {lang === 'en'
-              ? 'Discover peer-reviewed discoveries published in Nature Genetics, The Lancet, and international journals based on longitudinal follow-ups of The Malaysian Cohort.'
-              : 'Terokai penemuan berwasit yang diterbitkan dalam Nature Genetics, The Lancet, dan jurnal antarabangsa berdasarkan susulan membujur The Malaysian Cohort.'}
+              ? 'Browse the official TMC publication titles, organised by research category and year.'
+              : 'Layari tajuk penerbitan rasmi TMC mengikut kategori penyelidikan dan tahun.'}
           </p>
         </div>
       </section>
 
-      {/* DOWNLOAD TOAST */}
-      {downloadSuccess && (
-        <div
-          role="status"
-          aria-live="polite"
-          className="fixed z-[100] bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:w-full sm:max-w-xl"
-        >
-          <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs flex items-center justify-between gap-4 shadow-lg animate-in fade-in">
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="material-symbols-outlined text-emerald-600">check_circle</span>
-              <span className="truncate"><strong>Abstract PDF Downloaded:</strong> "{downloadSuccess}"</span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setDownloadSuccess(null)}
-              aria-label={lang === 'en' ? 'Dismiss download message' : 'Tutup mesej muat turun'}
-              className="text-emerald-700 hover:text-emerald-950 shrink-0 cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-base">close</span>
-            </button>
-          </div>
-        </div>
-      )}
+      <div className="mx-auto mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <aside className="flex items-start gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-[#003366]">
+          <span className="material-symbols-outlined shrink-0 text-[#007bff]">info</span>
+          <p>
+            {lang === 'en'
+              ? 'The complete register is shown below. Original-source links are provided; direct article uploads will be reviewed later according to each paper’s access status.'
+              : 'Daftar lengkap dipaparkan di bawah. Pautan sumber asal disediakan; muat naik terus artikel akan disemak kemudian mengikut status akses setiap penerbitan.'}
+          </p>
+        </aside>
+      </div>
 
-      {/* SEARCH AND FILTERS */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        <div className="bg-white rounded-lg p-5 border border-slate-200 shadow-xs space-y-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="relative w-full sm:w-96">
-              <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">
-                search
-              </span>
-              <input
-                type="text"
-                placeholder={lang === 'en' ? 'Search title, authors, DOI, abstract...' : 'Cari tajuk, pengarang, DOI...'}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-md border border-slate-300 text-xs focus:ring-2 focus:ring-[#007bff] focus:outline-hidden"
-              />
-            </div>
-
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              <div className="flex items-center gap-1.5 text-xs text-slate-600">
-                <span>Year:</span>
-                {years.map((y) => (
-                  <button
-                    key={y}
-                    type="button"
-                    onClick={() => setSelectedYear(y)}
-                    className={`px-3 py-1 rounded text-xs font-semibold cursor-pointer ${
-                      selectedYear === y
-                        ? 'bg-[#007bff] text-white'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    {y}
+      <div className="mx-auto mt-6 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_13rem_19rem]">
+            <div>
+              <label htmlFor="publication-search" className="mb-1.5 block text-xs font-bold text-[#003366]">
+                {lang === 'en' ? 'Search publications' : 'Cari penerbitan'}
+              </label>
+              <div className="relative">
+                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-lg text-slate-400">search</span>
+                <input
+                  id="publication-search"
+                  type="search"
+                  placeholder={lang === 'en' ? 'Title, author, journal or DOI' : 'Tajuk, penulis, jurnal atau DOI'}
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  className="min-h-11 w-full rounded-md border border-slate-300 py-2 pl-10 pr-10 text-sm outline-hidden focus:border-[#007bff] focus:ring-2 focus:ring-blue-100"
+                />
+                {searchQuery && (
+                  <button type="button" onClick={() => setSearchQuery('')} aria-label={lang === 'en' ? 'Clear search' : 'Kosongkan carian'} className="absolute right-1 top-1/2 flex min-h-9 min-w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded text-slate-400 hover:text-slate-700">
+                    <span className="material-symbols-outlined text-lg">close</span>
                   </button>
-                ))}
+                )}
               </div>
             </div>
+
+            <div>
+              <label htmlFor="publication-year" className="mb-1.5 block text-xs font-bold text-[#003366]">
+                {lang === 'en' ? 'Publication year' : 'Tahun penerbitan'}
+              </label>
+              <select id="publication-year" value={selectedYear} onChange={(event) => setSelectedYear(event.target.value)} className="min-h-11 w-full cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-hidden focus:border-[#007bff] focus:ring-2 focus:ring-blue-100">
+                <option value="All">{lang === 'en' ? 'All years' : 'Semua tahun'}</option>
+                {years.map((year) => <option key={year} value={year}>{year}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="publication-category" className="mb-1.5 block text-xs font-bold text-[#003366]">
+                {lang === 'en' ? 'Research category' : 'Kategori penyelidikan'}
+              </label>
+              <select id="publication-category" value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)} className="min-h-11 w-full cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 outline-hidden focus:border-[#007bff] focus:ring-2 focus:ring-blue-100">
+                <option value="All">{lang === 'en' ? 'All categories' : 'Semua kategori'}</option>
+                {categories.map((category) => <option key={category} value={category}>{category}</option>)}
+              </select>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-xs">
-            <span className="text-slate-500 font-semibold">Specialty Category:</span>
-            {categories.map((c) => (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setSelectedCategory(c)}
-                className={`px-2.5 py-1 rounded-full text-xs font-medium cursor-pointer ${
-                  selectedCategory === c
-                    ? 'bg-blue-50 text-[#007bff] font-bold border border-blue-300'
-                    : 'bg-slate-50 text-[#54595F] border border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                {c}
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 text-sm text-slate-600" aria-live="polite">
+            <p>{lang === 'en' ? `Showing ${filteredPublications.length} of ${publicationsList.length} publications` : `Memaparkan ${filteredPublications.length} daripada ${publicationsList.length} penerbitan`}</p>
+            {hasActiveFilters && (
+              <button type="button" onClick={clearFilters} className="min-h-11 cursor-pointer px-2 font-semibold text-[#007bff] hover:text-[#0056b3] hover:underline">
+                {lang === 'en' ? 'Clear search and filters' : 'Kosongkan carian dan penapis'}
               </button>
-            ))}
+            )}
           </div>
         </div>
 
-        {/* ARTICLES LIST */}
-        <div className="space-y-6 mt-8">
-          {filteredPublications.map((pub) => (
-            <article
-              key={pub.id}
-              id={`publication-${pub.id}`}
-              className="bg-white p-6 sm:p-8 rounded-lg shadow-xs border border-slate-200 border-l-4 border-l-[#007bff] space-y-4"
-            >
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded bg-blue-50 text-[#007bff] font-sans text-xs font-bold uppercase border border-blue-200">
-                  <span className="material-symbols-outlined text-sm">verified</span>
-                  {pub.journal}
-                </span>
-                <span className="text-xs font-mono text-[#7A7A7A]">DOI: {pub.doi}</span>
-              </div>
+        <div className="mt-6 space-y-4">
+          {filteredPublications.map((publication, index) => (
+            <article key={publication.id} id={`publication-${publication.id}`} className="rounded-lg border border-slate-200 border-l-4 border-l-[#007bff] bg-white p-5 shadow-xs transition-shadow hover:shadow-md sm:p-6">
+              <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
+                    <span className="rounded bg-[#003366] px-2.5 py-1 font-bold text-white">{publication.year}</span>
+                    <span className="rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 font-semibold text-[#0056b3]">{publication.category}</span>
+                    {publication.publicationStatus && <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 font-medium text-slate-600">{publication.publicationStatus}</span>}
+                  </div>
 
-              <h2 className="font-serif text-2xl font-bold text-[#003366] leading-snug">
-                "{pub.title}"
-              </h2>
-
-              <p className="text-xs text-[#54595F] font-mono">
-                <strong>Authors:</strong> {pub.authors}
-              </p>
-
-              {/* Harvard Plain-Language Summary Box */}
-              <div className="p-5 rounded-lg bg-blue-50/70 border border-blue-200/80 text-slate-800">
-                <div className="flex items-center gap-2 text-xs font-sans font-bold text-[#007bff] uppercase tracking-wider mb-1.5">
-                  <span className="material-symbols-outlined text-base">lightbulb</span>
-                  <span>Plain-Language Discovery Summary for the Public</span>
-                </div>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  {pub.plainLanguageSummary}
-                </p>
-              </div>
-
-              {/* Abstract */}
-              <div className="space-y-1.5 text-xs text-[#54595F] leading-relaxed">
-                <strong className="text-[#003366] uppercase text-[11px] block">Scientific Abstract:</strong>
-                <p>{pub.abstract}</p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex items-center gap-3 text-xs text-slate-500">
-                  <span>Category: <strong>{pub.category}</strong></span>
-                  {pub.impactFactor && (
-                    <span>• Impact Factor: <strong className="text-[#003366]">{pub.impactFactor}</strong></span>
-                  )}
+                  <h2 className="font-serif text-xl font-bold leading-snug text-[#003366] sm:text-2xl">{publication.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                    <span className="font-semibold text-slate-700">{lang === 'en' ? 'Authors:' : 'Penulis:'}</span>{' '}{publication.authors}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs text-slate-500">
+                    <span><strong className="text-slate-700">{lang === 'en' ? 'Journal:' : 'Jurnal:'}</strong> {publication.journal}</span>
+                    {publication.articleType && <span><strong className="text-slate-700">{lang === 'en' ? 'Type:' : 'Jenis:'}</strong> {publication.articleType}</span>}
+                    {publication.doi && <span className="break-all"><strong className="text-slate-700">DOI:</strong> {publication.doi}</span>}
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <a
-                    href={`https://search.crossref.org/?q=${encodeURIComponent(pub.title)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title={lang === 'en' ? 'Search for the publication source in a new tab' : 'Cari sumber penerbitan dalam tab baharu'}
-                    className="inline-flex items-center gap-1 text-xs font-bold text-slate-600 hover:text-[#007bff]"
-                  >
-                    <span>{lang === 'en' ? 'Search Publication Source' : 'Cari Sumber Penerbitan'}</span>
-                    <span className="material-symbols-outlined text-sm">open_in_new</span>
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => handleDownload(pub)}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded bg-[#007bff] hover:bg-[#0069d9] text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
-                  >
-                    <span className="material-symbols-outlined text-sm">download</span>
-                    <span>{lang === 'en' ? 'Download Abstract PDF' : 'Muat Turun PDF Abstrak'}</span>
-                  </button>
-                </div>
+                <a
+                  href={publication.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${lang === 'en' ? 'Open original article for' : 'Buka artikel asal untuk'} ${publication.title}`}
+                  className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 self-start rounded-md bg-[#007bff] px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#0056b3] focus:outline-hidden focus:ring-2 focus:ring-[#007bff] focus:ring-offset-2"
+                >
+                  <span>{lang === 'en' ? 'Original article' : 'Artikel asal'}</span>
+                  <span className="material-symbols-outlined text-base">open_in_new</span>
+                </a>
               </div>
+              <span className="sr-only">{lang === 'en' ? `Publication ${index + 1}` : `Penerbitan ${index + 1}`}</span>
             </article>
           ))}
 
           {filteredPublications.length === 0 && (
-            <div className="bg-white rounded-lg p-10 text-center border border-slate-200 text-sm text-slate-600">
-              <span className="material-symbols-outlined text-3xl text-slate-300">search_off</span>
-              <p className="mt-2">
-                {lang === 'en'
-                  ? 'No publications match the selected filters or search.'
-                  : 'Tiada penerbitan sepadan dengan penapis atau carian yang dipilih.'}
-              </p>
+            <div className="rounded-xl border border-slate-200 bg-white p-10 text-center text-slate-600">
+              <span className="material-symbols-outlined text-4xl text-slate-300">search_off</span>
+              <h2 className="mt-3 font-serif text-xl font-bold text-[#003366]">{lang === 'en' ? 'No publications match these filters' : 'Tiada penerbitan sepadan dengan penapis ini'}</h2>
+              <p className="mt-2 text-sm">{lang === 'en' ? 'Try another search term, year or category.' : 'Cuba istilah carian, tahun atau kategori lain.'}</p>
+              <button type="button" onClick={clearFilters} className="mt-5 min-h-11 cursor-pointer rounded-md bg-[#007bff] px-5 py-2 text-sm font-bold text-white hover:bg-[#0056b3]">
+                {lang === 'en' ? 'Show all publications' : 'Paparkan semua penerbitan'}
+              </button>
             </div>
           )}
         </div>
+
+        <p className="mt-8 text-center text-xs text-slate-500">
+          {lang === 'en' ? 'Publication register source:' : 'Sumber daftar penerbitan:'}{' '}
+          <a href="https://www.ukm.my/mycohort/ms/penyelidikan-kami/" target="_blank" rel="noopener noreferrer" className="font-semibold text-[#007bff] hover:underline">
+            The Malaysian Cohort, UKM
+          </a>
+        </p>
       </div>
     </div>
   );

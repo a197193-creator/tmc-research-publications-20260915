@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
+import { allResearchInitiatives } from '../data/researchInitiatives';
 
 interface HeroCarouselProps {
   lang: Language;
-  onOpenPortal: () => void;
-  onOpenBiobank: () => void;
-  onOpenResearch?: () => void;
+  onOpenResearch: () => void;
+  onOpenPublications: () => void;
 }
+
+const rightEdgeBlueFade = {
+  background:
+    'linear-gradient(270deg, rgba(0,43,73,0.62) 0%, rgba(0,59,113,0.38) 22%, rgba(0,59,113,0.14) 42%, transparent 62%)'
+};
 
 export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   lang,
-  onOpenPortal,
-  onOpenBiobank,
-  onOpenResearch
+  onOpenResearch,
+  onOpenPublications
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const totalSlides = 2;
   const t = translations[lang];
 
   useEffect(() => {
-    if (isPaused) return;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotionPreference = () => setPrefersReducedMotion(motionPreference.matches);
+    updateMotionPreference();
+    motionPreference.addEventListener('change', updateMotionPreference);
+    return () => motionPreference.removeEventListener('change', updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused || prefersReducedMotion) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 8000);
     return () => clearInterval(interval);
-  }, [isPaused]);
+  }, [isPaused, prefersReducedMotion]);
 
   const handleNext = () => {
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
@@ -39,8 +52,14 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
   return (
     <section
       className="relative bg-[#071629] text-white overflow-hidden border-b-4 border-[#b91c1c]"
+      aria-label={lang === 'en' ? 'Featured TMC research' : 'Penyelidikan pilihan TMC'}
+      aria-roledescription="carousel"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setIsPaused(false);
+      }}
     >
       {/* Carousel Slides Container */}
       <div className="relative h-[700px] sm:h-[600px] lg:h-[640px] flex items-center overflow-hidden">
@@ -50,15 +69,26 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
             currentSlide === 0 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
           }`}
           id="hero-slide-0"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={lang === 'en' ? '1 of 2' : '1 daripada 2'}
+          aria-hidden={currentSlide !== 0}
         >
           <div className="absolute inset-0 z-0">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLQkR4rixBW900IzcdURrXuExlsOzUiwhz28P_0yQyE-JT34qTHcdLPV9VO0QszHuPSEV02vKoxLKdQIr9d8DoP9BnXOT9WS_0jDchVTplYrJagnYjckznx3CTD_TJXiMzN1nkKM2XjXS2X3gBJQEDwcNjUm-ysmdf-BJGE_6P9alXbu5eFSGKE7ix2w4MM9MQ0FQRHuImkDZKyMvIQKIa9L7ooE_9fplyH6rdluNIxjndEBUYA3uz"
-              alt="Biomedical scientists at UKM TMC Laboratory"
-              className="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] ease-out"
+              src="/assets/TMCLaboratory.jpg"
+              alt={t.hero.slide1.imageAlt}
+              className="hero-media object-[70%_center]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00274c] via-[#002b49]/95 to-transparent"></div>
-            <div className="absolute inset-0 bg-[#003b71]/35 mix-blend-multiply"></div>
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, #00274c 0%, rgba(0,43,73,0.96) 36%, rgba(0,43,73,0.68) 52%, rgba(0,43,73,0.12) 74%, transparent 100%)'
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-[#003b71]/20 mix-blend-multiply"></div>
+            <div className="absolute inset-0" style={rightEdgeBlueFade}></div>
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full w-full flex flex-col justify-center py-12 sm:py-16">
             <div className="max-w-3xl space-y-6">
@@ -70,49 +100,27 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 {t.hero.slide1.title}
               </h1>
               <p className="font-sans text-base sm:text-lg lg:text-xl text-slate-200 font-light leading-relaxed max-w-2xl min-h-[64px] sm:min-h-[84px]">
-                {lang === 'en' ? (
-                  <>
-                    Malaysia’s premier national prospective cohort study. Tracking over{' '}
-                    <strong className="text-white font-semibold">106,000 multi-ethnic participants</strong> across 15+
-                    years to unlock genetic, lifestyle, and environmental pathways shaping the future of medicine.
-                  </>
-                ) : (
-                  <>
-                    Kajian kohort prospektif kebangsaan terulung di Malaysia. Menjejaki lebih{' '}
-                    <strong className="text-white font-semibold">106,000 peserta berbilang etnik</strong> selama lebih 15
-                    tahun bagi merungkai faktor genetik, gaya hidup, dan persekitaran perubatan masa depan.
-                  </>
-                )}
+                {t.hero.slide1.descriptionStart}{' '}
+                <strong className="text-white font-semibold">{t.hero.slide1.descriptionHighlight}</strong>
+                {t.hero.slide1.descriptionEnd}
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                {onOpenResearch ? (
-                  <button
-                    type="button"
-                    onClick={onOpenResearch}
-                    className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-gradient-to-r from-[#007bff] to-[#003366] hover:from-[#0069d9] hover:to-[#00274c] border border-blue-400/40 text-white font-sans font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
-                  >
-                    <span>{t.hero.slide1.ctaPrimary}</span>
-                    <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
-                      arrow_forward
-                    </span>
-                  </button>
-                ) : (
-                  <a
-                    href="#research"
-                    className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-gradient-to-r from-[#007bff] to-[#003366] hover:from-[#0069d9] hover:to-[#00274c] border border-blue-400/40 text-white font-sans font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 group"
-                  >
-                    <span>{t.hero.slide1.ctaPrimary}</span>
-                    <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
-                      arrow_forward
-                    </span>
-                  </a>
-                )}
                 <button
                   type="button"
-                  onClick={onOpenPortal}
+                  onClick={onOpenResearch}
+                  className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-gradient-to-r from-[#007bff] to-[#003366] hover:from-[#0069d9] hover:to-[#00274c] border border-blue-400/40 text-white font-sans font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 group cursor-pointer"
+                >
+                  <span>{t.hero.slide1.ctaPrimary}</span>
+                  <span className="material-symbols-outlined text-lg group-hover:translate-x-1 transition-transform">
+                    arrow_forward
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={onOpenPublications}
                   className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-white/10 hover:bg-white/20 text-white font-sans font-semibold text-sm sm:text-base border border-white/30 backdrop-blur-sm transition-all duration-200"
                 >
-                  <span className="material-symbols-outlined text-lg text-[#6EC1E4]">event_available</span>
+                  <span className="material-symbols-outlined text-lg text-[#6EC1E4]">menu_book</span>
                   <span>{t.hero.slide1.ctaSecondary}</span>
                 </button>
               </div>
@@ -126,40 +134,45 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
             currentSlide === 1 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
           }`}
           id="hero-slide-1"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={lang === 'en' ? '2 of 2' : '2 daripada 2'}
+          aria-hidden={currentSlide !== 1}
         >
           <div className="absolute inset-0 z-0">
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQdiqBYSxg8rgOuIprTBGVc8Dlv24jtYki_2O6P-5bSr0UYJQ3222uwTEFBNBgXJ5uzEMOLU_DcvSFTOnMVJCXZdXQZ3pI7EiTU2g9GfBipsRalgEqz0xJVgsVmKRAEu3oRX-0cyLaradzhA8YasWNYdvZbLxr7tWTDgSM3rI3lgozfsnK1Z6rmxjGADjJWFlIs-UqOxPuuvvq6lyluneHjkF6BeF3lyx8kRplaaY9Q01Cc72rHEr6"
-              alt="UMBI National Cryogenic Biobank"
-              className="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] ease-out"
+              src="/assets/myprecise-sequencing-laboratory.png"
+              alt={t.hero.slide2.imageAlt}
+              className="hero-media object-[74%_center]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#00274c] via-[#002b49]/95 to-transparent"></div>
-            <div className="absolute inset-0 bg-[#003b71]/35 mix-blend-multiply"></div>
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(90deg, #00274c 0%, rgba(0,43,73,0.96) 36%, rgba(0,43,73,0.68) 52%, rgba(0,43,73,0.12) 74%, transparent 100%)'
+              }}
+            ></div>
+            <div className="absolute inset-0 bg-[#003b71]/20 mix-blend-multiply"></div>
+            <div className="absolute inset-0" style={rightEdgeBlueFade}></div>
           </div>
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full w-full flex flex-col justify-center py-12 sm:py-16">
             <div className="max-w-3xl space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#003366]/90 border border-[#6EC1E4]/50 text-white font-sans text-xs uppercase tracking-widest font-bold backdrop-blur-sm">
-                <span className="material-symbols-outlined text-sm text-[#6EC1E4]">ac_unit</span>
+                <span className="material-symbols-outlined text-sm text-[#6EC1E4]">biotech</span>
                 <span>{t.hero.slide2.tag}</span>
               </div>
               <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15]">
                 {t.hero.slide2.title}
               </h2>
               <p className="font-sans text-base sm:text-lg lg:text-xl text-slate-200 font-light leading-relaxed max-w-2xl min-h-[64px] sm:min-h-[84px]">
-                {lang === 'en' ? (
-                  <>
-                    Housing over <strong className="text-white font-semibold">1.4 million biological samples</strong> in ISO-certified liquid nitrogen automated cryogenic storage tanks, safeguarding longitudinal multi-ethnic specimens for generational biomedical breakthroughs.
-                  </>
-                ) : (
-                  <>
-                    Menempatkan lebih <strong className="text-white font-semibold">1.4 juta sampel biologi</strong> dalam tangki simpanan kriogenik automatik nitrogen cecair bertaraf ISO, memelihara spesimen pelbagai etnik untuk kemajuan bioperubatan bergenerasi.
-                  </>
-                )}
+                {t.hero.slide2.descriptionStart}{' '}
+                <strong className="text-white font-semibold">{t.hero.slide2.descriptionHighlight}</strong>
+                {t.hero.slide2.descriptionEnd}
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <button
                   type="button"
-                  onClick={onOpenBiobank}
+                  onClick={onOpenPublications}
                   className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-gradient-to-r from-[#007bff] to-[#003366] hover:from-[#0069d9] hover:to-[#00274c] border border-blue-400/40 text-white font-sans font-semibold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 group"
                 >
                   <span>{t.hero.slide2.ctaPrimary}</span>
@@ -169,10 +182,10 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
                 </button>
                 <button
                   type="button"
-                  onClick={onOpenPortal}
+                  onClick={onOpenResearch}
                   className="inline-flex items-center gap-2 px-6 sm:px-7 py-3.5 rounded bg-white/10 hover:bg-white/20 text-white font-sans font-semibold text-sm sm:text-base border border-white/30 backdrop-blur-sm transition-all duration-200"
                 >
-                  <span className="material-symbols-outlined text-lg text-[#6EC1E4]">verified</span>
+                  <span className="material-symbols-outlined text-lg text-[#6EC1E4]">science</span>
                   <span>{t.hero.slide2.ctaSecondary}</span>
                 </button>
               </div>
@@ -185,7 +198,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           <button
             type="button"
             id="hero-prev"
-            aria-label="Previous Slide"
+            aria-label={t.hero.controls.previousSlide}
             onClick={handlePrev}
             className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
@@ -195,7 +208,8 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
             <button
               type="button"
               id="dot-0"
-              aria-label="Go to slide 1"
+              aria-label={t.hero.controls.firstSlide}
+              aria-current={currentSlide === 0 ? 'true' : undefined}
               onClick={() => setCurrentSlide(0)}
               className={`h-2 rounded-full transition-all cursor-pointer ${
                 currentSlide === 0 ? 'w-6 bg-[#6EC1E4]' : 'w-2 bg-white/50 hover:bg-white'
@@ -204,7 +218,8 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
             <button
               type="button"
               id="dot-1"
-              aria-label="Go to slide 2"
+              aria-label={t.hero.controls.secondSlide}
+              aria-current={currentSlide === 1 ? 'true' : undefined}
               onClick={() => setCurrentSlide(1)}
               className={`h-2 rounded-full transition-all cursor-pointer ${
                 currentSlide === 1 ? 'w-6 bg-[#6EC1E4]' : 'w-2 bg-white/50 hover:bg-white'
@@ -214,7 +229,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
           <button
             type="button"
             id="hero-next"
-            aria-label="Next Slide"
+            aria-label={t.hero.controls.nextSlide}
             onClick={handleNext}
             className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
@@ -249,7 +264,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
             <div className="pt-4 md:pt-0 md:px-4">
               <div className="font-serif text-3xl sm:text-4xl font-bold text-[#6EC1E4] tracking-tight">
-                {t.hero.metrics.samples}
+                {allResearchInitiatives.length}
               </div>
               <div className="font-sans text-xs sm:text-sm uppercase font-semibold tracking-wider text-slate-300 mt-1">
                 {t.hero.metrics.samplesLabel}

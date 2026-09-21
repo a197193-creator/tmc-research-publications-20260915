@@ -10,7 +10,9 @@ interface ResearchInitiativesProps {
   onOpenAllInitiatives: () => void;
 }
 
-const featuredProjectIds = ['proj-2', 'proj-3', 'proj-4'];
+// Curated current initiatives: active work is prioritised here while the full
+// index remains available for completed and older projects.
+const featuredProjectIds = ['proj-2', 'proj-3', 'proj-7', 'proj-20'];
 
 const featuredProjects = featuredProjectIds
   .map((id) => allResearchInitiatives.find((project) => project.id === id))
@@ -39,14 +41,15 @@ export const ResearchInitiatives: React.FC<ResearchInitiativesProps> = ({
         </p>
       </div>
 
-      {/* High-Impact 3-Card Grid with Hover Zoom & Lifting Animation */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Four current initiatives in a clean two-row desktop layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {featuredProjects.map((project) => {
-          const visual = getResearchVisual(project.category);
+          const visual = getResearchVisual(project.category, project.id);
           return (
           <article
             key={project.id}
             id={`featured-${project.id}`}
+            data-scroll-reveal
             className="bg-white rounded-lg overflow-hidden border border-slate-200 hover-lift group flex flex-col justify-between"
           >
             <div>
@@ -79,7 +82,11 @@ export const ResearchInitiatives: React.FC<ResearchInitiativesProps> = ({
             </div>
 
             <div className="px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span className="text-xs text-slate-500 font-medium">{project.samplesCount}</span>
+              <span className="text-xs text-slate-500 font-medium">
+                {lang === 'en'
+                  ? `Target: ${project.targetedParticipants} • Current count pending Statistics Unit validation`
+                  : `Sasaran: ${project.targetedParticipants} • Bilangan semasa menunggu pengesahan Unit Statistik`}
+              </span>
               <button
                 type="button"
                 onClick={() => onSelectInitiative(project)}
@@ -103,7 +110,10 @@ export const ResearchInitiatives: React.FC<ResearchInitiativesProps> = ({
           id="view-all-initiatives-btn"
           className="inline-flex items-center gap-2 px-8 py-3.5 rounded border-2 border-[#007bff] text-[#007bff] hover:bg-gradient-to-r hover:from-[#007bff] hover:to-[#003366] hover:text-white hover:border-transparent font-sans font-semibold text-sm transition-all duration-300 shadow-xs cursor-pointer"
         >
-          <span>{t.researchSection.viewAll}</span>
+          <span>
+            {t.researchSection.viewAll} ({allResearchInitiatives.length}{' '}
+            {lang === 'en' ? 'Projects' : 'Projek'})
+          </span>
           <span className="material-symbols-outlined text-base">arrow_forward</span>
         </button>
       </div>

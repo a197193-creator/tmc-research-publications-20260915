@@ -114,8 +114,8 @@ export const ParticipantPortalModal: React.FC<ParticipantPortalModalProps> = ({
               </h3>
               <p className="text-xs text-slate-300">
                 {lang === 'en'
-                  ? 'Phase 3 Repeat Health Screening (2024–2026) • UMBI UKM'
-                  : 'Saringan Kesihatan Berulang Fasa 3 (2024–2026) • UMBI UKM'}
+                  ? 'Health Screening Follow-Up • UMBI UKM'
+                  : 'Susulan Saringan Kesihatan • UMBI UKM'}
               </p>
             </div>
           </div>
@@ -209,7 +209,7 @@ export const ParticipantPortalModal: React.FC<ParticipantPortalModalProps> = ({
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <div className="bg-white p-3 rounded border border-slate-200 text-center sm:text-right">
                     <span className="text-[10px] uppercase font-heading font-bold text-slate-400 block">
-                      {lang === 'en' ? 'Phase 3 Screening Status' : 'Status Saringan Fasa 3'}
+                      {lang === 'en' ? 'Follow-Up Screening Status' : 'Status Saringan Susulan'}
                     </span>
                     <span className="inline-flex items-center gap-1 font-heading font-bold text-sm text-[#b91c1c]">
                       <span className="w-2 h-2 rounded-full bg-[#b91c1c] animate-ping"></span>
@@ -400,7 +400,7 @@ export const ParticipantPortalModal: React.FC<ParticipantPortalModalProps> = ({
                 {activeTab === 'prep' && (
                   <div className="space-y-4">
                     <h5 className="font-serif text-base font-bold text-[#0c2340]">
-                      {lang === 'en' ? 'Phase 3 Repeat Screening Preparation Checklist' : 'Senarai Semak Persediaan Saringan Fasa 3'}
+                      {lang === 'en' ? 'Follow-Up Screening Preparation Checklist' : 'Senarai Semak Persediaan Saringan Susulan'}
                     </h5>
                     <ul className="space-y-3 text-xs sm:text-sm text-slate-700">
                       <li className="flex items-start gap-2.5 p-3 rounded bg-slate-50 border border-slate-200">

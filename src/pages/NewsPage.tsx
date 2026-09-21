@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Language, BulletinItem } from '../types';
-import { bulletinNews } from '../data/portalData';
+import { researchBulletinNews } from '../data/portalData';
 
 interface NewsPageProps {
   lang: Language;
@@ -14,12 +14,11 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
 
   const categories = [
     'All',
-    'Follow-up Clinic',
     'International',
     'Community'
   ];
 
-  const filteredNews = bulletinNews.filter((item) => {
+  const filteredNews = researchBulletinNews.filter((item) => {
     const matchesCategory = selectedCategory === 'All' || item.tag.toLowerCase() === selectedCategory.toLowerCase();
     const matchesSearch =
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -57,7 +56,7 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-colors cursor-pointer border border-white/20"
           >
             <span className="material-symbols-outlined text-sm">arrow_back</span>
-            <span>{lang === 'en' ? 'Return to Home' : 'Kembali ke Laman Utama'}</span>
+            <span>{lang === 'en' ? 'Back to Overview' : 'Kembali ke Gambaran Keseluruhan'}</span>
           </button>
         </div>
       </div>
@@ -75,8 +74,8 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
             </h1>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
               {lang === 'en'
-                ? 'Stay informed with the latest scientific discoveries, cohort screening schedules, international genomics consortium visits, and public health initiatives from UMBI UKM.'
-                : 'Ikuti penemuan saintifik terkini, jadual saringan kesihatan peserta, lawatan konsortium genomik antarabangsa, dan inisiatif kesihatan awam dari UMBI UKM.'}
+                ? 'Stay informed with the latest scientific discoveries, international research collaborations, and public health initiatives from UMBI UKM.'
+                : 'Ikuti penemuan saintifik terkini, kerjasama penyelidikan antarabangsa, dan inisiatif kesihatan awam dari UMBI UKM.'}
             </p>
           </div>
         </div>
@@ -99,7 +98,6 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
                 }`}
               >
                 {cat === 'All' && (lang === 'en' ? 'All Updates' : 'Semua Berita')}
-                {cat === 'Follow-up Clinic' && (lang === 'en' ? 'Follow-up Clinic' : 'Klinik Susulan')}
                 {cat === 'International' && (lang === 'en' ? 'International' : 'Antarabangsa')}
                 {cat === 'Community' && (lang === 'en' ? 'Community' : 'Komuniti')}
               </button>
@@ -141,7 +139,7 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
 
         {/* FEATURED STORY CARD */}
         {featured && (
-          <article className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-shadow mb-8">
+          <article data-scroll-reveal className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:shadow-lg mb-8">
             <div className="p-6 sm:p-8 space-y-4">
               <div className="flex flex-wrap items-center gap-3">
                 <span className={`px-2.5 py-1 rounded text-xs font-bold ${featured.tagBg} ${featured.tagColor}`}>
@@ -195,7 +193,8 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
             {remaining.map((item) => (
               <article
                 key={item.id}
-                className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                data-scroll-reveal
+                className="bg-white rounded-xl border border-slate-200 p-6 shadow-xs transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:shadow-lg flex flex-col justify-between"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
@@ -241,20 +240,33 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
           </div>
         ) : !featured && (
           <div className="bg-white rounded-xl p-12 text-center border border-slate-200 space-y-3">
-            <span className="material-symbols-outlined text-4xl text-slate-300">search_off</span>
+            <span className="material-symbols-outlined text-4xl text-slate-300">
+              {researchBulletinNews.length === 0 ? 'inventory_2' : 'search_off'}
+            </span>
+            <h2 className="font-serif text-xl font-bold text-[#003366]">
+              {researchBulletinNews.length === 0
+                ? (lang === 'en' ? 'Approved research news required' : 'Berita penyelidikan yang diluluskan diperlukan')
+                : (lang === 'en' ? 'No matching bulletins' : 'Tiada buletin yang sepadan')}
+            </h2>
             <p className="text-slate-600 text-sm font-medium">
-              {lang === 'en' ? 'No bulletins matched your search criteria.' : 'Tiada buletin sepadan dengan carian anda.'}
+              {researchBulletinNews.length === 0
+                ? (lang === 'en'
+                    ? 'Research news will appear here after the Communications Unit and management validate the title, date, summary, image and source link.'
+                    : 'Berita penyelidikan akan dipaparkan di sini selepas Unit Komunikasi dan pihak pengurusan mengesahkan tajuk, tarikh, ringkasan, imej dan pautan sumber.')
+                : (lang === 'en' ? 'No bulletins matched your search criteria.' : 'Tiada buletin sepadan dengan carian anda.')}
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedCategory('All');
-                setSearchQuery('');
-              }}
-              className="text-xs text-[#007bff] font-bold hover:underline cursor-pointer"
-            >
-              {lang === 'en' ? 'Clear filters and search' : 'Kosongkan penapis dan carian'}
-            </button>
+            {researchBulletinNews.length > 0 && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedCategory('All');
+                  setSearchQuery('');
+                }}
+                className="text-xs text-[#007bff] font-bold hover:underline cursor-pointer"
+              >
+                {lang === 'en' ? 'Clear filters and search' : 'Kosongkan penapis dan carian'}
+              </button>
+            )}
           </div>
         )}
       </div>

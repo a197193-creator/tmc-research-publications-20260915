@@ -1,11 +1,12 @@
 import React from 'react';
 import { Language, BulletinItem } from '../types';
-import { bulletinNews } from '../data/portalData';
+import { researchBulletinNews } from '../data/portalData';
 
 interface NewsDetailPageProps {
   news: BulletinItem;
   lang: Language;
   onBack: () => void;
+  onNavigateHome: () => void;
   onSelectOtherNews: (item: BulletinItem) => void;
   onNavigateNews?: () => void;
 }
@@ -14,10 +15,11 @@ export const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
   news,
   lang,
   onBack,
+  onNavigateHome,
   onSelectOtherNews,
   onNavigateNews,
 }) => {
-  const otherNews = bulletinNews.filter((n) => n.id !== news.id);
+  const otherNews = researchBulletinNews.filter((n) => n.id !== news.id);
 
   return (
     <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
@@ -27,7 +29,7 @@ export const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs">
             <button
               type="button"
-              onClick={onBack}
+              onClick={onNavigateHome}
               className="text-slate-300 hover:text-[#6EC1E4] transition-colors flex items-center gap-1 cursor-pointer"
             >
               <span className="material-symbols-outlined text-sm">home</span>
@@ -99,11 +101,11 @@ export const NewsDetailPage: React.FC<NewsDetailPageProps> = ({
           <div className="pt-6 border-t border-slate-100 flex items-center justify-between">
             <button
               type="button"
-              onClick={onBack}
+              onClick={onNavigateHome}
               className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007bff] hover:text-[#0056b3] cursor-pointer"
             >
               <span className="material-symbols-outlined text-sm">arrow_back</span>
-              <span>Back to Overview</span>
+              <span>{lang === 'en' ? 'Back to Overview' : 'Kembali ke Gambaran Keseluruhan'}</span>
             </button>
           </div>
         </article>

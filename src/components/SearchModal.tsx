@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Language, Publication, ResearchInitiativeItem } from '../types';
-import { publicationsList } from '../data/portalData';
+import { publicationsList } from '../data/publications';
 import { allResearchInitiatives } from '../data/researchInitiatives';
 
 interface SearchModalProps {
@@ -9,8 +9,9 @@ interface SearchModalProps {
   lang: Language;
   onSelectResearch: (project: ResearchInitiativeItem) => void;
   onSelectPublication: (pub: Publication) => void;
-  onOpenPortal: () => void;
-  onOpenBiobank: () => void;
+  onOpenResearch: () => void;
+  onOpenPublications: () => void;
+  onOpenNews: () => void;
 }
 
 export const SearchModal: React.FC<SearchModalProps> = ({
@@ -19,8 +20,9 @@ export const SearchModal: React.FC<SearchModalProps> = ({
   lang,
   onSelectResearch,
   onSelectPublication,
-  onOpenPortal,
-  onOpenBiobank
+  onOpenResearch,
+  onOpenPublications,
+  onOpenNews
 }) => {
   const [query, setQuery] = useState('');
 
@@ -49,34 +51,35 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         (p) =>
           p.title.toLowerCase().includes(cleanQuery) ||
           p.authors.toLowerCase().includes(cleanQuery) ||
-          p.abstract.toLowerCase().includes(cleanQuery)
+          p.journal.toLowerCase().includes(cleanQuery) ||
+          p.category.toLowerCase().includes(cleanQuery) ||
+          String(p.year).includes(cleanQuery)
       )
     : [];
 
   const quickLinks = [
     {
-      title: lang === 'en' ? 'Phase 3 Screening Follow-Up Portal' : 'Portal Susulan Saringan Fasa 3',
-      icon: 'calendar_month',
+      title: lang === 'en' ? 'Browse All Research Projects' : 'Layari Semua Projek Penyelidikan',
+      icon: 'science',
       action: () => {
         onClose();
-        onOpenPortal();
+        onOpenResearch();
       }
     },
     {
-      title: lang === 'en' ? 'UMBI National Biobank Specifications' : 'Spesifikasi Biobank Kebangsaan UMBI',
-      icon: 'ac_unit',
+      title: lang === 'en' ? 'Scientific Publications Archive' : 'Arkib Penerbitan Saintifik',
+      icon: 'menu_book',
       action: () => {
         onClose();
-        onOpenBiobank();
+        onOpenPublications();
       }
     },
     {
-      title: lang === 'en' ? 'Clinic Operating Hours & Directions' : 'Waktu Operasi Klinik & Panduan Lokasi',
-      icon: 'schedule',
+      title: lang === 'en' ? 'Research News & Updates' : 'Berita & Kemas Kini Penyelidikan',
+      icon: 'campaign',
       action: () => {
         onClose();
-        const el = document.getElementById('clinic-hours');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
+        onOpenNews();
       }
     }
   ];
@@ -91,8 +94,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             type="text"
             placeholder={
               lang === 'en'
-                ? 'Search research projects, publications, clinic info...'
-                : 'Cari projek penyelidikan, penerbitan, maklumat klinik...'
+                ? 'Search research projects, publications, authors...'
+                : 'Cari projek penyelidikan, penerbitan, penulis...'
             }
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -113,7 +116,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           {!cleanQuery ? (
             <div className="space-y-3">
               <span className="text-[11px] font-heading font-bold uppercase tracking-wider text-slate-400">
-                {lang === 'en' ? 'Suggested Portals & Sections' : 'Portal & Bahagian Dicadangkan'}
+                {lang === 'en' ? 'Research & Publication Sections' : 'Bahagian Penyelidikan & Penerbitan'}
               </span>
               <div className="space-y-1.5">
                 {quickLinks.map((link, i) => (
@@ -179,8 +182,8 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               {matchingProjects.length === 0 && matchingPubs.length === 0 && (
                 <div className="text-center py-8 text-slate-400 text-sm">
                   {lang === 'en'
-                    ? `No results found for "${query}". Try "Genomics", "Lancet", "Biobank", or "Phase 3".`
-                    : `Tiada hasil untuk "${query}". Cuba "Genomik", "Lancet", "Biobank", atau "Fasa 3".`}
+                    ? `No results found for "${query}". Try "Genomics", "MyPrecise", or an author name.`
+                    : `Tiada hasil untuk "${query}". Cuba "Genomik", "MyPrecise", atau nama penulis.`}
                 </div>
               )}
             </div>

@@ -8,6 +8,16 @@ interface ResearchProjectsPageProps {
   onSelectInitiative: (project: ResearchInitiativeItem) => void;
 }
 
+const categoryLabels: Record<string, string> = {
+  All: 'Semua',
+  'Cohort Infrastructure': 'Infrastruktur Kohort',
+  'Infection & Microbiome': 'Jangkitan & Mikrobiom',
+  Genomics: 'Genomik',
+  Cardiometabolic: 'Kardiometabolik',
+  'Imaging & Biomarkers': 'Pengimejan & Penanda Biologi',
+  'Lifestyle & Nutrition': 'Gaya Hidup & Pemakanan',
+};
+
 export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
   lang,
   onBack,
@@ -17,22 +27,29 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = ['All', ...Array.from(new Set(allResearchInitiatives.map((item) => item.category)))];
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const hasActiveFilters = selectedCategory !== 'All' || normalizedQuery.length > 0;
 
   const filteredInitiatives = allResearchInitiatives.filter((item) => {
     const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
-    const matchesSearch =
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.collaborators.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.funding.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.participantDataSource.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const matchesSearch = normalizedQuery.length === 0 ||
+      item.title.toLowerCase().includes(normalizedQuery) ||
+      item.collaborators.toLowerCase().includes(normalizedQuery) ||
+      item.description.toLowerCase().includes(normalizedQuery) ||
+      item.funding.toLowerCase().includes(normalizedQuery) ||
+      item.participantDataSource.toLowerCase().includes(normalizedQuery) ||
       item.subProjects?.some(
         (subProject) =>
-          subProject.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          subProject.description?.toLowerCase().includes(searchQuery.toLowerCase())
+          subProject.title.toLowerCase().includes(normalizedQuery) ||
+          subProject.description?.toLowerCase().includes(normalizedQuery)
       );
     return matchesCategory && matchesSearch;
   });
+
+  const clearFilters = () => {
+    setSelectedCategory('All');
+    setSearchQuery('');
+  };
 
   return (
     <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
@@ -93,13 +110,14 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
+                aria-pressed={selectedCategory === cat}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? 'bg-[#007bff] text-white shadow-xs'
                     : 'bg-slate-100 text-[#54595F] hover:bg-slate-200'
                 }`}
               >
-                {cat}
+                {lang === 'en' ? cat : (categoryLabels[cat] ?? cat)}
               </button>
             ))}
           </div>
@@ -109,14 +127,45 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
             <span className="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-lg">
               search
             </span>
+            <label htmlFor="research-project-search" className="sr-only">
+              {lang === 'en' ? 'Search research projects' : 'Cari projek penyelidikan'}
+            </label>
             <input
-              type="text"
+              id="research-project-search"
+              type="search"
               placeholder={lang === 'en' ? 'Search projects, collaborators...' : 'Cari projek, kolaborator...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-md border border-slate-300 text-xs focus:ring-2 focus:ring-[#007bff] focus:outline-hidden"
+              className="w-full pl-9 pr-10 py-2.5 rounded-md border border-slate-300 text-sm focus:ring-2 focus:ring-[#007bff] focus:outline-hidden"
             />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                aria-label={lang === 'en' ? 'Clear project search' : 'Kosongkan carian projek'}
+                className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-700 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-lg">close</span>
+              </button>
+            )}
           </div>
+        </div>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 px-1 text-sm text-slate-600" aria-live="polite">
+          <p>
+            {lang === 'en'
+              ? `${filteredInitiatives.length} of ${allResearchInitiatives.length} research projects shown`
+              : `${filteredInitiatives.length} daripada ${allResearchInitiatives.length} projek penyelidikan dipaparkan`}
+          </p>
+          {hasActiveFilters && (
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="font-semibold text-[#007bff] hover:text-[#0056b3] hover:underline cursor-pointer"
+            >
+              {lang === 'en' ? 'Clear search and filters' : 'Kosongkan carian dan penapis'}
+            </button>
+          )}
         </div>
 
         {/* INITIATIVES GRID */}
@@ -124,6 +173,7 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
           {filteredInitiatives.map((item) => (
             <article
               key={item.id}
+              data-scroll-reveal
               role="link"
               tabIndex={0}
               aria-label={`${lang === 'en' ? 'Open project profile' : 'Buka profil projek'}: ${item.title}`}
@@ -134,19 +184,21 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
                   onSelectInitiative(item);
                 }
               }}
-              className="bg-white rounded-lg p-6 border border-slate-200 shadow-xs hover:border-[#007bff]/60 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#007bff] focus:ring-offset-2 transition-all flex flex-col justify-between space-y-4 cursor-pointer group"
+              className="bg-white rounded-lg p-6 border border-slate-200 shadow-xs hover:border-[#007bff]/60 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#007bff] focus:ring-offset-2 transition-all duration-300 motion-safe:hover:-translate-y-1 flex flex-col justify-between space-y-4 cursor-pointer group"
             >
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="px-2.5 py-0.5 rounded text-[11px] font-bold uppercase bg-blue-50 text-[#007bff] border border-blue-200">
-                    {item.category}
+                    {lang === 'en' ? item.category : (categoryLabels[item.category] ?? item.category)}
                   </span>
                   <span className={`text-xs font-mono px-2 py-0.5 rounded border font-semibold ${
                     item.status === 'Completed'
                       ? 'text-slate-700 bg-slate-100 border-slate-300'
                       : 'text-emerald-700 bg-emerald-50 border-emerald-200'
                   }`}>
-                    {item.status}
+                    {lang === 'en'
+                      ? item.status
+                      : (item.status === 'Completed' ? 'Selesai' : 'Sedang berjalan')}
                   </span>
                 </div>
 
@@ -154,28 +206,33 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
                   {item.title}
                 </h3>
 
-                <p className="text-xs text-[#54595F] leading-relaxed">
+                <p className="text-sm text-[#54595F] leading-relaxed">
                   {item.description}
                 </p>
 
                 <div className="bg-slate-50 p-3 rounded text-xs space-y-1.5 border border-slate-100">
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-sm text-[#007bff]">person</span>
-                    <span className="text-slate-600">Collaborators:</span>
+                    <span className="text-slate-600">{lang === 'en' ? 'Collaborators:' : 'Kolaborator:'}</span>
                     <strong className="text-slate-800">{item.collaborators}</strong>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="material-symbols-outlined text-sm text-[#007bff]">database</span>
-                    <span className="text-slate-600">Target / Current:</span>
-                    <strong className="text-slate-800">{item.samplesCount}</strong>
+                    <span className="text-slate-600">{lang === 'en' ? 'Target:' : 'Sasaran:'}</span>
+                    <strong className="text-slate-800">{item.targetedParticipants}</strong>
                     <span className="text-slate-400">•</span>
                     <span className="font-mono text-slate-500">{item.duration}</span>
                   </div>
                 </div>
 
                 <div className="p-3 bg-blue-50/60 rounded border border-blue-100/70 text-xs">
-                  <strong className="text-[#003366] block mb-0.5">Funding:</strong>
+                  <strong className="text-[#003366] block mb-0.5">{lang === 'en' ? 'Funding:' : 'Dana:'}</strong>
                   <span className="text-slate-700">{item.funding}</span>
+                </div>
+                <div className="p-3 bg-amber-50 rounded border border-amber-200 text-xs text-amber-950">
+                  {lang === 'en'
+                    ? 'Current participant count pending Statistics Unit validation.'
+                    : 'Bilangan peserta semasa menunggu pengesahan Unit Statistik.'}
                 </div>
               </div>
 
@@ -188,6 +245,28 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
               </div>
             </article>
           ))}
+
+          {filteredInitiatives.length === 0 && (
+            <div className="md:col-span-2 rounded-xl border border-slate-200 bg-white p-10 text-center shadow-xs">
+              <span className="material-symbols-outlined text-4xl text-slate-300">search_off</span>
+              <h2 className="mt-3 font-serif text-xl font-bold text-[#003366]">
+                {lang === 'en' ? 'No matching research projects' : 'Tiada projek penyelidikan yang sepadan'}
+              </h2>
+              <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+                {lang === 'en'
+                  ? 'Try another keyword or clear the selected category to return to the complete 22-project index.'
+                  : 'Cuba kata kunci lain atau kosongkan kategori yang dipilih untuk kembali ke indeks lengkap 22 projek.'}
+              </p>
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-5 inline-flex items-center gap-2 rounded bg-[#003366] px-4 py-2 text-sm font-semibold text-white hover:bg-[#002244] cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-base">restart_alt</span>
+                {lang === 'en' ? 'Show all projects' : 'Paparkan semua projek'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

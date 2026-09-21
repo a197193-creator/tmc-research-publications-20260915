@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Language, Publication } from '../types';
-import { publicationsList } from '../data/portalData';
+import { publicationsList } from '../data/publications';
 
 interface PublicationsArchiveModalProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ export const PublicationsArchiveModal: React.FC<PublicationsArchiveModalProps> =
   selectedPublication: initialSelected
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activePub, setActivePub] = useState<Publication | null>(initialSelected || publicationsList[0]);
+  const [activePub, setActivePub] = useState<Publication | null>(initialSelected || publicationsList[0] || null);
   const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
 
   if (!isOpen) return null;
@@ -50,8 +50,8 @@ export const PublicationsArchiveModal: React.FC<PublicationsArchiveModalProps> =
               </h3>
               <p className="text-xs text-slate-300">
                 {lang === 'en'
-                  ? 'Over 140+ Peer-Reviewed Papers Indexed in PubMed & Scopus'
-                  : 'Lebih 140+ Kertas Kerja Dinilai Rakan Sebaya dalam PubMed & Scopus'}
+                  ? 'Publication records pending Statistics Unit validation'
+                  : 'Rekod penerbitan menunggu pengesahan Unit Statistik'}
               </p>
             </div>
           </div>

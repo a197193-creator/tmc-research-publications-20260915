@@ -12,6 +12,44 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
   onBack,
   onNavigatePortal,
 }) => {
+  const visitSteps = [
+    {
+      image: '/assets/visit-questionnaire.jpg',
+      title: lang === 'en' ? 'Health Questionnaire' : 'Soal Selidik Kesihatan',
+      description: lang === 'en' ? 'Review health, lifestyle and follow-up information with the recruitment team.' : 'Semak maklumat kesihatan, gaya hidup dan susulan bersama pasukan pengambilan peserta.',
+    },
+    {
+      image: '/assets/visit-biophysical-measurement.jpg',
+      title: lang === 'en' ? 'Biophysical Measurements' : 'Pengukuran Biofizikal',
+      description: lang === 'en' ? 'Record standard measurements such as height and other physical indicators.' : 'Rekod ukuran standard seperti ketinggian dan petunjuk fizikal yang lain.',
+    },
+    {
+      image: '/assets/visit-blood-taking.jpg',
+      title: lang === 'en' ? 'Blood Sample Collection' : 'Pengambilan Sampel Darah',
+      description: lang === 'en' ? 'Collect fasting blood samples according to the scheduled clinical protocol.' : 'Ambil sampel darah berpuasa mengikut protokol klinikal yang dijadualkan.',
+    },
+    {
+      image: '/assets/visit-dexa.jpg',
+      title: lang === 'en' ? 'DEXA Scan' : 'Imbasan DEXA',
+      description: lang === 'en' ? 'Assess body composition and bone mineral density where required.' : 'Nilai komposisi badan dan ketumpatan mineral tulang apabila diperlukan.',
+    },
+    {
+      image: '/assets/visit-spirometry.jpg',
+      title: lang === 'en' ? 'Spirometry' : 'Spirometri',
+      description: lang === 'en' ? 'Measure lung function through a guided breathing assessment.' : 'Ukur fungsi paru-paru melalui penilaian pernafasan berpandu.',
+    },
+    {
+      image: '/assets/visit-fundus-photography.jpg',
+      title: lang === 'en' ? 'Fundus Photography' : 'Fotografi Fundus',
+      description: lang === 'en' ? 'Capture retinal images for relevant follow-up and research assessments.' : 'Rakam imej retina untuk penilaian susulan dan penyelidikan yang berkaitan.',
+    },
+    {
+      image: '/assets/visit-swab-collection.jpg',
+      title: lang === 'en' ? 'Swab Collection' : 'Pengambilan Swab',
+      description: lang === 'en' ? 'Collect a swab sample when it is part of the participant’s study protocol.' : 'Ambil sampel swab apabila ia termasuk dalam protokol kajian peserta.',
+    },
+  ];
+
   return (
     <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
       {/* BREADCRUMB */}
@@ -28,7 +66,7 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
             </button>
             <span className="text-slate-400">/</span>
             <span className="text-[#6EC1E4] font-semibold">
-              {lang === 'en' ? 'Clinic Hours, Sampling & Directions' : 'Waktu Klinik, Persampelan & Arahan Laluan'}
+              {lang === 'en' ? 'Screening Hours, Sampling & Directions' : 'Waktu Saringan, Persampelan & Arahan Laluan'}
             </span>
           </nav>
 
@@ -51,7 +89,7 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
             <span>UMBI Cheras Clinical Campus</span>
           </span>
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            {lang === 'en' ? 'Clinic Hours, Biological Sampling & Directions' : 'Waktu Klinik, Persampelan Biologi & Arahan Laluan'}
+            {lang === 'en' ? 'Screening Appointment Hours, Biological Sampling & Directions' : 'Waktu Janji Temu Saringan, Persampelan Biologi & Arahan Laluan'}
           </h1>
           <p className="text-slate-200 text-sm sm:text-base leading-relaxed max-w-3xl mt-3">
             {lang === 'en'
@@ -64,13 +102,15 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
       {/* THREE KEY COLUMNS */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* COL 1: CLINIC HOURS & SAMPLING */}
-        <div className="bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+        <div data-scroll-reveal className="group bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
               <span className="material-symbols-outlined">schedule</span>
             </div>
             <div>
-              <h2 className="font-serif text-xl font-bold text-[#003366]">Clinic Schedule</h2>
+              <h2 className="font-serif text-xl font-bold text-[#003366]">
+                {lang === 'en' ? 'Screening Schedule' : 'Jadual Saringan'}
+              </h2>
               <span className="text-xs text-[#7A7A7A]">Cheras Screening Suite</span>
             </div>
           </div>
@@ -82,7 +122,9 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
             </div>
             <p className="font-serif text-xl font-bold text-[#003366]">8:00 AM – 10:30 AM</p>
             <p className="text-xs text-slate-600">
-              Mandatory morning fasting blood draws must conclude before 10:30 AM to maintain biological biomarker integrity.
+              {lang === 'en'
+                ? 'Please note that blood collection is only available between 8:00 AM and 10:30 AM.'
+                : 'Sila ambil perhatian bahawa pengambilan darah hanya tersedia antara 8:00 pagi hingga 10:30 pagi.'}
             </p>
           </div>
 
@@ -111,9 +153,9 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
         </div>
 
         {/* COL 2: PHYSICAL ADDRESS & PARKING */}
-        <div className="bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+        <div data-scroll-reveal className="group bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
               <span className="material-symbols-outlined">apartment</span>
             </div>
             <div>
@@ -156,9 +198,9 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
         </div>
 
         {/* COL 3: PUBLIC TRANSIT DIRECTIONS */}
-        <div className="bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+        <div data-scroll-reveal className="group bg-white rounded-xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-blue-50 text-[#007bff] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
               <span className="material-symbols-outlined">directions_bus</span>
             </div>
             <div>
@@ -190,6 +232,57 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
           </div>
         </div>
       </div>
+
+      {/* PARTICIPANT VISIT JOURNEY */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12" aria-labelledby="visit-journey-title">
+        <div className="mb-5">
+          <div>
+            <span className="text-xs font-bold uppercase text-[#007bff] tracking-wider">
+              {lang === 'en' ? 'Participant Visit Journey' : 'Perjalanan Lawatan Peserta'}
+            </span>
+            <h2 id="visit-journey-title" className="font-serif text-2xl sm:text-3xl font-bold text-[#003366] mt-1">
+              {lang === 'en' ? 'Recruitment Visit Activities' : 'Aktiviti Lawatan Pengambilan Peserta'}
+            </h2>
+          </div>
+        </div>
+
+        <aside
+          role="note"
+          aria-label={lang === 'en' ? 'Important information about recruitment assessments' : 'Maklumat penting tentang penilaian pengambilan peserta'}
+          className="mb-6 flex items-start gap-3 rounded-xl border border-[#6EC1E4]/60 bg-blue-50 px-4 py-4 sm:px-5 text-[#003366] shadow-xs"
+        >
+          <span className="material-symbols-outlined text-[#007bff] text-2xl shrink-0" aria-hidden="true">info</span>
+          <p className="text-sm sm:text-base leading-relaxed">
+            {lang === 'en'
+              ? 'The activities shown below represent the range of assessments that may be conducted during a recruitment visit. You may not be required to undergo all the activities listed, as the assessments will vary depending on the study or sub-study in which you are participating. For example, spirometry, fundus photography and swab collection are conducted only for selected studies. Our team will inform you of the assessments applicable to your visit.'
+              : 'Aktiviti yang ditunjukkan di bawah mewakili pelbagai penilaian yang mungkin dijalankan semasa lawatan pengambilan peserta. Anda mungkin tidak perlu menjalani semua aktiviti yang disenaraikan kerana penilaian akan berbeza mengikut kajian atau subkajian yang anda sertai. Contohnya, spirometri, fotografi fundus dan pengambilan swab hanya dijalankan untuk kajian terpilih. Pasukan kami akan memaklumkan penilaian yang berkaitan dengan lawatan anda.'}
+          </p>
+        </aside>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visitSteps.map((step) => (
+            <article
+              key={step.image}
+              data-scroll-reveal
+              className="group bg-white rounded-xl overflow-hidden border border-slate-200 shadow-xs motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-out motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4]/70 hover:shadow-lg"
+            >
+              <img
+                src={step.image}
+                alt={step.title}
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-video object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out group-hover:scale-105"
+              />
+              <div className="p-5">
+                <h3 className="font-serif text-lg font-bold text-[#003366] transition-colors duration-300 group-hover:text-[#007bff]">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-[#54595F] leading-relaxed mt-2">{step.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

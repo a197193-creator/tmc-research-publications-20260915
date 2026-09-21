@@ -1,70 +1,15 @@
-import { Publication, BulletinItem, ParticipantMaterial, ResearchInitiativeItem } from '../types';
-
-export const publicationsList: Publication[] = [
-  {
-    id: 'pub-1',
-    journal: 'Nature Genetics • 2024',
-    year: 2024,
-    doi: '10.1038/s41588-024-01822-x',
-    title: 'Genome-wide association meta-analysis in 106,000 multi-ethnic Southeast Asians identifies novel loci for Type 2 Diabetes',
-    authors: 'Rahman, N. A., Ismail, T., Noor, M., Tan, K. L., & The Malaysian Cohort Study Group (2024).',
-    category: 'Genomic Medicine & Metabolics',
-    plainLanguageSummary: 'Researchers uncovered four distinct genetic variants frequent in Southeast Asian lineages that increase diabetes risk even in persons with normal BMI. This provides doctors with targeted criteria to personalize dietary counseling early.',
-    abstract: 'Type 2 diabetes mellitus (T2D) disproportionately affects Asian populations, yet non-European cohorts remain underrepresented in global genomic discovery. In this multi-ethnic prospective study involving 106,120 Malaysian adults followed across 15 years, we performed whole-genome genotyping and meta-analysis across Malay, Chinese, and Indian subgroups. We identified 14 novel susceptibility loci (P < 5 x 10^-8) associated with pancreatic beta-cell dysfunction and visceral adiposity index.',
-    fullPdfSize: '1.8 MB',
-    impactFactor: '30.8'
-  },
-  {
-    id: 'pub-2',
-    journal: 'The Lancet Regional Health • 2024',
-    year: 2024,
-    doi: '10.1016/j.lanwpc.2023.100984',
-    title: 'Ten-year trajectory of dietary patterns and incident cardiovascular events: Longitudinal evidence from The Malaysian Cohort',
-    authors: 'Ahmad, H. F., Lim, C. H., Devi, S., Zakaria, Z., & Jamal, R. (2024).',
-    category: 'Cardiovascular Epidemiology',
-    plainLanguageSummary: 'Participants aged 40+ who reduced refined sugar and high-sodium ultra-processed foods experienced a 28% drop in cardiovascular events across a decade, affirming the major protection afforded by moderate, realistic lifestyle improvements.',
-    abstract: 'Longitudinal nutritional epidemiology in multi-ethnic developing nations provides critical evidence for primary preventive cardiology. Using validated Food Frequency Questionnaires (FFQs) administered at baseline and 5-year intervals among 48,930 cohort participants free of cardiovascular disease at enrollment, we tracked incident major adverse cardiovascular events (MACE). Dietary pattern shifts characterized by reduction in sweetened beverages and deep-fried palm oils yielded significant hazard ratio reductions.',
-    fullPdfSize: '1.4 MB',
-    impactFactor: '8.5'
-  },
-  {
-    id: 'pub-3',
-    journal: 'Journal of the American Heart Association • 2023',
-    year: 2023,
-    doi: '10.1161/JAHA.123.029811',
-    title: 'Prevalence and Longitudinal Risk Factors of Asymptomatic Carotid Atherosclerosis in Multi-Ethnic Malaysians',
-    authors: 'Noor, M., Khalid, B. A., & The Malaysian Cohort Group (2023).',
-    category: 'Cardiovascular Imaging',
-    plainLanguageSummary: 'Ultrasound scanning revealed that elevated LDL cholesterol combined with high blood pressure doubles the rate of silent plaque accumulation in neck arteries, emphasizing the need for regular screenings starting at age 45.',
-    abstract: 'Carotid intima-media thickness (CIMT) was systematically assessed in 12,400 participants using B-mode ultrasonography. Cox proportional hazard models showed robust correlations between untreated pre-hypertension, smoking history, and rapid progression to hemodynamically significant stenosis.',
-    fullPdfSize: '2.1 MB',
-    impactFactor: '6.1'
-  },
-  {
-    id: 'pub-4',
-    journal: 'International Journal of Cancer • 2023',
-    year: 2023,
-    doi: '10.1002/ijc.34582',
-    title: 'Circulating MicroRNAs as Early Detection Biomarkers for Colorectal Carcinoma in a Prospective Cohort',
-    authors: 'Tan, K. L., Ismail, P., Jamal, R., & Malaysian Cohort Investigators (2023).',
-    category: 'Molecular Oncology',
-    plainLanguageSummary: 'Liquid biopsy tests can identify tiny RNA molecules circulating in the bloodstream years before bowel cancer symptoms develop, opening the door for painless early screening.',
-    abstract: 'Pre-diagnostic serum samples from 210 incident colorectal cancer cases matched with 420 disease-free controls stored at -196°C were evaluated using high-throughput microRNA arrays. A 5-microRNA signature demonstrated 84% sensitivity and 91% specificity for adenoma-to-carcinoma transition.',
-    fullPdfSize: '1.9 MB',
-    impactFactor: '7.3'
-  }
-];
+import { BulletinItem, ParticipantMaterial, ResearchInitiativeItem } from '../types';
 
 export const bulletinNews: BulletinItem[] = [
   {
     id: 'news-1',
-    tag: 'Follow-up Clinic',
+    tag: 'Follow-up Screening',
     tagBg: 'bg-red-100',
     tagColor: 'text-ukm-crimson',
     date: '18 Mar 2025',
-    title: 'Phase 3 Follow-up Screening Schedule for Klang Valley Zone Announced',
+    title: 'Follow-up Screening Schedule for Klang Valley Zone Announced',
     snippet: 'Registered participants in Kuala Lumpur and Selangor can now reserve morning fasting blood appointments at UMBI Cheras.',
-    body: 'Phase 3 repeat health screening is officially underway at the UKM Medical Molecular Biology Institute (UMBI) in Cheras. All registered cohort members who enrolled between 2006 and 2018 are eligible for complimentary full clinical evaluations, including complete blood count, lipid profile, HbA1c, renal profile, electrocardiogram (ECG), body composition analysis, and doctor consultations. Appointments are available Mondays through Fridays from 8:00 AM.'
+    body: 'Follow-up health screening is underway at the UKM Medical Molecular Biology Institute (UMBI) in Cheras. Eligible registered cohort members may receive complimentary clinical evaluations, including complete blood count, lipid profile, HbA1c, renal profile, electrocardiogram (ECG), body composition analysis, and doctor consultations. Appointments are available Mondays through Fridays from 8:00 AM.'
   },
   {
     id: 'news-2',
@@ -88,10 +33,17 @@ export const bulletinNews: BulletinItem[] = [
   }
 ];
 
+// Operational recruitment/appointment bulletins are preserved for migration
+// to the main TMC website, but are intentionally excluded from this platform.
+// Research news remains empty until Communications/management confirms which
+// records are approved for the Research & Publications website. Participant
+// operational notices stay available to the retained main-site components.
+export const researchBulletinNews: BulletinItem[] = [];
+
 export const participantMaterialsList: ParticipantMaterial[] = [
   {
     id: 'mat-1',
-    title: 'Phase 3 Screening Preparation Guide',
+    title: 'Follow-Up Screening Preparation Guide',
     fileType: 'PDF',
     size: '1.2MB',
     description: 'Crucial instructions for your repeat clinical screening visit. Covers mandatory 10-hour fasting rules, morning medication guidelines, attire recommendations, and parking information.',
@@ -110,7 +62,7 @@ export const participantMaterialsList: ParticipantMaterial[] = [
     description: 'Official UKM form to notify the TMC data registry of updated mailing addresses, mobile phone numbers, emergency contact details, or changes in medical history.',
     contentSnippet: [
       'Use this form to ensure our research nurses can reach you for subsequent phase updates, abnormal laboratory result notifications, and repeat health screening invitations.',
-      'Completed forms can be handed over directly at the UMBI clinic or submitted online via the Participant Portal.'
+      'Completed forms can be handed over directly to the UMBI screening team or submitted online via the Participant Portal.'
     ]
   },
   {
@@ -141,7 +93,7 @@ export const allResearchInitiatives: ResearchInitiativeItem[] = [
     currentParticipants: '119,598',
     duration: '2006 – Ongoing',
     collaborators: 'More than 60 Malaysian researchers across UM, UPM, USM, UMS, UiTM and UniSZA; IKU–MOH; ACC, P3G and IHCC; Japan’s AMED; the University of Newcastle Australia; Oxford University; Dundee University; and institutional partners in serology, microbiome, GWAS, nutrition, infectious diseases and biomarker discovery.',
-    description: 'TMC baseline recruitment (2008–2012), still ongoing for new research scopes (Congen).',
+    description: 'TMC baseline recruitment was conducted from 2008 to 2012, with subsequent recruitment undertaken for new research initiatives, including the CovGen project.',
     funding: 'MOSTI/KPT',
     participantDataSource: 'Recruitment'
   },
@@ -181,8 +133,8 @@ export const allResearchInitiatives: ResearchInitiativeItem[] = [
     title: 'Life Exposures to Infections and Microbiome Profiles: Elucidating the Link and Impact on Chronic Diseases via a Population-Based Study (MySerobiome)',
     category: 'Infection & Microbiome',
     status: 'Active',
-    samplesCount: '4,008 current / 8,000 target',
-    targetedParticipants: '8,000',
+    samplesCount: 'Current count pending validation / 3,000 target',
+    targetedParticipants: '3,000',
     currentParticipants: '4,008',
     duration: '12 Dec 2024 – Ongoing (30 Jun 2026 listed)',
     collaborators: 'More than 60 researchers from UKM (UMBI, FPER and FGG) and UPM across internal medicine, psychiatry, public health, paediatrics, surgery, obstetrics and gynaecology, family dentistry, craniofacial diagnostics and biosciences, and molecular biology.',

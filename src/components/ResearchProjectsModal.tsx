@@ -119,8 +119,8 @@ export const ResearchProjectsModal: React.FC<ResearchProjectsModalProps> = ({
                           {project.collaborators}
                         </div>
                         <div>
-                          <strong className="text-[#0c2340]">{lang === 'en' ? 'Target / Current:' : 'Sasaran / Semasa:'}</strong>{' '}
-                          {project.samplesCount}
+                          <strong className="text-[#0c2340]">{lang === 'en' ? 'Target:' : 'Sasaran:'}</strong>{' '}
+                          {project.targetedParticipants}
                         </div>
                         <div>
                           <strong className="text-[#b91c1c]">{lang === 'en' ? 'Funding:' : 'Dana:'}</strong>{' '}
@@ -131,7 +131,11 @@ export const ResearchProjectsModal: React.FC<ResearchProjectsModalProps> = ({
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs">
-                    <span className="font-mono text-slate-500 font-medium">{project.samplesCount}</span>
+                    <span className="font-mono text-slate-500 font-medium">
+                      {lang === 'en'
+                        ? `Target: ${project.targetedParticipants} • Current count pending validation`
+                        : `Sasaran: ${project.targetedParticipants} • Bilangan semasa menunggu pengesahan`}
+                    </span>
                     <button
                       type="button"
                       onClick={() => setExpandedId(isExpanded ? null : project.id)}

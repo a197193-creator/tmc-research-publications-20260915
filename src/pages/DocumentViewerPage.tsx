@@ -7,6 +7,7 @@ interface DocumentViewerPageProps {
   material: ParticipantMaterial;
   lang: Language;
   onBack: () => void;
+  onNavigateHome: () => void;
   onSelectOtherMaterial: (m: ParticipantMaterial) => void;
 }
 
@@ -14,6 +15,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
   material,
   lang,
   onBack,
+  onNavigateHome,
   onSelectOtherMaterial,
 }) => {
   const [downloaded, setDownloaded] = useState(false);
@@ -40,7 +42,7 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs">
             <button
               type="button"
-              onClick={onBack}
+              onClick={onNavigateHome}
               className="text-slate-300 hover:text-[#6EC1E4] transition-colors flex items-center gap-1 cursor-pointer"
             >
               <span className="material-symbols-outlined text-sm">home</span>
@@ -135,11 +137,11 @@ export const DocumentViewerPage: React.FC<DocumentViewerPageProps> = ({
             <div className="pt-4 flex items-center justify-between">
               <button
                 type="button"
-                onClick={onBack}
+                onClick={onNavigateHome}
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007bff] hover:text-[#0056b3] cursor-pointer"
               >
                 <span className="material-symbols-outlined text-sm">arrow_back</span>
-                <span>Back to Overview</span>
+                <span>{lang === 'en' ? 'Back to Overview' : 'Kembali ke Gambaran Keseluruhan'}</span>
               </button>
             </div>
           </div>

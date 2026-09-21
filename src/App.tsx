@@ -8,7 +8,7 @@ import {
   ParticipantMaterial
 } from './types';
 import {
-  bulletinNews,
+  researchBulletinNews,
   participantMaterialsList,
 } from './data/portalData';
 import { allResearchInitiatives } from './data/researchInitiatives';
@@ -20,10 +20,8 @@ import { SplashScreen } from './components/SplashScreen';
 
 // Home Screen Components
 import { HeroCarousel } from './components/HeroCarousel';
-import { Phase3SupportStrip } from './components/Phase3SupportStrip';
 import { ResearchInitiatives } from './components/ResearchInitiatives';
 import { PublicationsAndSidebar } from './components/PublicationsAndSidebar';
-import { ClinicAndLocation } from './components/ClinicAndLocation';
 
 // Dedicated Full Pages (Replacing pop-up message modals with real page routes)
 import { BiobankPage } from './pages/BiobankPage';
@@ -39,7 +37,6 @@ import { DocumentViewerPage } from './pages/DocumentViewerPage';
 
 // Search Modal
 import { SearchModal } from './components/SearchModal';
-import { downloadPublicationAbstractPdf } from './utils/pdfDownload';
 
 interface TmcHistoryState {
   __tmc: true;
@@ -84,17 +81,25 @@ const getPageHash = (page: PageType, payload?: any) =>
     ? `#research-detail/${payload.id}`
     : `#${page}`;
 
+const getInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+
+  try {
+    const savedLanguage = window.localStorage.getItem('tmc-language');
+    return savedLanguage === 'bm' || savedLanguage === 'en' ? savedLanguage : 'en';
+  } catch {
+    return 'en';
+  }
+};
+
 export default function App() {
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(getInitialLanguage);
 
   // Navigation State
   const [currentPage, setCurrentPage] = useState<PageType>(getInitialPage);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isInitialLoad, setIsInitialLoad] = useState<boolean>(true);
-  const [targetPageTitle, setTargetPageTitle] = useState<string>('National Biobank & Population Data');
+  const [showSplash, setShowSplash] = useState<boolean>(true);
   const historyDepthRef = useRef<number>(0);
-  const pageTransitionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const loadingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const mainContentRef = useRef<HTMLElement | null>(null);
 
   // Search Modal
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -104,34 +109,108 @@ export default function App() {
     () => getResearchProjectFromHash() || allResearchInitiatives[0]
   );
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
-  const [selectedNews, setSelectedNews] = useState<BulletinItem>(bulletinNews[0]);
+  const [selectedNews, setSelectedNews] = useState<BulletinItem | null>(researchBulletinNews[0] ?? null);
   const [selectedMaterial, setSelectedMaterial] = useState<ParticipantMaterial>(participantMaterialsList[0]);
   const [initialLegalSection, setInitialLegalSection] = useState<'ethics' | 'pdpa' | 'terms' | 'governance'>('ethics');
 
-  // Initial Splash Screen
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setIsInitialLoad(false);
-    }, 700);
+    document.documentElement.lang = lang === 'bm' ? 'ms' : 'en';
+
+    try {
+      window.localStorage.setItem('tmc-language', lang);
+    } catch {
+      // The language switch still works when browser storage is unavailable.
+    }
+  }, [lang]);
+
+  useEffect(() => {
+    const pageTitles: Record<PageType, { en: string; bm: string }> = {
+      home: { en: 'Overview', bm: 'Gambaran Keseluruhan' },
+      biobank: { en: 'National Biobank Facility', bm: 'Fasiliti Biobank Kebangsaan' },
+      research: { en: 'Research Projects', bm: 'Projek Penyelidikan' },
+      publications: { en: 'Scientific Publications', bm: 'Penerbitan Saintifik' },
+      portal: { en: 'Participant Support', bm: 'Sokongan Peserta' },
+      news: { en: 'Research News', bm: 'Berita Penyelidikan' },
+      'research-detail': { en: selectedResearchProject.title, bm: selectedResearchProject.title },
+      'news-detail': { en: selectedNews?.title ?? 'Research News', bm: selectedNews?.title ?? 'Berita Penyelidikan' },
+      clinic: { en: 'Clinic and Location', bm: 'Klinik dan Lokasi' },
+      legal: { en: 'Governance and Ethics', bm: 'Tadbir Urus dan Etika' },
+      document: { en: selectedMaterial.title, bm: selectedMaterial.title },
+    };
+
+    document.title = `${pageTitles[currentPage][lang]} | TMC Research & Publications`;
+
+    if (!showSplash) {
+      window.requestAnimationFrame(() => mainContentRef.current?.focus({ preventScroll: true }));
+    }
+  }, [currentPage, lang, selectedMaterial.title, selectedNews?.title, selectedResearchProject.title, showSplash]);
+
+  // Reveal marked cards as they enter the viewport. A mutation observer keeps
+  // the effect working for cards rendered after navigation or filtering.
+  useEffect(() => {
+    const selector = '[data-scroll-reveal]';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const revealImmediately = (root: ParentNode) => {
+      root.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+        element.classList.add('is-revealed');
+      });
+    };
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+      revealImmediately(document);
+      return;
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const element = entry.target as HTMLElement;
+        const siblings = element.parentElement
+          ? Array.from(element.parentElement.children).filter((child) => child.matches(selector))
+          : [];
+        const siblingIndex = Math.max(0, siblings.indexOf(element));
+        element.style.setProperty('--reveal-delay', `${Math.min(siblingIndex, 5) * 75}ms`);
+        element.classList.add('is-revealed');
+        revealObserver.unobserve(element);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    const observeCards = (root: ParentNode) => {
+      root.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+        if (!element.classList.contains('is-revealed')) revealObserver.observe(element);
+      });
+    };
+
+    observeCards(document);
+
+    const cardMutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof HTMLElement)) return;
+          if (node.matches(selector)) revealObserver.observe(node);
+          observeCards(node);
+        });
+      });
+    });
+
+    cardMutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      cardMutationObserver.disconnect();
+      revealObserver.disconnect();
+    };
+  }, []);
+
+  // Keep the opening brand moment brief; navigation after load remains instant.
+  useEffect(() => {
+    const timer = setTimeout(() => setShowSplash(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
   // Apply a page change without creating a browser history entry.
   // Browser Back/Forward uses this same transition after restoring its saved state.
   const transitionToPage = useCallback((targetPage: PageType, payload?: any) => {
-    let title = 'Overview';
-    if (targetPage === 'biobank') title = 'National Biobank Facility';
-    else if (targetPage === 'research') title = 'Research Projects & Consortia';
-    else if (targetPage === 'research-detail') title = payload?.title || 'Research Project Profile';
-    else if (targetPage === 'publications') title = 'Scientific Publications Index';
-    else if (targetPage === 'portal') title = 'Phase 3 Participant Portal';
-    else if (targetPage === 'news') title = 'Cohort News & Bulletins';
-    else if (targetPage === 'clinic') title = 'Clinic Hours & Location';
-    else if (targetPage === 'legal') title = 'Governance & Ethics';
-    else if (targetPage === 'news-detail') title = payload?.title || 'Cohort Bulletin';
-    else if (targetPage === 'document') title = payload?.title || 'Participant Brochure';
-
     // Store payload if provided
     if (targetPage === 'research-detail' && payload) {
       setSelectedResearchProject(payload);
@@ -145,23 +224,9 @@ export default function App() {
       setInitialLegalSection(payload.section);
     }
 
-    setTargetPageTitle(title);
-    setIsInitialLoad(false);
-    setIsLoading(true);
-
     // Scroll to top of viewport
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    if (pageTransitionTimerRef.current) clearTimeout(pageTransitionTimerRef.current);
-    if (loadingTimerRef.current) clearTimeout(loadingTimerRef.current);
-
-    // Transition delay to allow TMC splash screen animation to run
-    pageTransitionTimerRef.current = setTimeout(() => {
-      setCurrentPage(targetPage);
-      loadingTimerRef.current = setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
-    }, 450);
+    setCurrentPage(targetPage);
   }, []);
 
   // Central navigation dispatcher. Each internal page change receives its own
@@ -179,6 +244,12 @@ export default function App() {
     historyDepthRef.current = nextDepth;
     transitionToPage(targetPage, payload);
   }, [transitionToPage]);
+
+  // Controls explicitly labelled "Home" or "Back to Overview" always go to
+  // the overview route, regardless of the browser's previous history entry.
+  const handleNavigateHome = useCallback(() => {
+    navigateWithTransition('home');
+  }, [navigateWithTransition]);
 
   const handleBack = useCallback(() => {
     if (historyDepthRef.current > 0) {
@@ -254,30 +325,30 @@ export default function App() {
     window.addEventListener('popstate', handlePopState);
     return () => {
       window.removeEventListener('popstate', handlePopState);
-      if (pageTransitionTimerRef.current) clearTimeout(pageTransitionTimerRef.current);
-      if (loadingTimerRef.current) clearTimeout(loadingTimerRef.current);
     };
   }, [transitionToPage]);
 
   const handleOpenWhatsApp = () => {
     const text = encodeURIComponent(
       lang === 'en'
-        ? 'Hello The Malaysian Cohort UMBI, I am an enrolled cohort participant inquiring about my Phase 3 follow-up appointment.'
-        : 'Salam The Malaysian Cohort UMBI, saya peserta kohort ingin bertanyakan tentang temujanji susulan saringan Fasa 3.'
+        ? 'Hello The Malaysian Cohort UMBI, I am a cohort participant and would like to inquire about my follow-up appointment.'
+        : 'Salam The Malaysian Cohort UMBI, saya peserta kohort dan ingin bertanyakan tentang janji temu susulan saya.'
     );
     window.open(`https://wa.me/60199145900?text=${text}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-clip flex flex-col bg-[#f0f0f0] text-[#333333] selection:bg-[#3399ff] selection:text-white font-sans transition-all duration-200">
-      {/* 1. Splash Screen with TMC Logo, Moving Rings, and Progress Bar */}
-      <SplashScreen
-        isLoading={isLoading}
-        targetPageName={targetPageTitle}
-        isInitialLoad={isInitialLoad}
-      />
+      <a
+        href="#main-content"
+        className="fixed left-4 top-3 z-[200] -translate-y-20 rounded bg-white px-4 py-2 text-sm font-bold text-[#003366] shadow-lg transition-transform focus:translate-y-0"
+      >
+        {lang === 'en' ? 'Skip to main content' : 'Langkau ke kandungan utama'}
+      </a>
+      {/* 1. Brief, lightweight opening brand screen */}
+      <SplashScreen isVisible={showSplash} />
 
-      {/* 2. Top Header Navigation (Active State Styling & Non-White National Biobank) */}
+      {/* 2. Research & Publications navigation */}
       <Header
         lang={lang}
         onLanguageChange={setLang}
@@ -287,23 +358,20 @@ export default function App() {
       />
 
       {/* 3. Main Dynamic Page Views */}
-      <main className="flex-1 min-w-0 w-full max-w-full">
+      <main
+        id="main-content"
+        ref={mainContentRef}
+        tabIndex={-1}
+        className="flex-1 min-w-0 w-full max-w-full focus:outline-none"
+      >
         {/* VIEW 1: HOME PAGE */}
         {currentPage === 'home' && (
           <>
-            {/* Hero Carousel with National Cohort Statistics */}
+            {/* Research-focused hero carousel and cohort context */}
             <HeroCarousel
               lang={lang}
-              onOpenPortal={() => navigateWithTransition('portal')}
-              onOpenBiobank={() => navigateWithTransition('biobank')}
               onOpenResearch={() => navigateWithTransition('research')}
-            />
-
-            {/* Phase 3 Health Screening Follow-Up Quick Action Banner */}
-            <Phase3SupportStrip
-              lang={lang}
-              onOpenPortal={() => navigateWithTransition('portal')}
-              onOpenWhatsApp={handleOpenWhatsApp}
+              onOpenPublications={() => navigateWithTransition('publications')}
             />
 
             {/* Research Initiatives & Cohort Impact */}
@@ -313,22 +381,13 @@ export default function App() {
               onOpenAllInitiatives={() => navigateWithTransition('research')}
             />
 
-            {/* Peer-Reviewed Publications & Clinical Helpdesk Sidebar */}
+            {/* Peer-reviewed publications and research news */}
             <PublicationsAndSidebar
               lang={lang}
               onSelectPublication={(pub) => navigateWithTransition('publications', pub)}
-              onDownloadPublication={downloadPublicationAbstractPdf}
               onBrowseArchive={() => navigateWithTransition('publications')}
               onBrowseNews={() => navigateWithTransition('news')}
               onSelectNews={(news) => navigateWithTransition('news-detail', news)}
-              onSelectMaterial={(material) => navigateWithTransition('document', material)}
-              onContactNurse={handleOpenWhatsApp}
-            />
-
-            {/* Clinical Operating Hours, Location & Transit */}
-            <ClinicAndLocation
-              lang={lang}
-              onNavigateClinic={() => navigateWithTransition('clinic')}
             />
           </>
         )}
@@ -337,7 +396,7 @@ export default function App() {
         {currentPage === 'biobank' && (
           <BiobankPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             onNavigatePortal={() => navigateWithTransition('portal')}
           />
         )}
@@ -346,7 +405,7 @@ export default function App() {
         {currentPage === 'research' && (
           <ResearchProjectsPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             onSelectInitiative={(project) => navigateWithTransition('research-detail', project)}
           />
         )}
@@ -365,7 +424,7 @@ export default function App() {
         {currentPage === 'publications' && (
           <PublicationsPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             selectedPublication={selectedPublication}
           />
         )}
@@ -374,7 +433,7 @@ export default function App() {
         {currentPage === 'portal' && (
           <ParticipantPortalPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             onOpenWhatsApp={handleOpenWhatsApp}
           />
         )}
@@ -383,19 +442,28 @@ export default function App() {
         {currentPage === 'news' && (
           <NewsPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             onSelectNews={(news) => navigateWithTransition('news-detail', news)}
           />
         )}
 
         {/* VIEW 7: OFFICIAL ANNOUNCEMENT / BULLETIN ARTICLE FULL PAGE */}
-        {currentPage === 'news-detail' && (
+        {currentPage === 'news-detail' && selectedNews && (
           <NewsDetailPage
             news={selectedNews}
             lang={lang}
             onBack={handleBack}
+            onNavigateHome={handleNavigateHome}
             onSelectOtherNews={(news) => navigateWithTransition('news-detail', news)}
             onNavigateNews={() => navigateWithTransition('news')}
+          />
+        )}
+
+        {currentPage === 'news-detail' && !selectedNews && (
+          <NewsPage
+            lang={lang}
+            onBack={handleNavigateHome}
+            onSelectNews={(news) => navigateWithTransition('news-detail', news)}
           />
         )}
 
@@ -403,7 +471,7 @@ export default function App() {
         {currentPage === 'clinic' && (
           <ClinicLocationPage
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
             onNavigatePortal={() => navigateWithTransition('portal')}
           />
         )}
@@ -413,7 +481,7 @@ export default function App() {
           <LegalPage
             initialSection={initialLegalSection}
             lang={lang}
-            onBack={handleBack}
+            onBack={handleNavigateHome}
           />
         )}
 
@@ -423,6 +491,7 @@ export default function App() {
             material={selectedMaterial}
             lang={lang}
             onBack={handleBack}
+            onNavigateHome={handleNavigateHome}
             onSelectOtherMaterial={(mat) => navigateWithTransition('document', mat)}
           />
         )}
@@ -447,13 +516,17 @@ export default function App() {
           setIsSearchOpen(false);
           navigateWithTransition('publications', pub);
         }}
-        onOpenPortal={() => {
+        onOpenResearch={() => {
           setIsSearchOpen(false);
-          navigateWithTransition('portal');
+          navigateWithTransition('research');
         }}
-        onOpenBiobank={() => {
+        onOpenPublications={() => {
           setIsSearchOpen(false);
-          navigateWithTransition('biobank');
+          navigateWithTransition('publications');
+        }}
+        onOpenNews={() => {
+          setIsSearchOpen(false);
+          navigateWithTransition('news');
         }}
       />
     </div>

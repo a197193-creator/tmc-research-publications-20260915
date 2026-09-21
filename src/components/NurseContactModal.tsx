@@ -39,7 +39,7 @@ export const NurseContactModal: React.FC<NurseContactModalProps> = ({ isOpen, on
                 {lang === 'en' ? 'Contact TMC Clinical Nurse Team' : 'Hubungi Pasukan Jururawat Klinikal TMC'}
               </h3>
               <p className="text-xs text-slate-300">
-                {lang === 'en' ? 'Phase 3 Health Screening Care Desk' : 'Kaunter Perkhidmatan Saringan Kesihatan Fasa 3'}
+                {lang === 'en' ? 'Health Screening Follow-Up Care Desk' : 'Kaunter Susulan Saringan Kesihatan'}
               </p>
             </div>
           </div>
@@ -134,7 +134,7 @@ export const NurseContactModal: React.FC<NurseContactModalProps> = ({ isOpen, on
                     className="w-full px-3 py-2 text-sm border border-slate-300 rounded focus:ring-2 focus:ring-[#0c2340]"
                   >
                     <option value="reschedule">
-                      {lang === 'en' ? 'Reschedule Phase 3 Screening' : 'Jadual Semula Saringan Fasa 3'}
+                      {lang === 'en' ? 'Reschedule Follow-Up Screening' : 'Jadual Semula Saringan Susulan'}
                     </option>
                     <option value="fasting">
                       {lang === 'en' ? 'Fasting & Medication Advice' : 'Nasihat Puasa & Ubat-ubatan'}

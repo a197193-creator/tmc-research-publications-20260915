@@ -25,9 +25,9 @@ export const Footer: React.FC<FooterProps> = ({
               className="flex items-center gap-3 text-left cursor-pointer"
             >
               <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS43pYpOnGf_q1DlZ-p4J7Z12Yq8TMlpxG9IfSp3bMvsj9dqOYjG6IMs4WnB1JBcStEDUV17TAmE7Dk-EHjM3Wj1go3DyBZPloVWxIIxQjfDR1nOp6wLdoh1faPNnZls_9yGrIIjLunKJDG4ELcsWZbr8gfj7tDN4emy991IwT5dnDpD3GlSO1Z75Zk_uHb6QBw1a1pzSqw7clQJNkjyU5INNDIvSkcHnEmoSucJW5Kyy41VCv_dbekoDFY-kEEmaVAA"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ7Cgz6jgnULMpxLU38lSRu2Y2BFUZuB8glBQBISbSm9e5ENfPFRyGKTT4s70Uje7gCJeV08H6UiPMZGvqrnxG9J9Jcu_C8E30LA7Wffghj_07u2mrfJORfuDljwHVp-P_Y03xPz8YzDUalyOl6BcrwX7g-hGmMKsyjvNxQUDC4oS9AcpErEAGW67kcdiJg2zL_d-h1jteZhsRP3Y-Wji0pc8sI_ccwXsHkMd5I9JfCU4fg-VysDL1yhaOKS910FVF2A"
                 alt="TMC Emblem"
-                className="h-10 w-auto object-contain brightness-0 invert"
+                className="h-12 w-auto object-contain"
               />
               <span className="font-serif font-bold text-lg text-white">The Malaysian Cohort</span>
             </button>
@@ -66,15 +66,6 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   type="button"
-                  onClick={() => onNavigate('biobank')}
-                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
-                >
-                  {lang === 'en' ? 'Biobank Cryogenic Facility' : 'Fasiliti Kriogenik Biobank'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
                   onClick={() => onNavigate('publications')}
                   className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
                 >
@@ -88,24 +79,6 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
                 >
                   {lang === 'en' ? 'News & Cohort Bulletins' : 'Berita & Buletin Kohort'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('portal')}
-                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
-                >
-                  {lang === 'en' ? 'Participant Screening Follow-up' : 'Susulan Saringan Peserta'}
-                </button>
-              </li>
-              <li>
-                <button
-                  type="button"
-                  onClick={() => onNavigate('clinic')}
-                  className="hover:text-[#6EC1E4] transition-colors text-left cursor-pointer"
-                >
-                  {lang === 'en' ? 'Clinic Hours & Transit Directions' : 'Waktu Klinik & Arah Transit'}
                 </button>
               </li>
             </ul>

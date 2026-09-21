@@ -27,7 +27,7 @@ export const ClinicAndLocation: React.FC<ClinicAndLocationProps> = ({ lang, onNa
             onClick={onNavigateClinic}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007bff] hover:text-[#0056b3] cursor-pointer"
           >
-            <span>{lang === 'en' ? 'View Full Directions & Parking Guide' : 'Lihat Panduan Arah & Tempat Letak Kereta Penuh'}</span>
+            <span>{t.clinicSection.viewDirections}</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
           </button>
         )}
@@ -35,8 +35,8 @@ export const ClinicAndLocation: React.FC<ClinicAndLocationProps> = ({ lang, onNa
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Operating Hours Card */}
-        <div className="bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center">
+        <div data-scroll-reveal className="group bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
+          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
             <span className="material-symbols-outlined text-2xl">schedule</span>
           </div>
           <h3 className="font-serif text-xl font-bold text-[#003366]">
@@ -67,8 +67,8 @@ export const ClinicAndLocation: React.FC<ClinicAndLocationProps> = ({ lang, onNa
         </div>
 
         {/* Location & Parking */}
-        <div className="bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center">
+        <div data-scroll-reveal className="group bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
+          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
             <span className="material-symbols-outlined text-2xl">pin_drop</span>
           </div>
           <h3 className="font-serif text-xl font-bold text-[#003366]">
@@ -89,8 +89,8 @@ export const ClinicAndLocation: React.FC<ClinicAndLocationProps> = ({ lang, onNa
         </div>
 
         {/* Public Transit Information */}
-        <div className="bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center">
+        <div data-scroll-reveal className="group bg-white rounded-lg p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
+          <div className="w-12 h-12 rounded-full bg-blue-50 text-[#007bff] border border-blue-100 flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
             <span className="material-symbols-outlined text-2xl">directions_transit</span>
           </div>
           <h3 className="font-serif text-xl font-bold text-[#003366]">
@@ -118,7 +118,7 @@ export const ClinicAndLocation: React.FC<ClinicAndLocationProps> = ({ lang, onNa
             <li className="flex items-start gap-2.5">
               <span className="material-symbols-outlined text-[#007bff] text-lg flex-shrink-0 mt-0.5">local_taxi</span>
               <span>
-                <strong>E-Hailing Drop-off:</strong>{' '}
+                <strong>{t.clinicSection.eHailingLabel}</strong>{' '}
                 {lang === 'en' ? (
                   <>Set destination as <em>"UMBI UKM Cheras"</em> for front-lobby shelter arrival.</>
                 ) : (

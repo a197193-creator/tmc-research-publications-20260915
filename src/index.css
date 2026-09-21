@@ -161,6 +161,108 @@
   box-shadow: 0 20px 30px -10px rgba(0, 51, 102, 0.15);
 }
 
+/* One restrained transition keeps the opening brand screen lightweight. */
+.tmc-splash {
+  animation: tmc-splash-exit 500ms ease-out both;
+}
+
+.tmc-splash__progress {
+  transform-origin: left;
+  animation: tmc-splash-progress 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes tmc-splash-exit {
+  0%, 72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tmc-splash-progress {
+  from {
+    transform: scaleX(0.08);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Shared viewport-entry motion for content cards. Individual transform
+   properties keep this compatible with each card's existing hover lift. */
+[data-scroll-reveal] {
+  opacity: 0;
+}
+
+[data-scroll-reveal].is-revealed {
+  animation: card-scroll-reveal 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes card-scroll-reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+    scale: 0.985;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tmc-splash,
+  .tmc-splash__progress {
+    animation: none;
+  }
+
+  [data-scroll-reveal],
+  [data-scroll-reveal].is-revealed {
+    opacity: 1;
+    animation: none;
+    translate: none;
+    scale: 1;
+  }
+}
+
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Keep hero photos full-width on small screens. On desktop, preserve the
+   complete photo and dissolve its left edge into the navy text panel. */
+.hero-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 1024px) {
+  .hero-media {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    object-fit: contain;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 14%,
+      rgba(0, 0, 0, 0.65) 32%,
+      #000 50%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.2) 14%,
+      rgba(0, 0, 0, 0.65) 32%,
+      #000 50%
+    );
+  }
 }

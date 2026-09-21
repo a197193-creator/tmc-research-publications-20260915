@@ -39,9 +39,12 @@ export interface Publication {
   journal: string;
   year: number;
   doi: string;
+  url?: string;
   title: string;
   authors: string;
   category: string;
+  publicationStatus: string;
+  articleType: string;
   plainLanguageSummary: string;
   abstract: string;
   fullPdfSize: string;

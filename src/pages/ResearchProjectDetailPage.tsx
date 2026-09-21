@@ -15,7 +15,7 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
   onBack,
   onNavigateResearch,
 }) => {
-  const visual = getResearchVisual(project.category);
+  const visual = getResearchVisual(project.category, project.id);
   const isCompleted = project.status === 'Completed';
 
   return (
@@ -74,14 +74,15 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
         <figure className="rounded-xl overflow-hidden shadow-md border border-slate-200 bg-white">
           <img
             src={visual.image}
-            alt={`${project.category} research at The Malaysian Cohort`}
+            alt={visual.imageAlt}
             className="w-full h-72 sm:h-[28rem] object-cover"
           />
           <figcaption className="p-3 bg-slate-900 text-slate-300 text-xs flex flex-wrap items-center justify-between gap-2">
             <span>
-              {lang === 'en'
-                ? `Illustrative image representing ${project.category.toLowerCase()} research`
-                : `Imej ilustrasi yang mewakili penyelidikan ${project.category.toLowerCase()}`}
+              {visual.imageCaption?.[lang] ??
+                (lang === 'en'
+                  ? `TMC facility image supporting ${project.category.toLowerCase()} research`
+                  : `Imej fasiliti TMC yang menyokong penyelidikan ${project.category.toLowerCase()}`)}
             </span>
             <span className="text-[#6EC1E4] font-mono">The Malaysian Cohort</span>
           </figcaption>
@@ -92,7 +93,11 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
             [lang === 'en' ? 'Project status' : 'Status projek', project.status, 'task_alt'],
             [lang === 'en' ? 'Project period' : 'Tempoh projek', project.duration, 'calendar_month'],
             [lang === 'en' ? 'Target participants' : 'Sasaran peserta', project.targetedParticipants, 'groups'],
-            [lang === 'en' ? 'Current participants' : 'Peserta semasa', project.currentParticipants, 'group_add'],
+            [
+              lang === 'en' ? 'Current participants' : 'Peserta semasa',
+              lang === 'en' ? 'Pending Statistics Unit validation' : 'Menunggu pengesahan Unit Statistik',
+              'group_add',
+            ],
           ].map(([label, value, icon]) => (
             <div key={label} className="bg-white rounded-lg p-4 border border-slate-200 shadow-xs">
               <span className="material-symbols-outlined text-[#007bff] text-xl">{icon}</span>
@@ -162,7 +167,9 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
                           <dt className="font-bold uppercase tracking-wider text-slate-500">
                             {lang === 'en' ? 'Current' : 'Semasa'}
                           </dt>
-                          <dd className="mt-0.5 text-slate-700">{subProject.currentParticipants}</dd>
+                          <dd className="mt-0.5 text-slate-700">
+                            {lang === 'en' ? 'Pending validation' : 'Menunggu pengesahan'}
+                          </dd>
                         </div>
                       )}
                       {subProject.funding && (
@@ -186,7 +193,7 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
             </h2>
             <p>
               {lang === 'en'
-                ? `The collaborators recorded for this project are ${project.collaborators}.`
+                ? `The collaborators recorded for this project are ${project.collaborators.replace(/[.]+$/, '')}.`
                 : `Kolaborator yang direkodkan untuk projek ini ialah ${project.collaborators}.`}
             </p>
           </section>
@@ -226,8 +233,8 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
             <span className="material-symbols-outlined shrink-0">fact_check</span>
             <p>
               {lang === 'en'
-                ? `Source: “Index: Research Project under TMC”, Sheet1 row ${project.sourceRow}. Fields not present in the index are shown as not listed.`
-                : `Sumber: “Index: Research Project under TMC”, Sheet1 baris ${project.sourceRow}. Maklumat yang tiada dalam indeks ditunjukkan sebagai tidak disenaraikan.`}
+                ? `Source: “Index: Research Project under TMC”, Sheet1 row ${project.sourceRow}. Current participant counts remain hidden until the Statistics Unit validates them.`
+                : `Sumber: “Index: Research Project under TMC”, Sheet1 baris ${project.sourceRow}. Bilangan peserta semasa disembunyikan sehingga disahkan oleh Unit Statistik.`}
             </p>
           </aside>
         </div>

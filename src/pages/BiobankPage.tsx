@@ -15,7 +15,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
     {
       id: 'dna',
       name: lang === 'en' ? 'Genomic DNA' : 'DNA Genomik',
-      count: '106,000+ Donors',
+      count: lang === 'en' ? '119,000+ Donors (preliminary)' : '119,000+ Penderma (anggaran awal)',
       storage: '-80°C & -196°C Vapor',
       description: lang === 'en'
         ? 'High-molecular-weight double-stranded DNA extracted via automated magnetic bead protocols. Average yield 35–50 µg/mL with DIN > 8.0.'
@@ -74,6 +74,24 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
     }
   ];
 
+  const biobankGallery = [
+    {
+      image: '/assets/biobank-staff.jpg',
+      title: lang === 'en' ? 'Specialist Biobank Team' : 'Pasukan Pakar Biobank',
+      description: lang === 'en' ? 'Trained personnel operating the cryogenic storage facility.' : 'Kakitangan terlatih mengendalikan fasiliti penyimpanan kriogenik.',
+    },
+    {
+      image: '/assets/biobank-tank-room.jpg',
+      title: lang === 'en' ? 'Cryogenic Tank Facility' : 'Fasiliti Tangki Kriogenik',
+      description: lang === 'en' ? 'Temperature-controlled storage infrastructure for long-term preservation.' : 'Infrastruktur penyimpanan terkawal suhu untuk pemeliharaan jangka panjang.',
+    },
+    {
+      image: '/assets/biobank-sample-tubes.jpg',
+      title: lang === 'en' ? 'Organised Sample Storage' : 'Penyimpanan Sampel Tersusun',
+      description: lang === 'en' ? 'Prepared sample tubes arranged for traceable cryogenic storage.' : 'Tiub sampel yang disediakan dan disusun untuk penyimpanan kriogenik yang boleh dijejaki.',
+    },
+  ];
+
   return (
     <div className="bg-[#f8f9fa] min-h-screen pb-20 font-sans">
       {/* BREADCRUMB HEADER */}
@@ -125,13 +143,19 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                   : 'Arkib spesimen biologi automatik terbesar di Asia Tenggara. Menyimpan lebih 1.4 juta aliquot DNA, plasma, serum, buffy coat, dan urin pelbagai etnik Malaysia pada suhu kriogenik (-196°C) untuk penemuan perubatan kejituan.'}
               </p>
               <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a
-                  href="#specimens"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[#007bff] hover:bg-[#0069d9] text-white text-xs sm:text-sm font-semibold shadow-sm transition-all"
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('specimens');
+                    window.setTimeout(() => {
+                      document.getElementById('specimens')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 0);
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded bg-[#007bff] hover:bg-[#0069d9] text-white text-xs sm:text-sm font-semibold shadow-sm transition-all cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-base">inventory_2</span>
                   <span>{lang === 'en' ? 'Browse Specimen Catalog' : 'Semak Katalog Spesimen'}</span>
-                </a>
+                </button>
                 <button
                   type="button"
                   onClick={onNavigatePortal}
@@ -144,7 +168,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
             </div>
 
             <div className="lg:col-span-4">
-              <div className="bg-white/10 rounded-xl p-5 border border-white/15 backdrop-blur-xs space-y-4">
+              <div data-scroll-reveal className="bg-white/10 rounded-xl p-5 border border-white/15 backdrop-blur-xs space-y-4 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:bg-white/15 hover:border-[#6EC1E4]/40 hover:shadow-xl hover:shadow-black/20">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10">
                   <span className="text-xs uppercase text-slate-300 font-bold">Facility Telemetry</span>
                   <span className="flex items-center gap-1.5 text-xs text-[#28a745] font-semibold">
@@ -162,8 +186,8 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                     <span className="text-white font-bold">1,428,500+</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-300">Cataloged Donors:</span>
-                    <span className="text-white font-bold">106,522</span>
+                    <span className="text-slate-300">Cataloged Donors (preliminary):</span>
+                    <span className="text-white font-bold">119,000+</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-slate-300">Retrieval Cycle:</span>
@@ -223,7 +247,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                     ? 'Each participant’s biological samples are aliquoted via high-speed robotics within 2 hours of phlebotomy. 2D DataMatrix barcoding ensures zero identity mix-up, enabling prospective health tracking over decades.'
                     : 'Setiap sampel biologi peserta dialikot melalui robotik berkelajuan tinggi dalam masa 2 jam selepas flebotomi. Kod bar DataMatrix 2D memastikan ketepatan mutlak identiti, membolehkan penjejakan kesihatan prospektif selama berdekad-dekad.'}
                 </p>
-                <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 space-y-2">
+                <div data-scroll-reveal className="p-4 bg-blue-50 rounded-lg border border-blue-100 space-y-2 transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:shadow-md">
                   <div className="flex items-center gap-2 font-bold text-[#003366] text-xs uppercase">
                     <span className="material-symbols-outlined text-sm text-[#007bff]">shield</span>
                     <span>Ethical Governance & Consent</span>
@@ -234,35 +258,71 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                 </div>
               </div>
 
-              <div className="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative group">
+              <div data-scroll-reveal className="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative group">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQdiqBYSxg8rgOuIprTBGVc8Dlv24jtYki_2O6P-5bSr0UYJQ3222uwTEFBNBgXJ5uzEMOLU_DcvSFTOnMVJCXZdXQZ3pI7EiTU2g9GfBipsRalgEqz0xJVgsVmKRAEu3oRX-0cyLaradzhA8YasWNYdvZbLxr7tWTDgSM3rI3lgozfsnK1Z6rmxjGADjJWFlIs-UqOxPuuvvq6lyluneHjkF6BeF3lyx8kRplaaY9Q01Cc72rHEr6"
-                  alt="Automated Cryogenic Liquid Nitrogen Tanks"
+                  src="/assets/biobank-cryogenic-handling.jpg"
+                  alt={lang === 'en' ? 'TMC biobank specialist handling a cryogenic sample rack' : 'Pakar biobank TMC mengendalikan rak sampel kriogenik'}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white text-xs">
-                  <span className="font-bold block text-sm">UMBI Liquid Nitrogen Cryogenic Hall</span>
-                  <span>Automated bulk tanks with continuous vacuum insulation and telemetry backup</span>
+                  <span className="font-bold block text-sm">
+                    {lang === 'en' ? 'TMC Cryogenic Sample Handling' : 'Pengendalian Sampel Kriogenik TMC'}
+                  </span>
+                  <span>
+                    {lang === 'en' ? 'Specialist handling within the UMBI liquid-nitrogen storage facility' : 'Pengendalian khusus di dalam fasiliti penyimpanan nitrogen cecair UMBI'}
+                  </span>
                 </div>
+              </div>
+            </div>
+
+            <div>
+              <div className="mb-5">
+                <span className="text-xs font-bold uppercase text-[#007bff] tracking-wider">
+                  {lang === 'en' ? 'Inside the Facility' : 'Di Dalam Fasiliti'}
+                </span>
+                <h3 className="font-serif text-2xl font-bold text-[#003366] mt-1">
+                  {lang === 'en' ? 'TMC Biobank Operations' : 'Operasi Biobank TMC'}
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {biobankGallery.map((item) => (
+                  <figure key={item.image} data-scroll-reveal className="group rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:shadow-xl">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full aspect-video object-cover transition-transform duration-500 ease-out motion-safe:group-hover:scale-105"
+                    />
+                    <figcaption className="p-4">
+                      <span className="font-serif text-base font-bold text-[#003366] block transition-colors duration-300 group-hover:text-[#007bff]">{item.title}</span>
+                      <span className="text-xs text-[#54595F] leading-relaxed block mt-1">{item.description}</span>
+                    </figcaption>
+                  </figure>
+                ))}
               </div>
             </div>
 
             {/* STATS CALLOUT */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-slate-100 pt-8">
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center">
-                <div className="font-serif text-3xl font-bold text-[#003366]">1.4M+</div>
+              <div data-scroll-reveal className="group p-4 rounded-lg bg-slate-50 border border-slate-200 text-center transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:bg-white hover:shadow-lg">
+                <div className="font-serif text-3xl font-bold text-[#003366] transition-transform duration-300 motion-safe:group-hover:scale-105">1.4M+</div>
                 <div className="text-xs text-[#54595F] font-semibold mt-1">Total Aliquots</div>
               </div>
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center">
-                <div className="font-serif text-3xl font-bold text-[#007bff]">106,522</div>
-                <div className="text-xs text-[#54595F] font-semibold mt-1">Registered Citizens</div>
+              <div data-scroll-reveal className="group p-4 rounded-lg bg-slate-50 border border-slate-200 text-center transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:bg-white hover:shadow-lg">
+                <div className="font-serif text-3xl font-bold text-[#007bff] transition-transform duration-300 motion-safe:group-hover:scale-105">119,000+</div>
+                <div className="text-xs text-[#54595F] font-semibold mt-1">
+                  {lang === 'en' ? 'Registered Citizens (preliminary)' : 'Warganegara Berdaftar (anggaran awal)'}
+                </div>
               </div>
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center">
-                <div className="font-serif text-3xl font-bold text-[#28a745]">18 Years</div>
+              <div data-scroll-reveal className="group p-4 rounded-lg bg-slate-50 border border-slate-200 text-center transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:bg-white hover:shadow-lg">
+                <div className="font-serif text-3xl font-bold text-[#28a745] transition-transform duration-300 motion-safe:group-hover:scale-105">18 Years</div>
                 <div className="text-xs text-[#54595F] font-semibold mt-1">Continuous Storage</div>
               </div>
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center">
-                <div className="font-serif text-3xl font-bold text-[#007ca8]">0.0%</div>
+              <div data-scroll-reveal className="group p-4 rounded-lg bg-slate-50 border border-slate-200 text-center transition-all duration-300 motion-safe:hover:-translate-y-1 hover:border-[#6EC1E4] hover:bg-white hover:shadow-lg">
+                <div className="font-serif text-3xl font-bold text-[#007ca8] transition-transform duration-300 motion-safe:group-hover:scale-105">0.0%</div>
                 <div className="text-xs text-[#54595F] font-semibold mt-1">Degradation Rate</div>
               </div>
             </div>
@@ -288,6 +348,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
               {specimenTypes.map((spec) => (
                 <div
                   key={spec.id}
+                  data-scroll-reveal
                   role="button"
                   tabIndex={0}
                   aria-expanded={selectedSpecimen === spec.id}
@@ -298,10 +359,10 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                       setSelectedSpecimen(selectedSpecimen === spec.id ? null : spec.id);
                     }
                   }}
-                  className={`p-5 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#007bff] transition-all cursor-pointer ${
+                  className={`group p-5 rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#007bff] transition-all duration-300 motion-safe:hover:-translate-y-1 cursor-pointer ${
                     selectedSpecimen === spec.id
                       ? 'border-[#007bff] bg-blue-50/50 shadow-md ring-1 ring-[#007bff]'
-                      : 'border-slate-200 bg-white hover:border-[#007bff]/60 hover:shadow-xs'
+                      : 'border-slate-200 bg-white hover:border-[#007bff]/60 hover:shadow-lg'
                   }`}
                 >
                   <div className="flex items-start justify-between">
@@ -345,8 +406,8 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 text-[#007bff] flex items-center justify-center">
+              <div data-scroll-reveal className="group p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:bg-white hover:shadow-xl">
+                <div className="w-10 h-10 rounded-full bg-blue-100 text-[#007bff] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
                   <span className="material-symbols-outlined">autorenew</span>
                 </div>
                 <h4 className="font-serif text-lg font-bold text-[#003366]">Automated Liquid N2 Supply</h4>
@@ -355,8 +416,8 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                 </p>
               </div>
 
-              <div className="p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
-                <div className="w-10 h-10 rounded-full bg-amber-100 text-[#f59e0b] flex items-center justify-center">
+              <div data-scroll-reveal className="group p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:bg-white hover:shadow-xl">
+                <div className="w-10 h-10 rounded-full bg-amber-100 text-[#f59e0b] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
                   <span className="material-symbols-outlined">power</span>
                 </div>
                 <h4 className="font-serif text-lg font-bold text-[#003366]">Triple-Redundant Power</h4>
@@ -365,8 +426,8 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                 </p>
               </div>
 
-              <div className="p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-100 text-[#28a745] flex items-center justify-center">
+              <div data-scroll-reveal className="group p-6 rounded-lg bg-slate-50 border border-slate-200 space-y-3 transition-all duration-300 motion-safe:hover:-translate-y-2 hover:border-[#6EC1E4] hover:bg-white hover:shadow-xl">
+                <div className="w-10 h-10 rounded-full bg-emerald-100 text-[#28a745] flex items-center justify-center transition-transform duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:-rotate-6">
                   <span className="material-symbols-outlined">security</span>
                 </div>
                 <h4 className="font-serif text-lg font-bold text-[#003366]">Biometric Access Control</h4>
@@ -400,8 +461,8 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
                 { step: '03', title: 'Material Transfer Agreement (MTA)', desc: 'Execute binding MTA ensuring strict compliance with the Personal Data Protection Act (PDPA 2010) and non-redistribution.' },
                 { step: '04', title: 'Cold-Chain Cryogenic Courier Delivery', desc: 'Aliquots are picked via robotics, packed in dry vapor shippers at -150°C, and dispatched with continuous temperature data loggers.' }
               ].map((s) => (
-                <div key={s.step} className="flex items-start gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200">
-                  <span className="font-serif text-2xl font-bold text-[#007bff] shrink-0">{s.step}</span>
+                <div key={s.step} data-scroll-reveal className="group flex items-start gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200 transition-all duration-300 motion-safe:hover:translate-x-1 hover:border-[#6EC1E4] hover:bg-white hover:shadow-md">
+                  <span className="font-serif text-2xl font-bold text-[#007bff] shrink-0 transition-transform duration-300 motion-safe:group-hover:scale-110">{s.step}</span>
                   <div>
                     <h4 className="font-serif text-base font-bold text-[#003366]">{s.title}</h4>
                     <p className="text-xs text-[#54595F] mt-1 leading-relaxed">{s.desc}</p>

@@ -23,7 +23,7 @@ export const Phase3SupportStrip: React.FC<Phase3SupportStripProps> = ({
             type="button"
             onClick={onOpenPortal}
             className="w-14 h-14 rounded-full bg-blue-50 text-[#007bff] border border-blue-200 flex items-center justify-center flex-shrink-0 shadow-xs hover:scale-105 transition-transform cursor-pointer"
-            title="Open Participant Portal"
+            title={t.supportStrip.openPortalTitle}
           >
             <span className="material-symbols-outlined text-3xl">how_to_reg</span>
           </button>
@@ -67,7 +67,7 @@ export const Phase3SupportStrip: React.FC<Phase3SupportStripProps> = ({
             className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded border border-blue-300 hover:bg-blue-50 text-[#007bff] font-sans font-semibold text-xs transition-colors cursor-pointer"
           >
             <span className="material-symbols-outlined text-sm text-[#007bff]">calendar_month</span>
-            <span>{lang === 'en' ? 'Check My Schedule' : 'Semak Jadual Saya'}</span>
+            <span>{t.supportStrip.checkSchedule}</span>
           </button>
         </div>
       </div>

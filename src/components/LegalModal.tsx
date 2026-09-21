@@ -30,7 +30,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ title, onClose, lang }) 
 
         <div className="p-6 space-y-4 max-h-[65vh] overflow-y-auto text-slate-700 leading-relaxed text-xs sm:text-sm">
           <div className="p-3 bg-slate-50 border border-slate-200 rounded font-mono text-xs text-slate-600">
-            <strong>UKM Ethics Approval:</strong> UKM 1.5.3.5/244/FF-205-2007 (Renewed for Phase 3)
+            <strong>UKM Ethics Approval:</strong> UKM 1.5.3.5/244/FF-205-2007 (renewed for ongoing follow-up)
           </div>
 
           <h4 className="font-serif text-base font-bold text-[#0c2340]">
