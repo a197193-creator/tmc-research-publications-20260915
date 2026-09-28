@@ -1,9 +1,12 @@
 # TMC Research & Publications website handoff
 
-Prepared: 21 September 2026
+Prepared: 28 September 2026
 
 Current public website:
 https://tmc-research-publications-20260915.vercel.app
+
+Private GitHub repository:
+https://github.com/a197193-creator/tmc-research-publications-20260915
 
 ## Latest completed updates
 
@@ -16,12 +19,18 @@ https://tmc-research-publications-20260915.vercel.app
 - Kept direct article uploads disabled until each paper's access status is reviewed.
 - Improved bilingual interface behaviour, mobile responsiveness, accessibility, browser history routing, and empty states.
 - Removed unverified news content from public display.
+- Completed a technical UAT pass on 28 September 2026 covering build, navigation, publication filtering, responsive layouts and browser errors. See `docs/TMC-RESEARCH-UAT-2026-09-28.md`.
 
 ## Open the project on another PC
 
 1. Install the current Node.js LTS release from https://nodejs.org/.
-2. Extract this ZIP file.
-3. Open the extracted folder in Visual Studio Code.
+2. Sign in to GitHub as `a197193-creator` and clone the private repository:
+
+   ```powershell
+   git clone https://github.com/a197193-creator/tmc-research-publications-20260915.git
+   ```
+
+3. Open the cloned folder in Visual Studio Code.
 4. Open a terminal in the project folder and run:
 
    ```powershell
@@ -53,7 +62,7 @@ npx vercel link --project tmc-research-publications-20260915
 npx vercel --prod
 ```
 
-The `.vercel` folder and all environment or credential files are intentionally excluded from this package. The new PC must link the folder to the existing Vercel project after sign-in.
+The local `.vercel` folder and all credential files are intentionally excluded from Git. The new PC must link the cloned folder to the existing Vercel project after sign-in. Pushing to the repository's production branch also triggers the connected Vercel deployment.
 
 ## Important publication note
 

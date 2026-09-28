@@ -2,18 +2,28 @@
 
 This is a React + Vite website. It is a static site: it does not need a Gemini API key or a back-end server to run.
 
+- Public site: https://tmc-research-publications-20260915.vercel.app/
+- Private source repository: https://github.com/a197193-creator/tmc-research-publications-20260915
+- Technical UAT evidence: `docs/TMC-RESEARCH-UAT-2026-09-28.md`
+
 ## Run it in Visual Studio Code
 
 1. Install the current Node.js **LTS** release from [nodejs.org](https://nodejs.org/).
-2. Open this folder in Visual Studio Code: **File → Open Folder**.
-3. Open **Terminal → New Terminal** and run:
+2. Sign in to GitHub as `a197193-creator`, then clone the private repository:
+
+   ```powershell
+   git clone https://github.com/a197193-creator/tmc-research-publications-20260915.git
+   ```
+
+3. Open the cloned folder in Visual Studio Code: **File → Open Folder**.
+4. Open **Terminal → New Terminal** and run:
 
    ```powershell
    npm install
    npm run dev
    ```
 
-4. Open the address shown in the terminal, normally [http://localhost:3000](http://localhost:3000).
+5. Open the address shown in the terminal, normally [http://localhost:3000](http://localhost:3000).
 
 ## Present it on another PC on the same Wi-Fi
 
@@ -28,9 +38,9 @@ npm run preview
 
 Then use the Network address displayed in the terminal (normally port `4173`).
 
-## Make a public link
+## Publish updates
 
-Run `npm run build`, then upload the generated `dist` folder to any static hosting provider such as Netlify, Vercel, GitHub Pages, or Cloudflare Pages. This project has no server-side dependency, so it is compatible with all of them. A public host will give you a link that works for anyone on the internet; the Wi-Fi link above works only while your laptop and the other PC are on the same local network.
+Commit and push changes to the private GitHub repository. The repository is connected to the existing Vercel project, so pushes to the production branch publish to the public site after the Vercel build succeeds.
 
 ## Useful commands
 
