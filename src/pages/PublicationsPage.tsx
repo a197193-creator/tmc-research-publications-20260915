@@ -94,6 +94,16 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ lang, onBack
               ? 'Browse the official TMC publication titles, organised by research category and year.'
               : 'Layari tajuk penerbitan rasmi TMC mengikut kategori penyelidikan dan tahun.'}
           </p>
+          <a
+            href="https://www.ukm.my/malaysiancohort/publication_dashboard/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#6EC1E4]/50 bg-white px-5 py-2.5 text-sm font-bold text-[#003366] shadow-sm transition-colors hover:border-white hover:bg-[#eaf7fc] focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[#003366]"
+          >
+            <span className="material-symbols-outlined text-lg" aria-hidden="true">analytics</span>
+            <span>{lang === 'en' ? 'View Publications Dashboard' : 'Lihat Papan Pemuka Penerbitan'}</span>
+            <span className="material-symbols-outlined text-base" aria-hidden="true">open_in_new</span>
+          </a>
         </div>
       </section>
 

@@ -22,6 +22,7 @@ The technical checks completed on 28 September 2026 passed. Formal content appro
 
 - Home, Research Projects, Publications & Evidence, and project-detail views loaded.
 - Publications page rendered all 69 records.
+- The `View Publications Dashboard` action opened the official UKM publication dashboard in a new tab.
 - Searching for `COVID` returned 5 of 69 records; clearing the search restored all 69.
 - `Back to Overview` returned directly to `#home`.
 - `Back to Research Projects` returned directly to `#research`.
@@ -51,4 +52,8 @@ All 69 records contain HTTPS source URLs. An automated request check received su
 - Supervisor and management review/sign-off has not been recorded.
 - Nominated TMC users have not yet provided acceptance feedback.
 - UKM WordPress staging credentials and administrator coordination are required before transfer and official-domain deployment.
+
+## Latest email incorporated
+
+Mr. Arman's 24 September 2026 email confirmed that he was pleased with the restored 69-title publication page, search and filters, and original-article links. It requested a visitor button for the existing UKM Power BI publications dashboard. The button was added on 28 September 2026 and points to `https://www.ukm.my/malaysiancohort/publication_dashboard/`.
 

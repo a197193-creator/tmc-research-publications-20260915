@@ -19,6 +19,7 @@ https://github.com/a197193-creator/tmc-research-publications-20260915
 - Kept direct article uploads disabled until each paper's access status is reviewed.
 - Improved bilingual interface behaviour, mobile responsiveness, accessibility, browser history routing, and empty states.
 - Removed unverified news content from public display.
+- Added a Publications Dashboard button linking to the existing UKM Power BI summary, following Mr. Arman's 24 September email.
 - Completed a technical UAT pass on 28 September 2026 covering build, navigation, publication filtering, responsive layouts and browser errors. See `docs/TMC-RESEARCH-UAT-2026-09-28.md`.
 
 ## Open the project on another PC
