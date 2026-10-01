@@ -130,7 +130,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
             <div className="lg:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#6EC1E4]/15 border border-[#6EC1E4]/30 text-[#6EC1E4] text-xs font-bold uppercase tracking-wider">
                 <span className="material-symbols-outlined text-sm">ac_unit</span>
-                <span>ISO 15189 & ISO 9001 Certified Biobank</span>
+                <span>{lang === 'en' ? 'SAMM 537 · Accredited Laboratory Scope' : 'SAMM 537 · Skop Makmal Berakreditasi'}</span>
               </div>
               <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                 {lang === 'en'

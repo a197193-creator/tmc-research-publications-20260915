@@ -115,6 +115,10 @@ export const Footer: React.FC<FooterProps> = ({
             <p className="text-xs text-slate-300 leading-relaxed font-sans">
               {t.footer.accreditationDesc}
             </p>
+            <a href="/documents/tmc-samm-537-accreditation.pdf" target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-[#6EC1E4] hover:text-white underline underline-offset-4">
+              {lang === 'en' ? 'View accreditation certificate (PDF)' : 'Lihat sijil akreditasi (PDF)'}
+              <span className="sr-only">{lang === 'en' ? ' (opens in a new tab)' : ' (dibuka dalam tab baharu)'}</span>
+            </a>
             <div className="p-3 rounded bg-white/5 border border-blue-400/20 text-[11px] text-slate-300 font-sans">
               <span className="block font-bold text-white mb-0.5">{t.footer.govProjectBadge}</span>
               {t.footer.ministry}

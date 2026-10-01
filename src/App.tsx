@@ -372,6 +372,7 @@ export default function App() {
               lang={lang}
               onOpenResearch={() => navigateWithTransition('research')}
               onOpenPublications={() => navigateWithTransition('publications')}
+              onOpenProject={(project) => navigateWithTransition('research-detail', project)}
             />
 
             {/* Research Initiatives & Cohort Impact */}
