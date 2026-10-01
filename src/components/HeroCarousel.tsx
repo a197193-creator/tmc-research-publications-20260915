@@ -76,8 +76,12 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
         >
           <div className="absolute inset-0 z-0">
             <img
-              src="/assets/TMCLaboratory.jpg"
+              src="/assets/umbi-laboratory-research.webp"
               alt={t.hero.slide1.imageAlt}
+              width={1084}
+              height={720}
+              fetchPriority="high"
+              decoding="async"
               className="hero-media object-[70%_center]"
             />
             <div
@@ -126,6 +130,9 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
               </div>
             </div>
           </div>
+          <p className="absolute bottom-20 sm:bottom-6 left-4 sm:left-6 lg:left-8 z-10 text-xs text-slate-200 bg-[#00274c]/80 px-2 py-1 rounded">
+            {lang === 'en' ? 'UMBI laboratory archive · 2016' : 'Arkib makmal UMBI · 2016'}
+          </p>
         </div>
 
         {/* Slide 2 */}

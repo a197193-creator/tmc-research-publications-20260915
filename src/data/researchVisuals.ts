@@ -18,6 +18,17 @@ const biobankVisual: ResearchVisual = {
   categoryText: 'text-white',
 };
 
+const laboratoryVisual: ResearchVisual = {
+  image: '/assets/umbi-laboratory-bench.webp',
+  imageAlt: 'Archival UMBI laboratory bench with instruments and blue storage cabinets, 2016',
+  imageCaption: {
+    en: 'UMBI laboratory archive (2016). Representative facility image; not a photograph of this specific project.',
+    bm: 'Arkib makmal UMBI (2016). Imej kemudahan sebagai ilustrasi; bukan foto projek khusus ini.',
+  },
+  categoryBg: biobankVisual.categoryBg,
+  categoryText: biobankVisual.categoryText,
+};
+
 const clinicalVisual: ResearchVisual = {
   image: '/assets/visit-fundus-photography.jpg',
   imageAlt: 'Fundus photography examination supporting TMC clinical research at UMBI UKM',
@@ -90,6 +101,7 @@ export const getResearchVisual = (
   projectId?: ResearchInitiativeItem['id']
 ): ResearchVisual => {
   if (projectId && projectVisuals[projectId]) return projectVisuals[projectId];
+  if (category === 'Genomics') return laboratoryVisual;
   if (category === 'Lifestyle & Nutrition') return lifestyleVisual;
   if (
     category === 'Cardiometabolic' ||
