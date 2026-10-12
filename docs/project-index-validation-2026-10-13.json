@@ -1,0 +1,14 @@
+{
+  "checkedOn": "2026-10-13",
+  "sourceWorkbook": "Index_ Research Project under TMC.xlsx",
+  "sourceSha256": "fb9d4d7cc7632f8301f8dcedde19b75ac0749da75a93b65e352c4a4949a41e8f",
+  "sheet": "Sheet1",
+  "sourceRows": "2\u201379",
+  "projects": 22,
+  "subprojects": 56,
+  "coverageChecks": 78,
+  "countComparisons": 156,
+  "errors": [],
+  "result": "passed",
+  "scope": "Source reconciliation only. Current participant figures remain withheld from the UI pending Statistics Unit publication approval. No patient-level dataset, identifiers or private source links were read."
+}

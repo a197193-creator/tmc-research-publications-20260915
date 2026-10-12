@@ -36,9 +36,9 @@ export const translations = {
         viewCertificate: 'View Certificate (PDF)',
       },
       metrics: {
-        volunteers: '119,000+',
+        volunteers: '100,000+',
         volunteersLabel: 'Cohort Volunteers',
-        volunteersDesc: 'Preliminary; validation pending',
+        volunteersDesc: 'Published UKM cohort overview',
         years: '15+ Years',
         yearsLabel: 'Longitudinal Study',
         yearsDesc: 'Tracking disease trajectories',
@@ -69,7 +69,7 @@ export const translations = {
     publicationsSection: {
       tag: 'Publications Archive',
       title: 'Scientific Publications',
-      subtitle: 'Explore the official TMC publication register, with 69 records organised by research category and year.',
+      subtitle: 'Explore the TMC publication register, with duplicate articles consolidated and titles organised by category and year.',
       plainSummaryTitle: 'What this discovery means for your health (Plain-Language Summary)',
       downloadAbstract: 'Download Abstract (PDF)',
       gratitudeTitle: 'To Every TMC Participant',
@@ -162,9 +162,9 @@ export const translations = {
         viewCertificate: 'Lihat Sijil (PDF)',
       },
       metrics: {
-        volunteers: '119,000+',
+        volunteers: '100,000+',
         volunteersLabel: 'Sukarelawan Kohort',
-        volunteersDesc: 'Anggaran awal; menunggu pengesahan',
+        volunteersDesc: 'Gambaran kohort yang diterbitkan UKM',
         years: '15+ Tahun',
         yearsLabel: 'Kajian Longitudinal',
         yearsDesc: 'Menjejaki corak penyakit',
@@ -195,7 +195,7 @@ export const translations = {
     publicationsSection: {
       tag: 'Arkib Penerbitan',
       title: 'Penerbitan Saintifik',
-      subtitle: 'Terokai daftar rasmi penerbitan TMC yang mengandungi 69 rekod mengikut kategori penyelidikan dan tahun.',
+      subtitle: 'Terokai daftar penerbitan TMC dengan artikel pendua digabungkan dan tajuk disusun mengikut kategori serta tahun.',
       plainSummaryTitle: 'Maksud penemuan ini untuk kesihatan anda (Ringkasan Bahasa Mudah)',
       downloadAbstract: 'Muat Turun Abstrak (PDF)',
       gratitudeTitle: 'Penghargaan Buat Setiap Peserta TMC',

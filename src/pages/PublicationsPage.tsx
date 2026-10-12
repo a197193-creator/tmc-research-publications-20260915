@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Language, Publication } from '../types';
-import { publicationsList } from '../data/publications';
+import { publicationsList, publicationRegister } from '../data/publications';
 
 interface PublicationsPageProps {
   lang: Language;
@@ -84,14 +84,14 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ lang, onBack
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#6EC1E4]/30 bg-[#6EC1E4]/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#6EC1E4]">
             <span className="material-symbols-outlined text-sm">menu_book</span>
-            <span>{lang === 'en' ? '69 Publication Records' : '69 Rekod Penerbitan'}</span>
+            <span>{lang === 'en' ? `${publicationsList.length} Publications` : `${publicationsList.length} Penerbitan`}</span>
           </span>
           <h1 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
             {lang === 'en' ? 'Scientific Publications & Evidence' : 'Penerbitan & Bukti Saintifik'}
           </h1>
           <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base">
             {lang === 'en'
-              ? 'Browse the official TMC publication titles, organised by research category and year.'
+              ? 'Browse the TMC publication register, organised by research category and year.'
               : 'Layari tajuk penerbitan rasmi TMC mengikut kategori penyelidikan dan tahun.'}
           </p>
           <a
@@ -119,6 +119,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ lang, onBack
       </div>
 
       <div className="mx-auto mt-6 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <p className="mb-4 text-xs leading-relaxed text-slate-600">{lang === 'en' ? `${publicationRegister.length} source-register rows; duplicate articles are consolidated. Categories are editorial browsing labels.` : `${publicationRegister.length} baris daftar sumber; artikel pendua digabungkan. Kategori ialah label pelayaran editorial.`}</p>
         <div className="space-y-4 rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_13rem_19rem]">
             <div>
@@ -186,6 +187,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ lang, onBack
                   </div>
 
                   <h2 className="font-serif text-xl font-bold leading-snug text-[#003366] sm:text-2xl">{publication.title}</h2>
+                  {publication.citationNote && <p className="mt-2 rounded border border-blue-100 bg-blue-50 p-3 text-xs leading-relaxed text-slate-700">{publication.citationNote[lang]}</p>}
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
                     <span className="font-semibold text-slate-700">{lang === 'en' ? 'Authors:' : 'Penulis:'}</span>{' '}{publication.authors}
                   </p>

@@ -1,0 +1,69 @@
+{
+  "reviewed_on": "2026-10-05",
+  "content_source": "https://www.ukm.my/mycohort/ms/",
+  "sections": [
+    {
+      "id": "recruitment",
+      "title": "Recruitment Participant",
+      "source": "https://www.ukm.my/mycohort/ms/peserta-tmc/"
+    },
+    {
+      "id": "guidelines",
+      "title": "Guidelines to Participants",
+      "source": "https://www.ukm.my/mycohort/ms/panduan-kepada-peserta-menjalani-saringan-kesihatan-projek-the-malaysian-cohort/"
+    },
+    {
+      "id": "information-leaflet",
+      "title": "Participants Information Leaflet",
+      "source": "https://www.ukm.my/mycohort/ms/buku-panduan-peserta-projek-the-malaysian-cohort-versi-tahun-2026/"
+    },
+    {
+      "id": "biophysical",
+      "title": "Biophysical Measurement",
+      "source": "https://www.ukm.my/mycohort/ms/pengukuran-biofizikal/"
+    },
+    {
+      "id": "questionnaire-ffq",
+      "title": "Questionnaire & Food Frequency Questionnaire (FFQ)",
+      "source": "https://www.ukm.my/mycohort/ms/soal-selidik/"
+    },
+    {
+      "id": "biospecimen",
+      "title": "Biospecimen",
+      "source": "https://www.ukm.my/mycohort/ms/biospecimen/"
+    },
+    {
+      "id": "colorectal-screening",
+      "title": "Colorectal Cancer Screening",
+      "source": "https://www.ukm.my/mycohort/ms/colorectal-cancer-screening/"
+    },
+    {
+      "id": "results-feedback",
+      "title": "Results and Feedback",
+      "source": "https://www.ukm.my/mycohort/ms/keputusan-dan-maklumbalas/"
+    },
+    {
+      "id": "contact-update",
+      "title": "Participant Contact Information Update",
+      "source": "https://www.ukm.my/mycohort/ms/contact-information-update/"
+    },
+    {
+      "id": "enquiries-complaints",
+      "title": "Enquiries / Complaints",
+      "source": "https://www.ukm.my/mycohort/ms/aduan/"
+    },
+    {
+      "id": "recruitment-locations",
+      "title": "Location of Recruitment",
+      "source": "https://www.ukm.my/mycohort/ms/lokasi/"
+    }
+  ],
+  "handbook_pdf": "https://www.ukm.my/mycohort/wp-content/uploads/2026/02/Handbook-peserta-1_pindaan-2_20260114.pdf",
+  "contact_update_form": "https://docs.google.com/forms/d/e/1FAIpQLSdFBdhporHoZltSEtZAQG-2RZD4bm54ZKdUVDItHw0I8ouvUg/viewform",
+  "complaint_form": "https://docs.google.com/forms/d/e/1FAIpQLSf2Krzu6h4UAwMcOCNr213JZ9R7n3f7y95n_iM9ZIIi434XaA/viewform",
+  "recruitment_list": "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1MOYev_TZw2dKS_00wGOnb9mQGoKzWJGj8RWnO20iH5LWprFRpw9QyMXzQIdC21PN98JKRjVNGo99/pubhtml?gid=1765058850&single=true&widget=true&headers=false",
+  "additional_sources": [
+    "https://www.ukm.my/mycohort/ms/biospesimenbiobank/",
+    "https://www.ukm.my/mycohort/ms/peta-lokasi/"
+  ]
+}

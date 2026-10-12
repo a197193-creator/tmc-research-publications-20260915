@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import React from 'react';
 import { Language, PageType } from '../types';
 import { translations } from '../data/translations';
@@ -81,6 +82,11 @@ export const Footer: React.FC<FooterProps> = ({
                   {lang === 'en' ? 'News & Cohort Bulletins' : 'Berita & Buletin Kohort'}
                 </button>
               </li>
+              <li><a href={portalAsset('/cohort/introduction.html')} className="hover:text-[#6EC1E4]">{lang === 'en' ? 'Introduction & infographics' : 'Pengenalan & infografik'}</a></li>
+              <li><a href={portalAsset('/cohort/participants.html')} className="hover:text-[#6EC1E4]">{lang === 'en' ? 'Participant guidance' : 'Panduan peserta'}</a></li>
+              <li><a href={portalAsset('/cohort/news.html')} className="hover:text-[#6EC1E4]">{lang === 'en' ? 'Full TMC news archive' : 'Arkib berita TMC'}</a></li>
+              <li><a href={portalAsset('/cohort/resources.html')} className="hover:text-[#6EC1E4]">{lang === 'en' ? 'Media & downloads' : 'Media & muat turun'}</a></li>
+              <li><a href={portalAsset('/cohort/contact.html')} className="hover:text-[#6EC1E4]">{lang === 'en' ? 'Contact Us' : 'Hubungi Kami'}</a></li>
             </ul>
           </div>
 
@@ -97,11 +103,11 @@ export const Footer: React.FC<FooterProps> = ({
               <p className="pt-2">
                 Toll-Free: <strong className="text-[#6EC1E4]">1800-88-2007</strong>
               </p>
-              <p>Hunting Line: +603-9145 9000 / 9040</p>
+              <p>Telephone: <a href="tel:+60391459135">+603-9145 9135</a> / <a href="tel:+60391710415">+603-9171 0415</a></p>
               <p>
                 Email:{' '}
-                <a className="underline hover:text-[#6EC1E4]" href="mailto:cohort@ukm.edu.my">
-                  cohort@ukm.edu.my
+                <a className="underline hover:text-[#6EC1E4]" href="mailto:managementcohort@gmail.com">
+                  managementcohort@gmail.com
                 </a>
               </p>
             </address>
@@ -115,7 +121,7 @@ export const Footer: React.FC<FooterProps> = ({
             <p className="text-xs text-slate-300 leading-relaxed font-sans">
               {t.footer.accreditationDesc}
             </p>
-            <a href="/documents/tmc-samm-537-accreditation.pdf" target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-[#6EC1E4] hover:text-white underline underline-offset-4">
+            <a href={portalAsset("/documents/tmc-samm-537-accreditation.pdf")} target="_blank" rel="noopener noreferrer" className="inline-block text-xs text-[#6EC1E4] hover:text-white underline underline-offset-4">
               {lang === 'en' ? 'View accreditation certificate (PDF)' : 'Lihat sijil akreditasi (PDF)'}
               <span className="sr-only">{lang === 'en' ? ' (opens in a new tab)' : ' (dibuka dalam tab baharu)'}</span>
             </a>

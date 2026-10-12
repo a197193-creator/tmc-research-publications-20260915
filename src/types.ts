@@ -49,6 +49,8 @@ export interface Publication {
   abstract: string;
   fullPdfSize: string;
   impactFactor?: string;
+  sourceRecordIds?: string[];
+  citationNote?: { en: string; bm: string };
 }
 
 export interface BulletinItem {

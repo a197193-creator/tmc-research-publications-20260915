@@ -5,6 +5,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    base: process.env.TMC_BASE_PATH || '/',
+    build: { manifest: true },
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

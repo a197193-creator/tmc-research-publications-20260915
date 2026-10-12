@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import React from 'react';
 import { Language } from '../types';
 
@@ -14,37 +15,37 @@ export const ClinicLocationPage: React.FC<ClinicLocationPageProps> = ({
 }) => {
   const visitSteps = [
     {
-      image: '/assets/visit-questionnaire.jpg',
+      image: portalAsset("/assets/visit-questionnaire.jpg"),
       title: lang === 'en' ? 'Health Questionnaire' : 'Soal Selidik Kesihatan',
       description: lang === 'en' ? 'Review health, lifestyle and follow-up information with the recruitment team.' : 'Semak maklumat kesihatan, gaya hidup dan susulan bersama pasukan pengambilan peserta.',
     },
     {
-      image: '/assets/visit-biophysical-measurement.jpg',
+      image: portalAsset("/assets/visit-biophysical-measurement.jpg"),
       title: lang === 'en' ? 'Biophysical Measurements' : 'Pengukuran Biofizikal',
       description: lang === 'en' ? 'Record standard measurements such as height and other physical indicators.' : 'Rekod ukuran standard seperti ketinggian dan petunjuk fizikal yang lain.',
     },
     {
-      image: '/assets/visit-blood-taking.jpg',
+      image: portalAsset("/assets/visit-blood-taking.jpg"),
       title: lang === 'en' ? 'Blood Sample Collection' : 'Pengambilan Sampel Darah',
       description: lang === 'en' ? 'Collect fasting blood samples according to the scheduled clinical protocol.' : 'Ambil sampel darah berpuasa mengikut protokol klinikal yang dijadualkan.',
     },
     {
-      image: '/assets/visit-dexa.jpg',
+      image: portalAsset("/assets/visit-dexa.jpg"),
       title: lang === 'en' ? 'DEXA Scan' : 'Imbasan DEXA',
       description: lang === 'en' ? 'Assess body composition and bone mineral density where required.' : 'Nilai komposisi badan dan ketumpatan mineral tulang apabila diperlukan.',
     },
     {
-      image: '/assets/visit-spirometry.jpg',
+      image: portalAsset("/assets/visit-spirometry.jpg"),
       title: lang === 'en' ? 'Spirometry' : 'Spirometri',
       description: lang === 'en' ? 'Measure lung function through a guided breathing assessment.' : 'Ukur fungsi paru-paru melalui penilaian pernafasan berpandu.',
     },
     {
-      image: '/assets/visit-fundus-photography.jpg',
+      image: portalAsset("/assets/visit-fundus-photography.jpg"),
       title: lang === 'en' ? 'Fundus Photography' : 'Fotografi Fundus',
       description: lang === 'en' ? 'Capture retinal images for relevant follow-up and research assessments.' : 'Rakam imej retina untuk penilaian susulan dan penyelidikan yang berkaitan.',
     },
     {
-      image: '/assets/visit-swab-collection.jpg',
+      image: portalAsset("/assets/visit-swab-collection.jpg"),
       title: lang === 'en' ? 'Swab Collection' : 'Pengambilan Swab',
       description: lang === 'en' ? 'Collect a swab sample when it is part of the participant’s study protocol.' : 'Ambil sampel swab apabila ia termasuk dalam protokol kajian peserta.',
     },

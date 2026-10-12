@@ -11,7 +11,7 @@ import {
   researchBulletinNews,
   participantMaterialsList,
 } from './data/portalData';
-import { allResearchInitiatives } from './data/researchInitiatives';
+import { allResearchInitiatives, researchProjectRegister } from './data/researchInitiatives';
 
 // Core Layout & Splash Screen
 import { Header } from './components/Header';
@@ -106,7 +106,7 @@ export default function App() {
 
   // Selected Data Items for Detail Pages
   const [selectedResearchProject, setSelectedResearchProject] = useState<ResearchInitiativeItem>(
-    () => getResearchProjectFromHash() || allResearchInitiatives[0]
+    () => getResearchProjectFromHash() || allResearchInitiatives[0] || researchProjectRegister[0]
   );
   const [selectedPublication, setSelectedPublication] = useState<Publication | null>(null);
   const [selectedNews, setSelectedNews] = useState<BulletinItem | null>(researchBulletinNews[0] ?? null);
@@ -334,7 +334,7 @@ export default function App() {
         ? 'Hello The Malaysian Cohort UMBI, I am a cohort participant and would like to inquire about my follow-up appointment.'
         : 'Salam The Malaysian Cohort UMBI, saya peserta kohort dan ingin bertanyakan tentang janji temu susulan saya.'
     );
-    window.open(`https://wa.me/60199145900?text=${text}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/60192429415?text=${text}`, '_blank', 'noopener,noreferrer');
   };
 
   return (

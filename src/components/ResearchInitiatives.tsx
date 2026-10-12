@@ -84,7 +84,7 @@ export const ResearchInitiatives: React.FC<ResearchInitiativesProps> = ({
             <div className="px-6 pb-6 pt-3 border-t border-slate-100 flex items-center justify-between">
               <span className="text-xs text-slate-500 font-medium">
                 {lang === 'en'
-                  ? `Target: ${project.targetedParticipants} • Current count pending Statistics Unit validation`
+                  ? `Target: ${project.targetedParticipants} • Current count awaiting Statistics Unit approval`
                   : `Sasaran: ${project.targetedParticipants} • Bilangan semasa menunggu pengesahan Unit Statistik`}
               </span>
               <button

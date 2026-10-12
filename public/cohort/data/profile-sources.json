@@ -1,0 +1,62 @@
+{
+  "reviewed_on": "2026-10-05",
+  "sections": [
+    {
+      "topic": "Introduction",
+      "source": "https://www.ukm.my/mycohort/ms/pengenalan/",
+      "destination": "index.html#about-cohort"
+    },
+    {
+      "topic": "Logo",
+      "source": "https://www.ukm.my/mycohort/ms/logo/",
+      "destination": "about.html#tmc-logo"
+    },
+    {
+      "topic": "Objectives",
+      "source": "https://www.ukm.my/mycohort/ms/objektif/",
+      "destination": "index.html#objectives"
+    },
+    {
+      "topic": "Research & Publication",
+      "source": "https://www.ukm.my/mycohort/ms/penyelidikan-kami/",
+      "destination": "research.html#research-publications"
+    },
+    {
+      "topic": "Laboratory Accreditation",
+      "source": "https://www.ukm.my/mycohort/ms/laboratory-accreditation/",
+      "destination": "research.html#accreditation"
+    },
+    {
+      "topic": "Biospecimen & Biobank",
+      "source": "https://www.ukm.my/mycohort/ms/biospesimenbiobank/",
+      "destination": "research.html#biospecimens-biobank"
+    },
+    {
+      "topic": "Information Technology System",
+      "source": "https://www.ukm.my/mycohort/ms/sistem-teknologi-maklumat/",
+      "destination": "research.html#information-systems"
+    },
+    {
+      "topic": "Vehicles",
+      "source": "https://www.ukm.my/mycohort/ms/kenderaan/",
+      "destination": "about.html#fieldwork"
+    },
+    {
+      "topic": "Achievement/Award",
+      "source": "https://www.ukm.my/mycohort/ms/news/umbi-terima-pengiktirafan-di-6th-business-excellence-awards-anjuran-british-malaysian-chamber-of-commerce-bmcc/",
+      "destination": "news.html?search=BMCC"
+    },
+    {
+      "topic": "Frequently asked questions",
+      "source": "https://www.ukm.my/mycohort/ms/frequently-asked-questions/",
+      "destination": "index.html#faq"
+    },
+    {
+      "topic": "Disclaimer",
+      "source": "https://www.ukm.my/mycohort/ms/penafian/",
+      "destination": "index.html#disclaimer"
+    }
+  ],
+  "faq_note": "The original FAQ page contains a maintenance image. Home answers use published screening, results, contact-update and research guidance; see participant-sources.json and biobank-sources.json.",
+  "it_source_date": "2020-01-29"
+}
