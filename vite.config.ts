@@ -7,7 +7,23 @@ export default defineConfig(() => {
   return {
     base: process.env.TMC_BASE_PATH || '/',
     build: { manifest: true },
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      {
+        name: 'withhold-operational-counts',
+        enforce: 'pre',
+        transform(code, id) {
+          if (!id.replace(/\\/g, '/').endsWith('/src/data/researchInitiatives.ts')) return;
+          // Source reconciliation retains the supplied figures. Public bundles
+          // withhold those fields until Statistics Unit publication approval.
+          return {
+            code: code.replace(/\b(currentParticipants|samplesCount):\s*'[^']*'/g,
+              (_, key) => `${key}: 'Awaiting publication approval'`),
+            map: null,
+          };
+        },
+      },
+      react(), tailwindcss(),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

@@ -1,5 +1,5 @@
 from pathlib import Path
-import zipfile, hashlib, json
+import zipfile, hashlib, json, re
 root=Path(__file__).resolve().parents[1]
 out=root/'release'
 out.mkdir(exist_ok=True)
@@ -14,6 +14,11 @@ with zipfile.ZipFile(archive) as z:
     seed=json.loads(z.read('tmc-research-portal/seed.json'))
     assert len(seed['projects'])==22 and len(seed['publications'])==68
     assert 'currentParticipants' not in z.read('tmc-research-portal/seed.json').decode()
+    for name in z.namelist():
+        if name.endswith('.js') and '/build/assets/index-' in name:
+            bundle=z.read(name).decode()
+            assert 'currentParticipants:"Awaiting publication approval"' in bundle
+            assert not re.search(r'\b(?:currentParticipants|samplesCount):["\'][^"\']*\d',bundle), 'Operational figures remain in public bundle'
     assert not any('.env' in name or 'node_modules' in name or '.git/' in name for name in z.namelist())
 hashes={archive.name:hashlib.sha256(archive.read_bytes()).hexdigest()}
 (out/'SHA256SUMS.json').write_text(json.dumps(hashes,indent=2)+'\n')

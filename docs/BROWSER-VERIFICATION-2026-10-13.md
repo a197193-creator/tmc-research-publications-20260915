@@ -3,6 +3,7 @@
 ## Vercel build / local production preview
 
 - TypeScript check and production build passed.
+- The Vite build withholds operational participant/count fields from the public JavaScript bundle as well as the interface. The WordPress package gate checks the bundle and draft seed; reconciliation still uses the supplied source figures locally.
 - Publications: 68 distinct displayed records; the repeated LDLR DOI returns one article. Applying 2023 to that 2024 article returns an empty result; reset restores the archive.
 - The conference supplement DOI returns two distinct abstracts with PDF page 57 and page 75 links.
 - Research index renders 22 project cards. Searching MySerobiome returns one project with target 8,000; its profile retains the 3,000 and 5,000 component targets.
