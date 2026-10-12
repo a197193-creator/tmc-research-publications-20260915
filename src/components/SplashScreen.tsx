@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 interface SplashScreenProps {
   isVisible: boolean;
 }
@@ -15,7 +16,7 @@ export function SplashScreen({ isVisible }: SplashScreenProps) {
         <div className="flex items-center gap-4">
           <div className="flex h-16 w-28 items-center justify-center bg-white px-2 py-1 sm:h-20 sm:w-32">
             <img
-              src="/assets/tmc-emblem.png"
+              src={portalAsset("/assets/tmc-emblem.png")}
               alt="The Malaysian Cohort emblem"
               width="203"
               height="120"

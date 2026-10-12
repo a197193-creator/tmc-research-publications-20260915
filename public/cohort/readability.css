@@ -1,0 +1,24 @@
+/* Shared, slightly larger type for the public portal. */
+.text-body-sm { font-size:14px !important; line-height:20px !important; }
+.text-body-md { font-size:15px !important; line-height:24px !important; }
+.text-body-lg { font-size:17px !important; line-height:28px !important; }
+.text-label-code { font-size:13px !important; line-height:19px !important; }
+.text-label-badge { font-size:12px !important; line-height:18px !important; }
+.text-headline-sm { font-size:19px !important; line-height:28px !important; }
+.text-headline-md { font-size:24px !important; line-height:32px !important; }
+.text-headline-lg { font-size:30px !important; line-height:40px !important; }
+.text-display-xl { font-size:42px !important; line-height:50px !important; }
+.text-display-xl-mobile { font-size:32px !important; line-height:40px !important; }
+.text-\[10px\] { font-size:11px !important; line-height:1.6 !important; }
+.text-\[11px\] { font-size:12px !important; line-height:1.6 !important; }
+.text-\[12px\] { font-size:13px !important; line-height:1.6 !important; }
+.text-xs { font-size:13px !important; }
+.text-sm { font-size:15px !important; }
+.text-base { font-size:17px !important; }
+.text-lg { font-size:19px !important; }
+.text-xl { font-size:22px !important; }
+.text-2xl { font-size:26px !important; }
+.text-3xl { font-size:32px !important; }
+@media (min-width:768px) {
+  .md\:text-display-xl { font-size:42px !important; line-height:50px !important; }
+}

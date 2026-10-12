@@ -1,6 +1,6 @@
 # TMC Research & Publications website handoff
 
-Prepared: 28 September 2026
+Updated: 13 October 2026 (original handoff: 28 September 2026)
 
 Current public website:
 https://tmc-research-publications-20260915.vercel.app
@@ -8,7 +8,17 @@ https://tmc-research-publications-20260915.vercel.app
 Private GitHub repository:
 https://github.com/a197193-creator/tmc-research-publications-20260915
 
-## Latest completed updates
+## 13 October technical closeout
+
+- All 22 projects and 56 subprojects reconciled against the supplied workbook: 156 target/current comparisons pass. MySerobiome parent target corrected to 8,000.
+- 69 original publication rows retained; the interface shows 68 distinct publications. The repeated 2024 article is consolidated and two distinct conference abstracts retain separate PDF page links.
+- The complete UKM Introduction page is available at `/cohort/introduction.html`, including English/Malay text, the historical video and all 13 infographic entries with local original media.
+- An installable WordPress plugin provides a portal page template, 90 draft seed records, labelled CMS fields, and published-record integration. See `wordpress/tmc-research-portal/README.md` and `docs/wordpress-integration-2026-10-13.json`.
+- Technical preparation is complete. Management/user/IT acceptance, permission to publish current counts, actual installation on UKM WordPress, final UKM hosting checks and release authorization remain pending.
+
+Review evidence and decision sheet: `docs/RESEARCH-CLOSEOUT-2026-10-13.md`. Build the plugin ZIP with `node --import tsx scripts/package-wordpress.mjs`, then `python scripts/package-release.py`.
+
+## Earlier completed updates (28 September)
 
 - Refined the website structure and responsive navigation.
 - Simplified the opening splash screen and added The Malaysian Cohort emblem and wordmark.
@@ -67,4 +77,4 @@ The local `.vercel` folder and all credential files are intentionally excluded f
 
 ## Important publication note
 
-The 69 publication records are stored in `src/data/publications.ts`. Research categories are editorial navigation groupings because the official publication register does not provide a category column.
+The 69 original publication rows and the derived 68 distinct display records are stored in `src/data/publications.ts`. The unchanged source snapshot is retained in `docs/publication-register-source-2026-10-13.json`. Research categories are editorial navigation groupings because the official publication register does not provide a category column.

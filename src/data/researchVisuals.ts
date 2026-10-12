@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import { ResearchInitiativeItem } from '../types';
 
 interface ResearchVisual {
@@ -12,14 +13,14 @@ interface ResearchVisual {
 }
 
 const biobankVisual: ResearchVisual = {
-  image: '/assets/biobank-tank-room.jpg',
+  image: portalAsset("/assets/biobank-tank-room.jpg"),
   imageAlt: 'TMC biobank cryogenic storage facility at UMBI UKM',
   categoryBg: 'bg-ukm-navy',
   categoryText: 'text-white',
 };
 
 const laboratoryVisual: ResearchVisual = {
-  image: '/assets/umbi-laboratory-bench.webp',
+  image: portalAsset("/assets/umbi-laboratory-bench.webp"),
   imageAlt: 'Archival UMBI laboratory bench with instruments and blue storage cabinets, 2016',
   imageCaption: {
     en: 'UMBI laboratory archive (2016). Representative facility image; not a photograph of this specific project.',
@@ -30,14 +31,14 @@ const laboratoryVisual: ResearchVisual = {
 };
 
 const clinicalVisual: ResearchVisual = {
-  image: '/assets/visit-fundus-photography.jpg',
+  image: portalAsset("/assets/visit-fundus-photography.jpg"),
   imageAlt: 'Fundus photography examination supporting TMC clinical research at UMBI UKM',
   categoryBg: 'bg-ukm-crimson',
   categoryText: 'text-white',
 };
 
 const lifestyleVisual: ResearchVisual = {
-  image: '/assets/visit-biophysical-measurement.jpg',
+  image: portalAsset("/assets/visit-biophysical-measurement.jpg"),
   imageAlt: 'Biophysical assessment supporting TMC lifestyle and nutrition research at UMBI UKM',
   categoryBg: 'bg-ukm-gold',
   categoryText: 'text-white',
@@ -45,7 +46,7 @@ const lifestyleVisual: ResearchVisual = {
 
 const projectVisuals: Record<string, ResearchVisual> = {
   'proj-2': {
-    image: '/assets/biobank-sample-tubes.jpg',
+    image: portalAsset("/assets/biobank-sample-tubes.jpg"),
     imageAlt: 'Barcoded biobank sample tubes supporting infection and microbiome research at UMBI UKM',
     imageCaption: {
       en: 'Biobank sample tubes supporting MySerobiome research at UMBI UKM',
@@ -55,7 +56,7 @@ const projectVisuals: Record<string, ResearchVisual> = {
     categoryText: biobankVisual.categoryText,
   },
   'proj-3': {
-    image: '/assets/myprecise-sequencing-laboratory.png',
+    image: portalAsset("/assets/myprecise-sequencing-laboratory.png"),
     imageAlt: 'Genome-sequencing equipment used to support the MyPrecise project at UMBI UKM',
     imageCaption: {
       en: 'Genome-sequencing laboratory supporting the MyPrecise project at UMBI UKM',
@@ -65,7 +66,7 @@ const projectVisuals: Record<string, ResearchVisual> = {
     categoryText: biobankVisual.categoryText,
   },
   'proj-4': {
-    image: '/assets/visit-fundus-photography.jpg',
+    image: portalAsset("/assets/visit-fundus-photography.jpg"),
     imageAlt: 'Fundus photography examination supporting retinal data collection at UMBI UKM',
     imageCaption: {
       en: 'Fundus photography supporting retinal data collection for PRIME at UMBI UKM',
@@ -75,7 +76,7 @@ const projectVisuals: Record<string, ResearchVisual> = {
     categoryText: clinicalVisual.categoryText,
   },
   'proj-7': {
-    image: '/assets/visit-biophysical-measurement.jpg',
+    image: portalAsset("/assets/visit-biophysical-measurement.jpg"),
     imageAlt: 'TMC participant undergoing a biophysical assessment for lifestyle research at UMBI UKM',
     imageCaption: {
       en: 'Biophysical assessment supporting TMC lifestyle and obesity research at UMBI UKM',
@@ -85,7 +86,7 @@ const projectVisuals: Record<string, ResearchVisual> = {
     categoryText: lifestyleVisual.categoryText,
   },
   'proj-20': {
-    image: '/assets/visit-dexa.jpg',
+    image: portalAsset("/assets/visit-dexa.jpg"),
     imageAlt: 'DEXA assessment supporting sarcopenia and metabolic research at UMBI UKM',
     imageCaption: {
       en: 'Body-composition assessment supporting sarcopenia research at UMBI UKM',

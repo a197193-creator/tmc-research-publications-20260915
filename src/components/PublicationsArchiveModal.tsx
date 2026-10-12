@@ -50,7 +50,7 @@ export const PublicationsArchiveModal: React.FC<PublicationsArchiveModalProps> =
               </h3>
               <p className="text-xs text-slate-300">
                 {lang === 'en'
-                  ? 'Publication records pending Statistics Unit validation'
+                  ? 'Publication records awaiting Statistics Unit approval'
                   : 'Rekod penerbitan menunggu pengesahan Unit Statistik'}
               </p>
             </div>

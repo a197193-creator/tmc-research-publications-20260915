@@ -1,0 +1,140 @@
+{
+  "reviewed_on": "2026-10-05",
+  "biobank": "https://www.ukm.my/mycohort/ms/biospesimenbiobank/",
+  "research": "https://www.ukm.my/mycohort/ms/penyelidikan-kami/",
+  "publication_register": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRrqQzUgQ_LqSeVbJcR2k-ZSmAKeTCIkGbe1Y_glsGbWxIBqsqrn-MsQp2Ez8s7ssnviadXkU_9la7Q/pubhtml?gid=0&single=true&widget=true&headers=false",
+  "accreditation": "https://www.ukm.my/mycohort/ms/laboratory-accreditation/",
+  "accreditation_pdf": "https://www.ukm.my/mycohort/wp-content/uploads/2026/01/infografik-website_update20260109.pdf",
+  "video_embed": "https://www.youtube.com/embed/B0-j-QvXvPM?start=1&feature=oembed",
+  "equipment_tables": [
+    {
+      "name": "Processing Laboratory",
+      "rows": [
+        [
+          "1",
+          "Portable Refrigerator 4°C",
+          "4 unit",
+          "Use as a sample transportation from on-site to the centre"
+        ],
+        [
+          "2",
+          "Portable Freezer -20°C",
+          "4 unit",
+          "Use as sample transportation processed from on-site to the centre"
+        ],
+        [
+          "3",
+          "Chiller 4°C",
+          "2 unit",
+          "Reagent storage equipment"
+        ],
+        [
+          "4",
+          "Freezer -20°C",
+          "14 unit",
+          "As a serum storage from analytical laboratory (after run the biochemical test) and used for reagent storage"
+        ],
+        [
+          "5",
+          "Centrifuge machine",
+          "5 unit",
+          "Separate blood and urine samples to collect serum, plasma and urine pellet, etc"
+        ],
+        [
+          "6",
+          "NUNC Bioscan 96 Scanner",
+          "8 unit",
+          "As function in data generation of participant sample through scanning procedure"
+        ],
+        [
+          "7",
+          "Freezer -80°C",
+          "47 unit",
+          "Sample Storage"
+        ],
+        [
+          "8",
+          "MVE Vario Freezer",
+          "1 unit",
+          "Sample Storage"
+        ],
+        [
+          "9",
+          "Benchtop Centrifuge",
+          "12 units",
+          "Separate blood and urine samples to collect serum, plasma and urine pellet, etc at recruitment area"
+        ],
+        [
+          "10",
+          "Liquid Nitrogen Tank",
+          "25 units",
+          "Sample Storage"
+        ]
+      ]
+    },
+    {
+      "name": "Laboratory Storage DNA",
+      "rows": [
+        [
+          "1",
+          "Personal Archive",
+          "4 units",
+          "These 4 cabinets can store up to 100,000 participants’ sample"
+        ],
+        [
+          "2",
+          "GenConnect Software",
+          "1 unit",
+          "As function on inventory DNA sample participant systematically"
+        ],
+        [
+          "3",
+          "Personal Archive Gentegra",
+          "1 unit",
+          "This cabinet can store up to 30,000 samples of dry DNA"
+        ],
+        [
+          "4",
+          "Multiscan Go",
+          "1 unit",
+          "Measurement concentration of DNA"
+        ],
+        [
+          "5",
+          "Labconco Concentrator",
+          "1 unit",
+          "As function on concentrate the DNA"
+        ],
+        [
+          "6",
+          "King Fisher Duo",
+          "1 unit",
+          "Automated extraction DNA samples"
+        ]
+      ]
+    },
+    {
+      "name": "Laboratory Analysis",
+      "rows": [
+        [
+          "1",
+          "Cobas 6000 C501 analyzer",
+          "1 unit",
+          "In purpose of Biochemical testing (fasting blood glucose, full lipid profile and renal profile testing)"
+        ],
+        [
+          "2",
+          "Coulter DxH 800 analyzer",
+          "1 unit",
+          "In purpose of Full Blood Count (haematology) testing"
+        ],
+        [
+          "3",
+          "Variant II Turbo",
+          "1 unit",
+          "In purpose of HbA1C testing"
+        ]
+      ]
+    }
+  ]
+}

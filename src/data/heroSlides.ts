@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import { Language } from '../types';
 import { allResearchInitiatives } from './researchInitiatives';
 import { publicationsList } from './publications';
@@ -30,7 +31,7 @@ interface HeroSlide {
 export const heroSlides: HeroSlide[] = [
   {
     id: 'research-overview',
-    image: '/assets/umbi-laboratory-research.webp', width: 1084, height: 720,
+    image: portalAsset("/assets/umbi-laboratory-research.webp"), width: 1084, height: 720,
     action: { kind: 'research' },
     copy: {
       en: {
@@ -51,7 +52,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'biobank',
-    image: '/assets/hero-biobank.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-biobank.webp"), width: 1600, height: 900,
     action: { kind: 'research' },
     copy: {
       en: {
@@ -72,7 +73,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'myprecise',
-    image: '/assets/hero-myprecise.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-myprecise.webp"), width: 1600, height: 900,
     action: { kind: 'project', projectId: 'proj-3' },
     copy: {
       en: {
@@ -93,7 +94,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'myserobiome',
-    image: '/assets/hero-biospecimens.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-biospecimens.webp"), width: 1600, height: 900,
     action: { kind: 'project', projectId: 'proj-2' },
     copy: {
       en: {
@@ -114,7 +115,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'prime',
-    image: '/assets/hero-retinal-imaging.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-retinal-imaging.webp"), width: 1600, height: 900,
     action: { kind: 'project', projectId: 'proj-4' },
     copy: {
       en: {
@@ -135,7 +136,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'imaging',
-    image: '/assets/hero-body-imaging.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-body-imaging.webp"), width: 1600, height: 900,
     action: { kind: 'project', projectId: 'proj-5' },
     copy: {
       en: {
@@ -156,7 +157,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'project-index',
-    image: '/assets/hero-biobank-team.webp', width: 1600, height: 900,
+    image: portalAsset("/assets/hero-biobank-team.webp"), width: 1600, height: 900,
     action: { kind: 'research' },
     copy: {
       en: {
@@ -177,7 +178,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'bmcc-2024',
-    image: '/assets/hero-bmcc-2024.webp', width: 1600, height: 1067,
+    image: portalAsset("/assets/hero-bmcc-2024.webp"), width: 1600, height: 1067,
     action: { kind: 'source', href: 'https://www.ukm.my/mycohort/ms/news/umbi-terima-pengiktirafan-di-6th-business-excellence-awards-anjuran-british-malaysian-chamber-of-commerce-bmcc/' },
     copy: {
       en: {
@@ -198,7 +199,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'bmcc-2025',
-    image: '/assets/hero-bmcc-2025.webp', width: 1600, height: 1066,
+    image: portalAsset("/assets/hero-bmcc-2025.webp"), width: 1600, height: 1066,
     action: { kind: 'source', href: 'https://www.ukm.my/mycohort/ms/news/umbi-terima-pengiktirafan-di-6th-business-excellence-awards-anjuran-british-malaysian-chamber-of-commerce-bmcc/' },
     copy: {
       en: {
@@ -219,9 +220,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'inspira-2026',
-    image: '/assets/hero-inspira-2026.webp', width: 910, height: 1286,
+    image: portalAsset("/assets/hero-inspira-2026.webp"), width: 910, height: 1286,
     presentation: 'certificate',
-    action: { kind: 'source', href: '/documents/umbi-biobank-inspira-2026.pdf', pdf: true },
+    action: { kind: 'source', href: portalAsset("/documents/umbi-biobank-inspira-2026.pdf"), pdf: true },
     copy: {
       en: {
         tag: 'INSPIRA UKM · 15 January 2026',
@@ -241,9 +242,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'samm-accreditation',
-    image: '/assets/hero-samm-accreditation.webp', width: 910, height: 1287,
+    image: portalAsset("/assets/hero-samm-accreditation.webp"), width: 910, height: 1287,
     presentation: 'certificate',
-    action: { kind: 'source', href: '/documents/tmc-samm-537-accreditation.pdf', pdf: true },
+    action: { kind: 'source', href: portalAsset("/documents/tmc-samm-537-accreditation.pdf"), pdf: true },
     copy: {
       en: {
         tag: 'Laboratory Accreditation · SAMM 537',
@@ -263,7 +264,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'publications',
-    image: '/assets/umbi-laboratory-bench.webp', width: 1084, height: 720,
+    image: portalAsset("/assets/umbi-laboratory-bench.webp"), width: 1084, height: 720,
     action: { kind: 'publications' },
     copy: {
       en: {

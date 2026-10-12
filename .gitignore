@@ -2,6 +2,10 @@ node_modules/
 build/
 dist/
 coverage/
+release/
+wordpress/tmc-research-portal/build/
+wordpress/tmc-research-portal/seed.json
+wordpress/tmc-research-portal/fixture-result.json
 .DS_Store
 *.log
 .env*

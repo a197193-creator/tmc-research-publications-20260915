@@ -1,0 +1,607 @@
+{
+  "reviewed_on": "2026-10-02",
+  "directory_source": "https://www.ukm.my/mycohort/ms/staff-department/malaysia-cohort/",
+  "division_source": "https://www.ukm.my/mycohort/ms/direktori-mengikut-bahagian/",
+  "staff": [
+    {
+      "name": "Prof. Datuk Dr. A Rahman A Jamal",
+      "roles": [
+        "Project Leader",
+        "Professor VK5 (DU)"
+      ],
+      "roles_original": [
+        "KETUA PROJEK",
+        "PROFESOR VK5 (DU)"
+      ],
+      "division": "TMC Team",
+      "division_id": "tmc",
+      "unit": "",
+      "email": "rahmanj@hctm.ukm.edu.my",
+      "phone": "+60391459000"
+    },
+    {
+      "name": "Dr. Noraidatulakma Binti Abdullah",
+      "roles": [
+        "Deputy Project Leader · Research & Publications",
+        "Research Fellow DS13"
+      ],
+      "roles_original": [
+        "FELO PENYELIDIK DS13",
+        "TIMBALAN KETUA PROJEK (PENYELIDIKAN & PENERBITAN)"
+      ],
+      "division": "Biostatistics",
+      "division_id": "biostatistics",
+      "unit": "",
+      "division_original": "BIOSTATISTIK",
+      "unit_original": "",
+      "email": "noraidatulakma.abdullah@hctm.ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Mohd Arman Bin Kamaruddin",
+      "roles": [
+        "Deputy Project Leader · Recruitment",
+        "Science Officer C10"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C10",
+        "TIMBALAN KETUA PROJEK (REKRUTMEN)"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Human Resources & General Administration",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "SUMBER MANUSIA & PENTADBIRAN AM",
+      "email": "arman@hctm.ukm.edu.my",
+      "phone": "+6 03 9171 0415 ext: 722"
+    },
+    {
+      "name": "Afifah Binti Awang",
+      "roles": [
+        "Project Manager",
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9",
+        "PENGURUS PROJEK"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Human Resources & General Administration",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "SUMBER MANUSIA & PENTADBIRAN AM",
+      "email": "afifah_aa@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nazihah Binti Abd Jalal",
+      "roles": [
+        "Head of Biobank & Bioanalytical Division",
+        "Science Officer C10"
+      ],
+      "roles_original": [
+        "KETUA BAHAGIAN BIOBANK DAN BIOANALITIKAL",
+        "PEGAWAI SAINS C10"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Biobank",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOBANK",
+      "email": "nazihah.aj@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nor Hazlinawati Binti Basri",
+      "roles": [
+        "Head of Recruitment Division",
+        "Administrative Officer N9"
+      ],
+      "roles_original": [
+        "KETUA BAHAGIAN REKRUTMEN",
+        "PEGAWAI TADBIR N9"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Questionnaires",
+      "division_original": "REKRUTMEN",
+      "unit_original": "S.SELIDIK",
+      "email": "lynnebasri80@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Mohd Shaharom Bin Abdullah",
+      "roles": [
+        "Head of Information Technology Division",
+        "Information Technology Officer F9"
+      ],
+      "roles_original": [
+        "KETUA BAHAGIAN TEKNOLOGI MAKLUMAT",
+        "PEGAWAI TEKNOLOGI MAKLUMAT F9"
+      ],
+      "division": "Information Technology",
+      "division_id": "information-technology",
+      "unit": "Systems & Technical",
+      "division_original": "TEKNOLOGI MAKLUMAT",
+      "unit_original": "SISTEM & TEKNIKAL",
+      "email": "mshaharom@ukm.edu.my",
+      "phone": "03-91710415"
+    },
+    {
+      "name": "Andri Dauni",
+      "roles": [
+        "Science Officer C12"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C12"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Results, Feedback & Training",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "KEP.,M.BALAS & LATIHAN",
+      "email": "andri@hctm.ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Norliza Binti Ismail",
+      "roles": [
+        "Science Officer C10"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C10"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "norliza.ismail@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nurul Ain Binti Mhd Yusuf",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Finance",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "KEWANGAN",
+      "email": "ainmdy@ukm.edu.my",
+      "phone": "+6 03 9171 0415 ext: 724"
+    },
+    {
+      "name": "Wan Ahmad Faisal Bin Wan Sallam",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Logistics",
+      "division_original": "REKRUTMEN",
+      "unit_original": "LOGISTIK",
+      "email": "wan_faisal82@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Salywana Binti A. Kamat",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Quality",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "KUALITI",
+      "email": "salywana@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Ahmad Syafiq Bin Shafie",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Field Team",
+      "division_original": "REKRUTMEN",
+      "unit_original": "KETUA LAPANGAN",
+      "email": "ahmad.syafiq11886@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Azwa Shawani Binti Kamalul Arifin",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Biostatistics",
+      "division_id": "biostatistics",
+      "unit": "Statistics",
+      "division_original": "BIOSTATISTIK",
+      "unit_original": "STATISTIK",
+      "email": "azwashawani@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Ahmad Termidzi Bin Mohd Azhar",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Biobank",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOBANK",
+      "email": "miziazhar@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Noor Hazwani Bakaruddin",
+      "roles": [
+        "Science Officer C9"
+      ],
+      "roles_original": [
+        "PEGAWAI SAINS C9"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "nhazwani@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Dr. Joan Blin",
+      "roles": [
+        "Research Officer Q9"
+      ],
+      "roles_original": [
+        "PEGAWAI PENYELIDIK Q9"
+      ],
+      "division": "Biostatistics",
+      "division_id": "biostatistics",
+      "unit": "Statistics",
+      "division_original": "BIOSTATISTIK",
+      "unit_original": "STATISTIK",
+      "email": "joanblin@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Siti Nur Shazana Binti Othman",
+      "roles": [
+        "Research Officer Q9"
+      ],
+      "roles_original": [
+        "PEGAWAI PENYELIDIK Q9"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "sitinurshazana@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Norshamsiah Binti Hamim",
+      "roles": [
+        "Administrative Officer N9"
+      ],
+      "roles_original": [
+        "PEGAWAI TADBIR N9"
+      ],
+      "division": "Administration",
+      "division_id": "administration",
+      "unit": "Quality",
+      "division_original": "PENTADBIRAN",
+      "unit_original": "KUALITI",
+      "email": "shamhamim@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Syakila Binti Mohd Abd Daud",
+      "roles": [
+        "Administrative Officer N9"
+      ],
+      "roles_original": [
+        "PEGAWAI TADBIR N9"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Appointments",
+      "division_original": "REKRUTMEN",
+      "unit_original": "TEMUJANJI",
+      "email": "syakila3073@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Nur Amalia Athirah Binti Hanafi",
+      "roles": [
+        "Information Technology Officer F9"
+      ],
+      "roles_original": [
+        "PEGAWAI TEKNOLOGI MAKLUMAT F9"
+      ],
+      "division": "Information Technology",
+      "division_id": "information-technology",
+      "unit": "Database",
+      "division_original": "TEKNOLOGI MAKLUMAT",
+      "unit_original": "PANGKALAN DATA",
+      "email": "amaliahanafi@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Azlida Binti Harun",
+      "roles": [
+        "Assistant Information Technology Officer FA5"
+      ],
+      "roles_original": [
+        "PENOLONG PEGAWAI TEKNOLOGI MAKLUMAT FA5"
+      ],
+      "division": "Information Technology",
+      "division_id": "information-technology",
+      "unit": "Systems",
+      "division_original": "TEKNOLOGI MAKLUMAT",
+      "unit_original": "SISTEM",
+      "email": "azlidaharun@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Amirul Anuar Bin Aspa",
+      "roles": [
+        "Assistant Science Officer C5"
+      ],
+      "roles_original": [
+        "PENOLONG PEGAWAI SAINS C5"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "amirul.anuar@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Muhammad Haziq Irfan Bin Hazmi",
+      "roles": [
+        "Assistant Science Officer C5"
+      ],
+      "roles_original": [
+        "PENOLONG PEGAWAI SAINS C5"
+      ],
+      "division": "TMC Team",
+      "division_id": "tmc",
+      "unit": "",
+      "email": "haziqhazmi199@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Siti Nurul Shuadah Binti Mohd Zain",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Results, Feedback & Training",
+      "division_original": "REKRUTMEN",
+      "unit_original": "KEP.,M.BALAS & LATIHAN",
+      "email": "nurulshuadah@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Suhana Binti Shaian",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Appointments",
+      "division_original": "REKRUTMEN",
+      "unit_original": "TEMUJANJI",
+      "email": "suhanalisa573@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Nur Nadirah Binti Muhammad Jamal",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Appointments",
+      "division_original": "REKRUTMEN",
+      "unit_original": "TEMUJANJI",
+      "email": "nurnadirah830@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Nur Nabilah Arina Binti Ali",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Questionnaires",
+      "division_original": "REKRUTMEN",
+      "unit_original": "S.SELIDIK",
+      "email": "nurnabilaharinaali@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nik Azriq Syafiq Bin Nik Mohd Azrizan",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Questionnaires",
+      "division_original": "REKRUTMEN",
+      "unit_original": "S.SELIDIK",
+      "email": "azrqsyfq@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Muhammad Alif Bin Khidzir @ Mohd Khaidir",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Results, Feedback & Training",
+      "division_original": "REKRUTMEN",
+      "unit_original": "KEP.,M.BALAS & LATIHAN",
+      "email": "alifkhaidir@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Afif Jazimin Bin Abdul Rahman",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Biobank",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOBANK",
+      "email": "afifjazimin@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nur Adriana Binti Mohd Khaireel",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "ainakhaireel@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Muhammad Hazim Bin Emran",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Biobank",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOBANK",
+      "email": "mhazimemran21@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Wan Nurul Syahida Binti Wan Kamaruddin Mukri",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Recruitment",
+      "division_id": "recruitment",
+      "unit": "Biophysical",
+      "division_original": "REKRUTMEN",
+      "unit_original": "BIOFIZIKAL",
+      "email": "wannurulsyahida@ukm.edu.my",
+      "phone": ""
+    },
+    {
+      "name": "Nur Aina Nadirah Binti Abdul Ghafar",
+      "roles": [
+        "Research Assistant"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "ainaghafar@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Nor Aina Syakira Binti Mohamad Asra",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "TMC Team",
+      "division_id": "tmc",
+      "unit": "",
+      "email": "ainaa.raaa20@gmail.com",
+      "phone": ""
+    },
+    {
+      "name": "Mohamad Nor Azmi Bin Abdul Aziz",
+      "roles": [
+        "Research Assistant Q1"
+      ],
+      "roles_original": [
+        "PEMBANTU PENYELIDIK Q1"
+      ],
+      "division": "Biobank & Bioanalytical",
+      "division_id": "biobank",
+      "unit": "Bioanalytical",
+      "division_original": "BIOBANK & BIOANALITIKAL",
+      "unit_original": "BIOANALITIKAL",
+      "email": "mohdnorazmi123@ukm.edu.my",
+      "phone": ""
+    }
+  ]
+}

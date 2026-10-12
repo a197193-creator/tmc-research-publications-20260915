@@ -1,0 +1,8 @@
+wordpress/
+release/
+docs/
+scripts/
+tests/
+.env*
+node_modules/
+dist/

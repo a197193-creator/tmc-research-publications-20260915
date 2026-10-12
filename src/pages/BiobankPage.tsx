@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import React, { useState } from 'react';
 import { Language } from '../types';
 
@@ -76,17 +77,17 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
 
   const biobankGallery = [
     {
-      image: '/assets/biobank-staff.jpg',
+      image: portalAsset("/assets/biobank-staff.jpg"),
       title: lang === 'en' ? 'Specialist Biobank Team' : 'Pasukan Pakar Biobank',
       description: lang === 'en' ? 'Trained personnel operating the cryogenic storage facility.' : 'Kakitangan terlatih mengendalikan fasiliti penyimpanan kriogenik.',
     },
     {
-      image: '/assets/biobank-tank-room.jpg',
+      image: portalAsset("/assets/biobank-tank-room.jpg"),
       title: lang === 'en' ? 'Cryogenic Tank Facility' : 'Fasiliti Tangki Kriogenik',
       description: lang === 'en' ? 'Temperature-controlled storage infrastructure for long-term preservation.' : 'Infrastruktur penyimpanan terkawal suhu untuk pemeliharaan jangka panjang.',
     },
     {
-      image: '/assets/biobank-sample-tubes.jpg',
+      image: portalAsset("/assets/biobank-sample-tubes.jpg"),
       title: lang === 'en' ? 'Organised Sample Storage' : 'Penyimpanan Sampel Tersusun',
       description: lang === 'en' ? 'Prepared sample tubes arranged for traceable cryogenic storage.' : 'Tiub sampel yang disediakan dan disusun untuk penyimpanan kriogenik yang boleh dijejaki.',
     },
@@ -260,7 +261,7 @@ export const BiobankPage: React.FC<BiobankPageProps> = ({ lang, onBack, onNaviga
 
               <div data-scroll-reveal className="rounded-xl overflow-hidden border border-slate-200 shadow-sm relative group">
                 <img
-                  src="/assets/biobank-cryogenic-handling.jpg"
+                  src={portalAsset("/assets/biobank-cryogenic-handling.jpg")}
                   alt={lang === 'en' ? 'TMC biobank specialist handling a cryogenic sample rack' : 'Pakar biobank TMC mengendalikan rak sampel kriogenik'}
                   loading="lazy"
                   decoding="async"

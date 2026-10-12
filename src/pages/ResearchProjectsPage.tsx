@@ -231,7 +231,7 @@ export const ResearchProjectsPage: React.FC<ResearchProjectsPageProps> = ({
                 </div>
                 <div className="p-3 bg-amber-50 rounded border border-amber-200 text-xs text-amber-950">
                   {lang === 'en'
-                    ? 'Current participant count pending Statistics Unit validation.'
+                    ? 'Current participant count awaiting Statistics Unit approval.'
                     : 'Bilangan peserta semasa menunggu pengesahan Unit Statistik.'}
                 </div>
               </div>

@@ -1,0 +1,13 @@
+{
+  "result": "passed",
+  "WordPressVersion": "7.1.3",
+  "phpVersion": "8.5.10",
+  "draftImport": 90,
+  "repeatImport": 0,
+  "publishedProjects": 22,
+  "publishedPublications": 68,
+  "sourceTargets": "passed",
+  "cmsEdit": "passed",
+  "nonceGuard": "passed",
+  "currentCountsWithheld": "passed"
+}

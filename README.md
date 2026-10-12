@@ -5,6 +5,8 @@ This is a React + Vite website. It is a static site: it does not need a Gemini A
 - Public site: https://tmc-research-publications-20260915.vercel.app/
 - Private source repository: https://github.com/a197193-creator/tmc-research-publications-20260915
 - Technical UAT evidence: `docs/TMC-RESEARCH-UAT-2026-09-28.md`
+- Current closeout and pending approvals: `docs/RESEARCH-CLOSEOUT-2026-10-13.md`
+- WordPress package and dashboard editing guide: `wordpress/tmc-research-portal/README.md`
 
 ## Run it in Visual Studio Code
 
@@ -50,3 +52,21 @@ npm run build    # create the publishable dist folder
 npm run preview  # test the production build locally/on your Wi-Fi
 npm run lint     # check TypeScript
 ```
+
+## 13 October updates and WordPress preparation
+
+The current project index contains 22 projects and 56 components reconciled with the supplied source workbook. The MySerobiome target is 8,000. The 69-row publication source register is preserved; 68 distinct publications are displayed after consolidating one duplicate article. The shared conference DOI has distinct abstract page links.
+
+About TMC opens the complete UKM Introduction page, including both languages, the 2010 video and all 13 infographic entries/full PDFs. The `public/cohort` collection retains the public topic pages and archive indexes. Research WordPress records can be edited through labelled dashboard fields; the historical public collection remains a static snapshot with original source links.
+
+Build an installable WordPress staging ZIP:
+
+```powershell
+node --import tsx scripts/validate-content.mjs
+node --import tsx scripts/package-wordpress.mjs
+python scripts/package-release.py
+```
+
+The ZIP is generated in `release/`, with SHA256 evidence. It excludes credentials, environment files, dependencies and local fixture results. Source reconciliation is repeatable with `python scripts/validate-project-index.py <path-to-project-index.xlsx>`; this reads only public project fields, not participant records or private operational links.
+
+Local WordPress integration is verified with `tests/wordpress-blueprint.json` in WordPress Playground. The fixture is only for a disposable local test site: it publishes test records there. UKM installation, final path, actual hosting compatibility, content permission, management/user/IT acceptance and official launch remain pending. See the closeout pack for the precise completion scope and acceptance sheet.

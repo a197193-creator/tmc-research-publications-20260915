@@ -1,3 +1,4 @@
+import { portalRecords } from '../utils/portalRuntime';
 import { BulletinItem, ParticipantMaterial, ResearchInitiativeItem } from '../types';
 
 export const bulletinNews: BulletinItem[] = [
@@ -38,7 +39,7 @@ export const bulletinNews: BulletinItem[] = [
 // Research news remains empty until Communications/management confirms which
 // records are approved for the Research & Publications website. Participant
 // operational notices stay available to the retained main-site components.
-export const researchBulletinNews: BulletinItem[] = [];
+export const researchBulletinNews: BulletinItem[] = portalRecords('news', []);
 
 export const participantMaterialsList: ParticipantMaterial[] = [
   {

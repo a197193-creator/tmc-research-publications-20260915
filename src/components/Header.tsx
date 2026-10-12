@@ -1,3 +1,4 @@
+import { portalAsset } from '../utils/portalRuntime';
 import React, { useState, useEffect } from 'react';
 import { Language, PageType } from '../types';
 import { translations } from '../data/translations';
@@ -164,7 +165,7 @@ export const Header: React.FC<HeaderProps> = ({
           className="group flex min-w-0 items-center gap-3 rounded-lg text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007bff] focus-visible:ring-offset-4"
         >
           <img
-            src="/assets/tmc-emblem.png"
+            src={portalAsset("/assets/tmc-emblem.png")}
             alt=""
             className="h-12 w-[64px] shrink-0 object-contain transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:transition-none sm:h-14 sm:w-[74px]"
           />
@@ -200,6 +201,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </li>
               );
             })}
+            <li><a href={portalAsset('/cohort/introduction.html')} className="rounded-full px-3 py-2 text-[12px] font-semibold text-slate-600 hover:bg-slate-100">{lang === 'en' ? 'About TMC' : 'Tentang TMC'}</a></li>
           </ul>
         </nav>
 
@@ -258,6 +260,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </li>
               );
             })}
+            <li><a href={portalAsset('/cohort/introduction.html')} className="flex min-h-11 rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-700">{lang === 'en' ? 'About TMC & public information' : 'Tentang TMC & maklumat awam'}</a></li>
           </ul>
         </nav>
       )}

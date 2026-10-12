@@ -1,8 +1,9 @@
 import { ResearchInitiativeItem } from '../types';
+import { portalRecords } from '../utils/portalRuntime';
 
 const notListed = 'Not listed in the project index';
 
-export const allResearchInitiatives: ResearchInitiativeItem[] = [
+export const researchProjectRegister: ResearchInitiativeItem[] = [
   {
     id: 'proj-1',
     sourceRow: 2,
@@ -40,8 +41,8 @@ export const allResearchInitiatives: ResearchInitiativeItem[] = [
     title: 'Life Exposures to Infections and Microbiome Profiles: Elucidating the Link and Impact on Chronic Diseases via a Population-Based Study (MySerobiome)',
     category: 'Infection & Microbiome',
     status: 'Active',
-    samplesCount: 'Current count pending validation / 3,000 target',
-    targetedParticipants: '3,000',
+    samplesCount: 'Current count awaiting approval / 8,000 target',
+    targetedParticipants: '8,000',
     currentParticipants: '4,008',
     duration: '12 Dec 2024 – Ongoing (30 Jun 2026 listed)',
     collaborators: 'More than 60 researchers from UKM (UMBI, FPER and FGG) and UPM across internal medicine, psychiatry, public health, paediatrics, surgery, obstetrics and gynaecology, family dentistry, craniofacial diagnostics and biosciences, and molecular biology.',
@@ -401,3 +402,5 @@ export const allResearchInitiatives: ResearchInitiativeItem[] = [
     participantDataSource: 'Database and biobank',
   },
 ];
+
+export const allResearchInitiatives = portalRecords('projects', researchProjectRegister);

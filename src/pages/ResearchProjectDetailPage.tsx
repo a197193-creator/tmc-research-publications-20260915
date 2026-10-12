@@ -95,7 +95,7 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
             [lang === 'en' ? 'Target participants' : 'Sasaran peserta', project.targetedParticipants, 'groups'],
             [
               lang === 'en' ? 'Current participants' : 'Peserta semasa',
-              lang === 'en' ? 'Pending Statistics Unit validation' : 'Menunggu pengesahan Unit Statistik',
+              lang === 'en' ? 'Awaiting Statistics Unit approval' : 'Menunggu pengesahan Unit Statistik',
               'group_add',
             ],
           ].map(([label, value, icon]) => (
@@ -233,7 +233,7 @@ export const ResearchProjectDetailPage: React.FC<ResearchProjectDetailPageProps>
             <span className="material-symbols-outlined shrink-0">fact_check</span>
             <p>
               {lang === 'en'
-                ? `Source: “Index: Research Project under TMC”, Sheet1 row ${project.sourceRow}. Current participant counts remain hidden until the Statistics Unit validates them.`
+                ? `Source: “Index: Research Project under TMC”, Sheet1 row ${project.sourceRow}. Current participant counts remain hidden until the Statistics Unit approves their publication.`
                 : `Sumber: “Index: Research Project under TMC”, Sheet1 baris ${project.sourceRow}. Bilangan peserta semasa disembunyikan sehingga disahkan oleh Unit Statistik.`}
             </p>
           </aside>

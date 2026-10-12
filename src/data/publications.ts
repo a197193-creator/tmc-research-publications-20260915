@@ -1,9 +1,10 @@
 import { Publication } from '../types';
+import { portalRecords } from '../utils/portalRuntime';
 
 // Official TMC publication register (69 records, 2011–2026).
 // Titles, years, journals, authorship, status and type are sourced from the UKM TMC register.
 // Research categories are editorial groupings used only for website navigation.
-export const publicationsList: Publication[] = 
+export const publicationRegister: Publication[] =
 [
   {
     "id": "tmc-publication-69",
@@ -1042,3 +1043,28 @@ export const publicationsList: Publication[] =
   }
 ]
 ;
+
+
+const proceedings = 'https://www.medicineandhealthukm.com/sites/default/files/article/2025/9th_rcmm_pdf_14455.pdf';
+// Preserve the 69-row source register; show each distinct publication once.
+export const publicationsList: Publication[] = portalRecords('publications', publicationRegister
+  .filter(record => record.id !== 'tmc-publication-46')
+  .map(record => {
+    if (record.id === 'tmc-publication-54') return {
+      ...record,
+      sourceRecordIds: ['tmc-publication-54', 'tmc-publication-46'],
+      citationNote: {
+        en: 'Published in 2024. Two source-register rows refer to this same article and are shown once.',
+        bm: 'Diterbitkan pada 2024. Dua baris daftar sumber merujuk artikel yang sama dan dipaparkan sekali.',
+      },
+    };
+    if (record.id === 'tmc-publication-48' || record.id === 'tmc-publication-47') return {
+      ...record,
+      url: `${proceedings}#page=${record.id === 'tmc-publication-48' ? 75 : 57}`,
+      citationNote: {
+        en: 'The DOI identifies the conference supplement. This link opens the individual abstract within that supplement.',
+        bm: 'DOI ini mengenal pasti suplemen persidangan. Pautan ini membuka abstrak individu dalam suplemen tersebut.',
+      },
+    };
+    return record;
+  }));

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { portalAsset } from '../utils/portalRuntime';
 import { Language, BulletinItem } from '../types';
 import { researchBulletinNews } from '../data/portalData';
 
@@ -12,11 +13,7 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const categories = [
-    'All',
-    'International',
-    'Community'
-  ];
+  const categories = ['All', ...new Set(researchBulletinNews.map(item => item.tag))];
 
   const filteredNews = researchBulletinNews.filter((item) => {
     const matchesCategory = selectedCategory === 'All' || item.tag.toLowerCase() === selectedCategory.toLowerCase();
@@ -255,6 +252,7 @@ export const NewsPage: React.FC<NewsPageProps> = ({ lang, onBack, onSelectNews }
                     : 'Berita penyelidikan akan dipaparkan di sini selepas Unit Komunikasi dan pihak pengurusan mengesahkan tajuk, tarikh, ringkasan, imej dan pautan sumber.')
                 : (lang === 'en' ? 'No bulletins matched your search criteria.' : 'Tiada buletin sepadan dengan carian anda.')}
             </p>
+            <a href={portalAsset('/cohort/news.html')} className="inline-flex min-h-11 items-center rounded bg-[#003366] px-4 py-2 text-sm font-semibold text-white">{lang === 'en' ? 'Browse all 249 archived TMC reports' : 'Layari semua 249 laporan arkib TMC'}</a>
             {researchBulletinNews.length > 0 && (
               <button
                 type="button"
